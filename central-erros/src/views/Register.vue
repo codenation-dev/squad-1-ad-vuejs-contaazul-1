@@ -48,7 +48,7 @@
 
 <script>
 export default {
-  name: "Login",
+  name: "Register",
   methods: {
     redirect(rota) {
       if (rota === "login") {
