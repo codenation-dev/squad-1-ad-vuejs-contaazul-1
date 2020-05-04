@@ -28,18 +28,18 @@
                   class="button button-color is-medium is-fullwidth"
                 >
                   <i class="fa fa-user icon-space"></i>
-                  Login
+                  Sign In
                 </button>
               </p>
               <a
                 @click="redirect('register')"
                 class="is-pulled-left login-space"
-                >Novo Cadastro</a
+                >Sign Up</a
               >
               <a
                 @click="redirect('change-password')"
                 class="is-pulled-right login-space"
-                >Esqueceu a senha?</a
+                >Forgot your password?</a
               >
               <br />
             </div>
