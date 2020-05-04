@@ -1,9 +1,202 @@
 <template>
-  <div>
-    <h1>Tela para exibição dos logs</h1>
-  </div>
+  <section class="hero is-fullheight-with-navbar logs-color">
+    <div class="hero-head">
+      <nav class="navbar">
+        <div class="navbar-brand space-head-margin-left">
+          <a class="navbar-item">
+            <img src="../assets/login-logo.png" alt="logo" width="60"/>
+            <!-- adicionar @click em img com rota para a tela logs-->
+          </a>
+        </div>
+        <div class="navbar-end space-navbarend-padding">
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="button width-button-profile button-color">
+              <div class="icon">
+                <i class="fa fa-user icon-space"></i>
+              </div>
+              <div class="icon is-small">
+                <i class="fas fa-angle-down"></i>
+              </div>
+            </a>
+            <div class="navbar-dropdown">
+              <a class="navbar-item">Sair</a>
+              <!-- Adicionar @click com rota para tela de login -->
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="is-fluid padding-suggestions">
+      <div class="is-flex">
+        <div class="dropdown is-hoverable">
+          <div class="dropdown-trigger">
+            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu1">
+              <span>Produção</span>
+              <span class="icon is-small">
+                <i class="fas fa-sort"></i>
+              </span>
+            </button>
+          </div>
+          <div class="dropdown-menu" id="dropdown-menu1" role="menu">
+            <div class="dropdown-content">
+              <div class="dropdown-item">
+                <a class="navbar-item">Homologação</a>
+                <a class="navbar-item">Dev</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dropdown is-hoverable margin-left-dropdown">
+          <div class="dropdown-trigger">
+            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu2">
+              <span>Ordenar por</span>
+              <span class="icon is-small">
+                <i class="fas fa-sort"></i>
+              </span>
+            </button>
+          </div>
+          <div class="dropdown-menu" id="dropdown-menu2" role="menu">
+            <div class="dropdown-content">
+              <div class="dropdown-item">
+                <a class="navbar-item">Level</a>
+                <a class="navbar-item">Frequência</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dropdown is-hoverable margin-left-dropdown">
+          <div class="dropdown is-hoverable is-pulled-left">
+            <div class="dropdown-trigger">
+              <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
+                <span>Buscar por</span>
+                <span class="icon is-small">
+                  <i class="fas fa-sort"></i>
+                </span>
+              </button>
+            </div>
+          </div>
+          <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+            <div class="dropdown-content">
+              <div class="dropdown-item">
+                <a class="navbar-item">Level</a>
+                <a class="navbar-item">Descrição</a>
+                <a class="navbar-item">Origem</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="control has-icons-right width-control-input-busca">
+          <input class="input margin-left-dropdown" placeholder="Digite sua busca" />
+          <span class="icon is-small is-right">
+            <i class="fas fa-search"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+    <div class="padding-arquivar-apagar is-flex">
+      <button class="button ">Arquivar</button>
+      <button class="button margin-left-dropdown">Apagar</button>
+    </div>
+
+    <div class="container is-fluid">
+      <section class="space-section-padding">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Level</th>
+              <th>Log</th>
+              <th>Eventos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="padding">
+                <input class="space-checkbox" type="checkbox" />
+                <span class="tag is-danger space-tag">Error</span>
+              </td>
+              <td>127.0.0.1</td>
+              <td>1000</td>
+            </tr>
+             <tr>
+              <td class="padding">
+                <input class="space-checkbox" type="checkbox" />
+                <span class="tag is-warning space-tag">warning</span>
+              </td>
+              <td>127.0.0.1</td>
+              <td>1000</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </section>
 </template>
 
 <script>
 export default {};
 </script>
+
+<style scoped>
+.button{
+  width: 150px;
+}
+.width-button-profile{
+  width: 75px;
+}
+.width-control-input-busca {
+  width: 100%;
+}
+.margin-left-dropdown {
+  margin-left: 5px;
+}
+.padding-arquivar-apagar{
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-top: 50px;
+}
+.padding-suggestions {
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-top: 20px;
+}
+.space-section-padding {
+  margin-top: 5px;
+}
+.space-tag {
+  margin-left: 5%;
+}
+.tag {
+  height: 20px;
+  width: 50px;
+}
+table {
+  width: 100%;
+  border-radius: 5px;
+}
+.logs-color {
+  background: rgb(21, 72, 84);
+  background: linear-gradient(
+    180deg,
+    rgba(21, 72, 84, 1) 0%,
+    rgba(36, 83, 95, 1) 23%,
+    rgba(60, 101, 113, 1) 47%,
+    rgba(99, 132, 142, 1) 71%,
+    rgba(255, 255, 255, 1) 100%
+  );
+}
+.navbar {
+  background-color: white;
+}
+.space-head-margin-left {
+  margin-left: 30px;
+}
+.space-navbarend-padding {
+  padding: 10px;
+  margin-right: 30px;
+}
+.button-color {
+  background-color: #154854;
+  color: #ffffff;
+}
+</style>
