@@ -34,13 +34,21 @@
                     </span>
                 </p>
                 <br />
-                <p class="control">
+                <br />
+                <p class="columns control">
                   <button
                     @click="redirect('login')"
-                    class="button button-color is-medium is-fullwidth"
+                    class="column button button-margin button-padding button-register is-medium is-fullwidth"
                   >
                     <i class="fa fa-user-plus icon-space"></i>
                     Register
+                  </button>
+                    <button
+                    @click="redirect('login')"
+                    class="column button button-back button-padding is-medium"
+                  >
+                    <i class="fa fa-arrow-left icon-space"></i>
+                    Back
                   </button>
                 </p>
               </div>
@@ -86,8 +94,26 @@ export default {
   margin-right: 5px;
 }
 
-.button-color {
+.button-register {
   background-color: #154854;
   color: #ffffff;
+}
+
+.button-margin {
+  margin-right: 10px;
+}
+
+.button-padding {
+  padding-top: 6px;
+}
+
+.button-back {
+  padding-left: 3px;
+  background-color: #ff7272;
+  color: #ffffff;
+}
+
+.button-padding {
+  padding-top: 6px;
 }
 </style>
