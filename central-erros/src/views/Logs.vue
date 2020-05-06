@@ -3,8 +3,8 @@
     <div class="hero-head">
       <nav class="navbar">
         <div class="navbar-brand space-head-margin-left">
-          <a class="navbar-item">
-            <img src="../assets/login-logo.png" alt="logo" width="60"/>
+          <a class="navbar-item" id="space-logo">
+            <img src="../assets/login-logo.png" alt="logo" id="size-logo" />
             <!-- adicionar @click em img com rota para a tela logs-->
           </a>
         </div>
@@ -19,7 +19,11 @@
               </div>
             </a>
             <div class="navbar-dropdown">
-              <a class="navbar-item">Sair</a>
+              <div class="dropdown-item">
+                <strong>Token:</strong>
+                4274836246
+              </div>
+              <a class="navbar-item button-color">Sair</a>
               <!-- Adicionar @click com rota para tela de login -->
             </div>
           </div>
@@ -27,7 +31,8 @@
       </nav>
     </div>
 
-    <div class="is-fluid padding-suggestions">
+    <div class="is-fluid padding-filters">
+      <h5 class="title is-5 is-flex" style="color: white; margin-bottom: 5px;">Filtros de Busca</h5>
       <div class="is-flex">
         <div class="dropdown is-hoverable">
           <div class="dropdown-trigger">
@@ -65,7 +70,7 @@
             </div>
           </div>
         </div>
-        <div class="dropdown is-hoverable margin-left-dropdown">
+        <div class="dropdown is-hoverable margin-left-dropdown-busca">
           <div class="dropdown is-hoverable is-pulled-left">
             <div class="dropdown-trigger">
               <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
@@ -82,6 +87,7 @@
                 <a class="navbar-item">Level</a>
                 <a class="navbar-item">Descrição</a>
                 <a class="navbar-item">Origem</a>
+                <a class="navbar-item">Data</a>
               </div>
             </div>
           </div>
@@ -92,10 +98,29 @@
             <i class="fas fa-search"></i>
           </span>
         </p>
+        <div class="dropdown is-hoverable configure-question is-right">
+          <div class="dropdown-trigger">
+            <div class="icon">
+              <i class="fas fa-question-circle"></i>
+            </div>
+          </div>
+          <div class="dropdown-menu">
+            <div class="dropdown-content">
+              <div class="dropdown-item">
+                <p>
+                  Inicialmente a entrada de busca é feita por Level,
+                  Descrição, Origem e Data. Caso deseje procurar por um tipo específico,
+                  indicar no campo "Buscar por"
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
     <div class="padding-arquivar-apagar is-flex">
-      <button class="button ">Arquivar</button>
+      <button class="button">Arquivar</button>
       <button class="button margin-left-dropdown">Apagar</button>
     </div>
 
@@ -118,10 +143,10 @@
               <td>127.0.0.1</td>
               <td>1000</td>
             </tr>
-             <tr>
+            <tr>
               <td class="padding">
                 <input class="space-checkbox" type="checkbox" />
-                <span class="tag is-warning space-tag">warning</span>
+                <span class="tag is-warning space-tag">Warning</span>
               </td>
               <td>127.0.0.1</td>
               <td>1000</td>
@@ -138,10 +163,19 @@ export default {};
 </script>
 
 <style scoped>
-.button{
+#space-logo {
+  padding: 0px;
+  width: 60px;
+  height: 60px;
+}
+#size-logo {
+  max-width: 100%;
+  max-height: 100%;
+}
+.button {
   width: 150px;
 }
-.width-button-profile{
+.width-button-profile {
   width: 75px;
 }
 .width-control-input-busca {
@@ -150,14 +184,17 @@ export default {};
 .margin-left-dropdown {
   margin-left: 5px;
 }
-.padding-arquivar-apagar{
-  padding-left: 32px;
-  padding-right: 32px;
-  padding-top: 50px;
+.margin-left-dropdown-busca {
+  margin-left: 60px;
 }
-.padding-suggestions {
+.padding-arquivar-apagar {
   padding-left: 32px;
   padding-right: 32px;
+  padding-top: 70px;
+}
+.padding-filters {
+  padding-left: 32px;
+  padding-right: 5px;
   padding-top: 20px;
 }
 .space-section-padding {
@@ -198,5 +235,10 @@ table {
 .button-color {
   background-color: #154854;
   color: #ffffff;
+}
+.configure-question {
+  color: white;
+  padding: 5px;
+  margin-top: 3px;
 }
 </style>
