@@ -4,8 +4,7 @@
       <nav class="navbar">
         <div class="navbar-brand space-head-margin-left">
           <a class="navbar-item" id="space-logo">
-            <img src="../assets/login-logo.png" alt="logo" id="size-logo" />
-            <!-- adicionar @click em img com rota para a tela logs-->
+            <img src="@/assets/login-logo.png" alt="logo" id="size-logo" @click="redirect('logs')" />
           </a>
         </div>
         <div class="navbar-end space-navbarend-padding">
@@ -23,8 +22,7 @@
                 <strong>Token:</strong>
                 4274836246
               </div>
-              <a class="navbar-item button-color">Sair</a>
-              <!-- Adicionar @click com rota para tela de login -->
+              <a class="navbar-item button-color" @click="redirect('login')">Sair</a>
             </div>
           </div>
         </div>
@@ -159,7 +157,21 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    redirect(rota) {
+      if (rota === "logs") {
+        this.$router.push({
+          name: "logs"
+        });
+      } else if (rota === "login") {
+        this.$router.push({
+          name: "login"
+        });
+      }
+    }
+  }
+};
 </script>
 
 <style scoped>
@@ -177,6 +189,10 @@ export default {};
 }
 .width-button-profile {
   width: 75px;
+}
+.button-color {
+  background-color: #154854;
+  color: #ffffff;
 }
 .width-control-input-busca {
   width: 100%;
@@ -199,6 +215,18 @@ export default {};
 }
 .space-section-padding {
   margin-top: 5px;
+}
+.space-head-margin-left {
+  margin-left: 30px;
+}
+.space-navbarend-padding {
+  padding: 10px;
+  margin-right: 30px;
+}
+.configure-question {
+  color: white;
+  padding: 5px;
+  margin-top: 3px;
 }
 .space-tag {
   margin-left: 5%;
@@ -224,21 +252,5 @@ table {
 }
 .navbar {
   background-color: white;
-}
-.space-head-margin-left {
-  margin-left: 30px;
-}
-.space-navbarend-padding {
-  padding: 10px;
-  margin-right: 30px;
-}
-.button-color {
-  background-color: #154854;
-  color: #ffffff;
-}
-.configure-question {
-  color: white;
-  padding: 5px;
-  margin-top: 3px;
 }
 </style>
