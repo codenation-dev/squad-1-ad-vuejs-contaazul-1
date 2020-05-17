@@ -10,14 +10,22 @@
                   <img src="../assets/login-logo.png" alt="logo" width="200" />
                 </h1>
                 <p class="control has-icons-left">
-                  <input class="input" type="email" placeholder="Email" />
+                  <input class="input" v-model="name" type="nome" placeholder="Nome" />
+                    <span class="icon is-small is-left padding-icon">
+                      <i class="fa fa-user"></i>
+                    </span>
+
+                </p>
+                <br/>
+                <p class="control has-icons-left">
+                  <input class="input" v-model="email" type="email" placeholder="Email" />
                     <span class="icon is-small is-left padding-icon">
                       <i class="fa fa-envelope"></i>
                     </span>
                 </p>
                 <br />
                 <p class="control has-icons-left">
-                  <input class="input" type="password" placeholder="Password" />
+                  <input class="input" v-model="password1" type="password" placeholder="Password" />
                     <span class="icon is-small is-left padding-icon">
                       <i class="fa fa-lock"></i>
                     </span>
@@ -27,17 +35,19 @@
                   <input
                     class="input"
                     type="password"
+                    v-model="password2"
                     placeholder="Confirm password"
                   />
                     <span class="icon is-small is-left padding-icon">
                       <i class="fa fa-lock"></i>
                     </span>
                 </p>
+                <h6 v-for="error in errors" :key="error"> {{ error }}</h6>
                 <br />
                 <br />
                 <p class="columns control">
                   <button
-                    @click="redirect('login')"
+                    @click="validaUser()"
                     class="column button button-margin button-padding button-register is-medium is-fullwidth"
                   >
                     <i class="fa fa-user-plus icon-space"></i>
@@ -45,8 +55,7 @@
                   </button>
                     <button
                     @click="redirect('login')"
-                    class="column button button-back button-padding is-medium"
-                  >
+                    class="column button button-back button-padding is-medium">
                     <i class="fa fa-arrow-left icon-space"></i>
                     Back
                   </button>
@@ -61,9 +70,23 @@
 </template>
 
 <script>
+
+import axios from 'axios';
+
 export default {
   name: "Register",
+  data() {
+    return {
+      name: null,
+      email:null,
+      password1:null,
+      password2:null,
+      errors: []
+    }
+  },
+
   methods: {
+    
     redirect(rota) {
       if (rota === "login") {
         this.$router.push({
@@ -71,8 +94,48 @@ export default {
         });
       }
     },
-  },
-};
+    addUser() {
+      let date = new Date ();
+      const user = {
+        name: this.name,
+        createdAt: date.toLocaleString(),
+        email: this.email,
+        password: this.password1
+
+      }
+      console.log(user)
+      axios.post('https://5eb01c26e6828200164a66ae.mockapi.io/api/el/users', user)
+            .then(response => {
+                console.log(response.data);
+            })
+    },   
+    
+    validaUser(){
+      if (!this.name) {
+        this.errors.push("* Você precisa preencher o nome.");
+      }
+      if (!this.email) {
+        this.errors.push("* Você precisa preencher o e-mail.");
+      }
+      if (!this.password1) {
+        this.errors.push("* Você precisa preencher a senha.");
+      }
+      if (!this.password2) {
+        this.errors.push("* Você precisa preencher a senha.");
+      }
+      if (this.password1 != this.password2) {
+        this.errors.push("* Senhas não conferem");
+      }
+      if (this.errors.length == 0){
+        this.addUser();
+      }
+
+      }
+
+  }
+}
+
+
 </script>
 
 <style scoped>
