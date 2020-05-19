@@ -133,21 +133,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr v-for="log in logs" :key="log.id">
               <td class="padding">
                 <input class="space-checkbox" type="checkbox" />
-                <span class="tag is-danger space-tag">Error</span>
+                <span class="tag is-danger space-tag">{{ log.level }}</span>
               </td>
-              <td>127.0.0.1</td>
-              <td>1000</td>
-            </tr>
-            <tr>
-              <td class="padding">
-                <input class="space-checkbox" type="checkbox" />
-                <span class="tag is-warning space-tag">Warning</span>
+              <td>
+                {{ log.description }}
+                {{ log.origin }}
+                {{ log.date }}
               </td>
-              <td>127.0.0.1</td>
-              <td>1000</td>
+              <td>{{ log.events }} </td>
             </tr>
           </tbody>
         </table>
@@ -157,7 +153,17 @@
 </template>
 
 <script>
+import { getLogs } from "@/services/logs.js";
+
 export default {
+  created() {
+    this.loadingLogs();
+  },
+  data() {
+    return {
+      logs: []
+    };
+  },
   methods: {
     redirect(rota) {
       if (rota === "logs") {
@@ -169,6 +175,11 @@ export default {
           name: "login"
         });
       }
+    },
+    async loadingLogs() {
+      await getLogs().then(({ data }) => {
+        this.logs = data;
+      });
     }
   }
 };
