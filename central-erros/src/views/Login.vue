@@ -9,37 +9,38 @@
                 <img src="../assets/login-logo.png" alt="logo" width="200" />
               </h1>
               <p class="control has-icons-left">
-                <input class="input" type="email" placeholder="Email" >
+                <input v-model="user.email" class="input" type="email" placeholder="Email" >
                   <span class="icon is-small is-left padding-icon">
                     <i class="fa fa-envelope"></i>
                   </span>
               </p>
               <br />
               <p class="control has-icons-left">
-                <input class="input" type="password" placeholder="Password" />
+                <input v-model="user.password" class="input" type="password" placeholder="Senha" />
                   <span class="icon is-small is-left padding-icon">
                     <i class="fa fa-lock"></i>
                   </span>
               </p>
+              <h6 v-for="error in errors" :key="error"> {{ error }}</h6>
               <br />
               <p class="control">
                 <button
-                  @click="redirect('logs')"
+                  @click="validaUser"
                   class="button button-color is-medium is-fullwidth"
                 >
                   <i class="fa fa-user icon-space"></i>
-                  Sign In
+                  Login
                 </button>
               </p>
               <a
                 @click="redirect('register')"
                 class="is-pulled-left login-space"
-                >Sign Up</a
+                >Registrar</a
               >
               <a
                 @click="redirect('change-password')"
                 class="is-pulled-right login-space"
-                >Forgot your password?</a
+                >Esqueceu a senha?</a
               >
               <br />
             </div>
@@ -51,9 +52,21 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import { getUsers } from '@/services/login';
+
 export default {
   name: "Login",
+  data() {
+    return {
+      user: {},
+      errors: [],
+      hasEmail: '',
+    }
+  },
   methods: {
+    ...mapActions(['login']),
+
     redirect(rota) {
       if (rota === "register") {
         this.$router.push({
@@ -67,6 +80,37 @@ export default {
         this.$router.push({
           name: "logs",
         });
+      }
+    },
+    async loginUser() { 
+      this.errors = [];
+      await this.hasEmailCadastrado(this.user.email);
+
+      if (this.hasEmail) {
+        if(this.hasEmail.password === this.user.password) {
+          this.login(this.hasEmail);
+          this.redirect('logs');
+        } else {
+          this.errors.push("* Password incorreto..");
+        }
+      } else {
+        this.errors.push("* E-mail não cadastrado..");
+      }
+    },
+     async hasEmailCadastrado(email) {
+        const users = await getUsers();
+        this.hasEmail = users.data.find(user => user.email === email);
+      },
+      validaUser(){
+      this.errors = [];
+      if (!this.user.email) {
+        this.errors.push("* Você precisa preencher o e-mail.");
+      }
+      if (!this.user.password) {
+        this.errors.push("* Você precisa preencher a senha.");
+      }
+      if (this.errors.length == 0){
+        this.loginUser();
       }
     },
   },

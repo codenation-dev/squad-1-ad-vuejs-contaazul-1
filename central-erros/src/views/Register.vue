@@ -24,7 +24,7 @@
                 </p>
                 <br />
                 <p class="control has-icons-left">
-                  <input class="input" v-model="password1" type="password" placeholder="Password" />
+                  <input class="input" v-model="password1" type="password" placeholder="Senha" />
                     <span class="icon is-small is-left padding-icon">
                       <i class="fa fa-lock"></i>
                     </span>
@@ -35,7 +35,7 @@
                     class="input"
                     type="password"
                     v-model="password2"
-                    placeholder="Confirm password"
+                    placeholder="Confirmar senha"
                   />
                     <span class="icon is-small is-left padding-icon">
                       <i class="fa fa-lock"></i>
@@ -50,13 +50,13 @@
                     class="column button button-margin button-padding button-register is-medium is-fullwidth"
                   >
                     <i class="fa fa-user-plus icon-space"></i>
-                    Register
+                    Registrar
                   </button>
                     <button
                     @click="redirect('login')"
                     class="column button button-back button-padding is-medium">
                     <i class="fa fa-arrow-left icon-space"></i>
-                    Back
+                    Voltar
                   </button>
                 </p>
               </div>
@@ -107,8 +107,6 @@ export default {
 
       await this.hasEmailCadastrado(user.email);
 
-      //validação catch para erros de api.
-
       if(!this.hasEmail) {
         addUser(user)
       .then(this.$router.push('/'))
@@ -117,7 +115,6 @@ export default {
       }
     },   
     validaUser(){
-      //Verificação de e-mail válido
       this.errors = [];
       if (!this.name) {
         this.errors.push("* Você precisa preencher o nome.");
