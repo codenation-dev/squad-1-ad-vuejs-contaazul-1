@@ -1,149 +1,182 @@
-[ {     
-	"id": 1,     
-	"level": "error",     
-	"description": "Usuário inválido.",     
-	"origin": "database",     
-	"data": "2020-05-04 08:07:45",     
-	"events": 245   
+[
+  {
+    "id": 1,
+    "level": "error",
+    "description": "Usuário inválido.",
+    "origin": "database",
+    "date": "2020-05-04 08:07:45",
+    "environment": "Homologação",
+    "events": 245
   },
-	"id": 2,     
-	"level": "warning",     
-	"description": "Senha fraca.",     
-	"origin": "database",     
-	"data": "2020-01-30 10:20:30",     
-	"events": 300 
+  {
+    "id": 2,
+    "level": "warning",
+    "description": "Senha fraca.",
+    "origin": "database",
+    "date": "2020-01-30 10:20:30",
+    "environment": "Homologação",
+    "events": 300
   },
-  {     
-	"id": 3,     
-	"level": "warning",     
-	"description": "Tipo de requisição não indicado.",     
-	"origin": "database",     
-	"data": "2020-04-12 21:07:30",     
-	"events": 198   
+  {
+    "id": 3,
+    "level": "warning",
+    "description": "Tipo de requisição não indicado.",
+    "origin": "database",
+    "date": "2020-04-12 21:07:30",
+    "environment": "Homologação",
+    "events": 198
   },
-	"id": 4,     
-	"level": "debug",     
-	"description": "Iniciando cadastro de usuário.",     
-	"origin": "database",     
-	"data": "2020-03-20 00:50:20",     
-	"events": 76 
+  {
+    "id": 4,
+    "level": "debug",
+    "description": "Iniciando cadastro de usuário.",
+    "origin": "database",
+    "date": "2020-03-20 00:50:20",
+    "environment": "Dev",
+    "events": 76
   },
-  {     
-	"id": 5,     
-	"level": "error",     
-	"description": "Usuário inválido.",     
-	"origin": "database",     
-	"data": "2020-02-26 16:48:59",     
-	"events": 151   
+  {
+    "id": 5,
+    "level": "error",
+    "description": "Usuário inválido.",
+    "origin": "database",
+    "date": "2020-02-26 16:48:59",
+    "environment": "Dev",
+    "events": 151
   },
-	"id": 6,     
-	"level": "debug",     
-	"description": "Concluindo cadastro de usuário.",     
-	"origin": "database",     
-	"data": "2019-12-11 20:30:28",     
-	"events": 346 
+  {
+    "id": 6,
+    "level": "debug",
+    "description": "Concluindo cadastro de usuário.",
+    "origin": "database",
+    "date": "2019-12-11 20:30:28",
+    "environment": "Homologação",
+    "events": 346
   },
-  {     
-	"id": 7,     
-	"level": "warning",     
-	"description": "Conexão não segura.",     
-	"origin": "database",     
-	"data": "2020-03-15 17:17:37",     
-	"events": 234   
+  {
+    "id": 7,
+    "level": "warning",
+    "description": "Conexão não segura.",
+    "origin": "database",
+    "date": "2020-03-15 17:17:37",
+    "environment": "Dev",
+    "events": 234
   },
-	"id": 8,     
-	"level": "error",     
-	"description": "Usuário sem permissão de acesso.",     
-	"origin": "database",     
-	"data": "2020-05-09 18:32:19",     
-	"events": 78 
+  {
+    "id": 8,
+    "level": "error",
+    "description": "Usuário sem permissão de acesso.",
+    "origin": "database",
+    "date": "2020-05-09 18:32:19",
+    "environment": "Dev",
+    "events": 78
   },
-  {     
-	"id": 9,     
-	"level": "debug",     
-	"description": "Validando cadastro de usuário.",     
-	"origin": "database",     
-	"data": "2020-04-27 13:56:26",     
-	"events": 399   
+  {
+    "id": 9,
+    "level": "debug",
+    "description": "Validando cadastro de usuário.",
+    "origin": "database",
+    "date": "2020-04-27 13:56:26",
+    "environment": "Dev",
+    "events": 399
   },
-	"id": 10,     
-	"level": "debug",     
-	"description": "Iniciando cadastro de usuário.",     
-	"origin": "database",     
-	"data": "2020-05-20 23:13:15",     
-	"events": 273 
+  {
+    "id": 10,
+    "level": "debug",
+    "description": "Iniciando cadastro de usuário.",
+    "origin": "database",
+    "date": "2020-05-20 23:13:15",
+    "environment": "Homologação",
+    "events": 273
   },
-{     
-	"id": 11,     
-	"level": "warning",     
-	"description": "Pode ser necessário atualizar a página.",     
-	"origin": "database",     
-	"data": "2020-02-16 19:27:40",     
-	"events": 124   
+  {
+    "id": 11,
+    "level": "warning",
+    "description": "Pode ser necessário atualizar a página.",
+    "origin": "database",
+    "date": "2020-02-16 19:27:40",
+    "environment": "Dev",
+    "events": 124
   },
-	"id": 12,     
-	"level": "error",     
-	"description": "Usuário inválido.",     
-	"origin": "database",     
-	"data": "2020-05-20 02:23:19",     
-	"events": 259 
-  }, {     
-	"id": 13,     
-	"level": "error",     
-	"description": "Usuário sem permissão de acesso.",     
-	"origin": "database",     
-	"data": "2020-04-19 14:24:14",     
-	"events": 303   
+  {
+    "id": 12,
+    "level": "error",
+    "description": "Usuário inválido.",
+    "origin": "database",
+    "date": "2020-05-20 02:23:19",
+    "environment": "Dev",
+    "events": 259
   },
-	"id": 14,     
-	"level": "warning",     
-	"description": "Não foi possível localizar a informação desejada.",     
-	"origin": "database",     
-	"data": "2020-03-29 12:15:24",     
-	"events": 346 
-  }, {     
-	"id": 15,     
-	"level": "error",     
-	"description": "Página não encontrada.",     
-	"origin": "database",     
-	"data": "2020-05-23 01:07:30",     
-	"events": 212   
+  {
+    "id": 13,
+    "level": "error",
+    "description": "Usuário sem permissão de acesso.",
+    "origin": "database",
+    "date": "2020-04-19 14:24:14",
+    "environment": "Homologação",
+    "events": 303
   },
-	"id": 16,     
-	"level": "debug",     
-	"description": "Verificando cadastro de senha.",     
-	"origin": "database",     
-	"data": "2020-02-18 21:33:44",     
-	"events": 365 
+  {
+    "id": 14,
+    "level": "warning",
+    "description": "Não foi possível localizar a informação desejada.",
+    "origin": "database",
+    "date": "2020-03-29 12:15:24",
+    "environment": "Dev",
+    "events": 346
   },
-{     
-	"id": 17,     
-	"level": "error",     
-	"description": "Serviço indisponível.",     
-	"origin": "database",     
-	"data": "2020-05-17 06:44:59",     
-	"events": 319   
+  {
+    "id": 15,
+    "level": "error",
+    "description": "Página não encontrada.",
+    "origin": "database",
+    "date": "2020-05-23 01:07:30",
+    "environment": "Homologação",
+    "events": 212
   },
-	"id": 18,     
-	"level": "warning",     
-	"description": "Senha fraca.",     
-	"origin": "database",     
-	"data": "2020-03-13 23:07:25",     
-	"events": 145 
-  }, {     
-	"id": 19,     
-	"level": "error",     
-	"description": "Usuário não cadastrado.",     
-	"origin": "database",     
-	"data": "2020-02-09 15:09:24",     
-	"events": 267   
+  {
+    "id": 16,
+    "level": "debug",
+    "description": "Verificando cadastro de senha.",
+    "origin": "database",
+    "date": "2020-02-18 21:33:44",
+    "environment": "Dev",
+    "events": 365
   },
-	"id": 20,     
-	"level": "warning",     
-	"description": "Conexão não segura.",     
-	"origin": "database",     
-	"data": "2020-04-05 13:37:30",     
-	"events": 401 
-  }, 
-  
+  {
+    "id": 17,
+    "level": "error",
+    "description": "Serviço indisponível.",
+    "origin": "database",
+    "date": "2020-05-17 06:44:59",
+    "environment": "Homologação",
+    "events": 319
+  },
+  {
+    "id": 18,
+    "level": "warning",
+    "description": "Senha fraca.",
+    "origin": "database",
+    "date": "2020-03-13 23:07:25",
+    "environment": "Dev",
+    "events": 145
+  },
+  {
+    "id": 19,
+    "level": "error",
+    "description": "Usuário não cadastrado.",
+    "origin": "database",
+    "date": "2020-02-09 15:09:24",
+    "environment": "Homologação",
+    "events": 267
+  },
+  {
+    "id": 20,
+    "level": "warning",
+    "description": "Conexão não segura.",
+    "origin": "database",
+    "date": "2020-04-05 13:37:30",
+    "environment": "Homologação",
+    "events": 401
+  }
 ]

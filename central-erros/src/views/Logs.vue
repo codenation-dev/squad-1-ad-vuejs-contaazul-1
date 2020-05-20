@@ -44,8 +44,8 @@
           <div class="dropdown-menu" id="dropdown-menu1" role="menu">
             <div class="dropdown-content">
               <div class="dropdown-item">
-                <a class="navbar-item">Homologação</a>
-                <a class="navbar-item">Dev</a>
+                <a class="navbar-item" @click="productionByHomologacao">Homologação</a>
+                <a class="navbar-item" @click="productionByDev">Dev</a>
               </div>
             </div>
           </div>
@@ -64,6 +64,7 @@
               <div class="dropdown-item">
                 <a class="navbar-item" @click="orderByLevel">Level</a>
                 <a class="navbar-item" @click="orderByFrequence">Frequência</a>
+                <a class="navbar-item" @click="orderByData">Data</a>
               </div>
             </div>
           </div>
@@ -124,7 +125,7 @@
 
     <div class="container is-fluid">
       <section class="space-section-padding">
-        <table class="table">
+        <table class="table is-hoverable">
           <thead>
             <tr>
               <th @click="orderByLevel" class="has-clickable">
@@ -139,7 +140,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="log in computedLogs" :key="log.id">
+            <tr v-for="log in computedLogs" :key="log.id" class="has-clickable">
               <td class="padding">
                 <input class="space-checkbox" type="checkbox" />
                 <span v-if="log.level == 'error'" class="tag is-danger space-tag">{{ log.level }}</span>
@@ -155,6 +156,9 @@
                 <br />
                 <strong>Origem:</strong>
                 {{ log.origin }}
+                <br />
+                <strong>Produção:</strong>
+                {{ log.environment }}
                 <br />
                 <strong>Data:</strong>
                 {{ log.date }}
@@ -219,6 +223,22 @@ export default {
       } else {
         this.configs.order = "desc";
       }
+    },
+    orderByData() {
+      this.configs.orderBy = "date";
+      if (this.configs.order == "desc") {
+        this.configs.order = "asc";
+      } else {
+        this.configs.order = "desc";
+      }
+    },
+    productionByHomologacao() {
+      this.configs.orderBy = "environment";
+      this.configs.order = "desc";
+    },
+    productionByDev(){
+      this.configs.orderBy = "environment";
+      this.configs.order = "asc";
     }
   },
   computed: {
@@ -232,7 +252,7 @@ export default {
           const arrayAux = _.sortBy(this.logs, logs => {
             return this.orderLevel.indexOf(logs.level);
           });
-          return arrayAux.reverse()
+          return arrayAux.reverse();
         }
       }
       return _.orderBy(this.logs, this.configs.orderBy, this.configs.order);
