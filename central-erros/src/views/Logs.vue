@@ -30,7 +30,7 @@
     </div>
 
     <div class="is-fluid padding-filters">
-      <h5 class="title is-5 is-flex" style="color: white; margin-bottom: 5px;">Filtros de Busca</h5>
+      <h5 class="title is-5 is-flex configure-title-filtro-busca">Filtros de Busca</h5>
       <div class="is-flex">
         <div class="dropdown is-hoverable">
           <div class="dropdown-trigger">
@@ -62,8 +62,8 @@
           <div class="dropdown-menu" id="dropdown-menu2" role="menu">
             <div class="dropdown-content">
               <div class="dropdown-item">
-                <a class="navbar-item">Level</a>
-                <a class="navbar-item">Frequência</a>
+                <a class="navbar-item" @click="orderByLevel">Level</a>
+                <a class="navbar-item" @click="orderByFrequence">Frequência</a>
               </div>
             </div>
           </div>
@@ -127,23 +127,39 @@
         <table class="table">
           <thead>
             <tr>
-              <th>Level</th>
+              <th @click="orderByLevel" class="has-clickable">
+                Level
+                <i class="fas fa-sort"></i>
+              </th>
               <th>Log</th>
-              <th>Eventos</th>
+              <th @click="orderByFrequence" class="has-clickable">
+                Eventos
+                <i class="fas fa-sort"></i>
+              </th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="log in logs" :key="log.id">
+            <tr v-for="log in computedLogs" :key="log.id">
               <td class="padding">
                 <input class="space-checkbox" type="checkbox" />
-                <span class="tag is-danger space-tag">{{ log.level }}</span>
+                <span v-if="log.level == 'error'" class="tag is-danger space-tag">{{ log.level }}</span>
+                <span
+                  v-else-if="log.level == 'warning'"
+                  class="tag is-warning space-tag"
+                >{{ log.level }}</span>
+                <span v-else class="tag is-info space-tag">{{ log.level }}</span>
               </td>
-              <td>
+              <td class="space-info-log">
+                <strong>Descrição:</strong>
                 {{ log.description }}
+                <br />
+                <strong>Origem:</strong>
                 {{ log.origin }}
+                <br />
+                <strong>Data:</strong>
                 {{ log.date }}
               </td>
-              <td>{{ log.events }} </td>
+              <td>{{ log.events }}</td>
             </tr>
           </tbody>
         </table>
@@ -154,6 +170,7 @@
 
 <script>
 import { getLogs } from "@/services/logs.js";
+import _ from "lodash";
 
 export default {
   created() {
@@ -161,7 +178,12 @@ export default {
   },
   data() {
     return {
-      logs: []
+      logs: [],
+      configs: {
+        orderBy: "date",
+        order: "desc"
+      },
+      orderLevel: ["error", "warning", "debug"]
     };
   },
   methods: {
@@ -176,10 +198,44 @@ export default {
         });
       }
     },
-    async loadingLogs() {
-      await getLogs().then(({ data }) => {
+    loadingLogs() {
+      getLogs().then(({ data }) => {
         this.logs = data;
       });
+    },
+
+    orderByFrequence() {
+      this.configs.orderBy = "events";
+      if (this.configs.order == "desc") {
+        this.configs.order = "asc";
+      } else {
+        this.configs.order = "desc";
+      }
+    },
+    orderByLevel() {
+      this.configs.orderBy = "level";
+      if (this.configs.order == "desc") {
+        this.configs.order = "asc";
+      } else {
+        this.configs.order = "desc";
+      }
+    }
+  },
+  computed: {
+    computedLogs() {
+      if (this.configs.orderBy == "level") {
+        if (this.configs.order == "desc") {
+          return _.sortBy(this.logs, logs => {
+            return this.orderLevel.indexOf(logs.level);
+          });
+        } else {
+          const arrayAux = _.sortBy(this.logs, logs => {
+            return this.orderLevel.indexOf(logs.level);
+          });
+          return arrayAux.reverse()
+        }
+      }
+      return _.orderBy(this.logs, this.configs.orderBy, this.configs.order);
     }
   }
 };
@@ -227,6 +283,9 @@ export default {
 .space-section-padding {
   margin-top: 5px;
 }
+.space-checkbox {
+  margin-top: 30px;
+}
 .space-head-margin-left {
   margin-left: 30px;
 }
@@ -250,6 +309,9 @@ table {
   width: 100%;
   border-radius: 5px;
 }
+.has-clickable {
+  cursor: pointer;
+}
 .logs-color {
   background: rgb(21, 72, 84);
   background: linear-gradient(
@@ -263,5 +325,9 @@ table {
 }
 .navbar {
   background-color: white;
+}
+.configure-title-filtro-busca {
+  color: white;
+  margin-bottom: 5px;
 }
 </style>
