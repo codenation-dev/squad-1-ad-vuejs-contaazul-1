@@ -1,13 +1,14 @@
-import axios from 'axios';
+import axios from "axios";
+import { api } from "../env";
 
 export const addUser = user => {
-  return axios.post('https://5eb01c26e6828200164a66ae.mockapi.io/api/el/users', user)
+  return axios.post(`${api}/users`, user);
 };
 
 export const getUsers = () => {
-  return axios.get('https://5eb01c26e6828200164a66ae.mockapi.io/api/el/users')
+  return axios.get(`${api}/users`)
 };
 
 export const patchUser = user => {
-  return axios.put(`https://5eb01c26e6828200164a66ae.mockapi.io/api/el/users/${user.id}`, user)
+  return axios.put(`${api}/users/${user.id}`, user)
 }
