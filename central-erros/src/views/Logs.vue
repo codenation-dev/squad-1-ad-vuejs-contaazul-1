@@ -92,7 +92,12 @@
           </div>
         </div>
         <p class="control has-icons-right width-control-input-busca">
-          <input class="input margin-left-dropdown" placeholder="Digite sua busca" />
+          <input
+            class="input margin-left-dropdown"
+            placeholder="Digite sua busca"
+            v-model="inputBusca"
+            @keyup="onFilterSuggestions"
+          />
           <span class="icon is-small is-right">
             <i class="fas fa-search"></i>
           </span>
@@ -183,11 +188,13 @@ export default {
   data() {
     return {
       logs: [],
+      inputBusca: null,
       configs: {
         orderBy: "date",
         order: "desc"
       },
-      orderLevel: ["error", "warning", "debug"]
+      orderLevel: ["error", "warning", "debug"],
+      orderProducao: []
     };
   },
   methods: {
@@ -234,11 +241,17 @@ export default {
     },
     productionByHomologacao() {
       this.configs.orderBy = "environment";
-      this.configs.order = "desc";
+      this.orderProducao = []
+      this.orderProducao.push('Homologação', 'Dev')
     },
-    productionByDev(){
+    productionByDev() {
       this.configs.orderBy = "environment";
-      this.configs.order = "asc";
+      this.orderProducao = []
+      this.orderProducao.push('Dev', 'Homologação')
+    },
+
+    onFilterSuggestions(){
+      console.log(this.inputBusca)
     }
   },
   computed: {
@@ -246,14 +259,18 @@ export default {
       if (this.configs.orderBy == "level") {
         if (this.configs.order == "desc") {
           return _.sortBy(this.logs, logs => {
-            return this.orderLevel.indexOf(logs.level);
+            return this.orderLevel.indexOf(logs.level)
           });
         } else {
           const arrayAux = _.sortBy(this.logs, logs => {
-            return this.orderLevel.indexOf(logs.level);
+            return this.orderLevel.indexOf(logs.level)
           });
-          return arrayAux.reverse();
+          return arrayAux.reverse()
         }
+      } else if (this.configs.orderBy == "environment") {
+        return _.sortBy(this.logs, logs => {
+            return this.orderProducao.indexOf(logs.environment)
+          });
       }
       return _.orderBy(this.logs, this.configs.orderBy, this.configs.order);
     }
