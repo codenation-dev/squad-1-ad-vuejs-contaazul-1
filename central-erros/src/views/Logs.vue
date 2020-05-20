@@ -95,8 +95,7 @@
           <input
             class="input margin-left-dropdown"
             placeholder="Digite sua busca"
-            v-model="inputBusca"
-            @keyup="onFilterSuggestions"
+            v-model="configs.inputBusca"
           />
           <span class="icon is-small is-right">
             <i class="fas fa-search"></i>
@@ -180,6 +179,7 @@
 <script>
 import { getLogs } from "@/services/logs.js";
 import _ from "lodash";
+// import debounce from "lodash/debounce";
 
 export default {
   created() {
@@ -188,10 +188,10 @@ export default {
   data() {
     return {
       logs: [],
-      inputBusca: null,
       configs: {
         orderBy: "date",
-        order: "desc"
+        order: "desc",
+        inputBusca: null
       },
       orderLevel: ["error", "warning", "debug"],
       orderProducao: []
@@ -241,38 +241,59 @@ export default {
     },
     productionByHomologacao() {
       this.configs.orderBy = "environment";
-      this.orderProducao = []
-      this.orderProducao.push('Homologação', 'Dev')
+      this.orderProducao = [];
+      this.orderProducao.push("Homologação", "Dev");
     },
     productionByDev() {
       this.configs.orderBy = "environment";
-      this.orderProducao = []
-      this.orderProducao.push('Dev', 'Homologação')
+      this.orderProducao = [];
+      this.orderProducao.push("Dev", "Homologação");
     },
 
-    onFilterSuggestions(){
-      console.log(this.inputBusca)
-    }
+    // onFilterSuggestions: debounce(function() {
+    //   console.log(this.configs.inputBusca);
+    // }, 300)
   },
   computed: {
     computedLogs() {
+      let returnComputedLogs = null;
+
       if (this.configs.orderBy == "level") {
         if (this.configs.order == "desc") {
-          return _.sortBy(this.logs, logs => {
-            return this.orderLevel.indexOf(logs.level)
+          returnComputedLogs = _.sortBy(this.logs, logs => {
+            return this.orderLevel.indexOf(logs.level);
           });
         } else {
           const arrayAux = _.sortBy(this.logs, logs => {
-            return this.orderLevel.indexOf(logs.level)
+            return this.orderLevel.indexOf(logs.level);
           });
-          return arrayAux.reverse()
+          returnComputedLogs = arrayAux.reverse();
         }
       } else if (this.configs.orderBy == "environment") {
-        return _.sortBy(this.logs, logs => {
-            return this.orderProducao.indexOf(logs.environment)
-          });
+        returnComputedLogs = _.sortBy(this.logs, logs => {
+          return this.orderProducao.indexOf(logs.environment);
+        });
+      } else {
+        returnComputedLogs = _.orderBy(
+          this.logs,
+          this.configs.orderBy,
+          this.configs.order
+        );
       }
-      return _.orderBy(this.logs, this.configs.orderBy, this.configs.order);
+
+      if (_.isEmpty(this.configs.inputBusca)) {
+        return returnComputedLogs;
+      } 
+
+      return _.filter(
+        returnComputedLogs,
+        log => log.level.indexOf(this.configs.inputBusca) >= 0 ||
+        log.description.indexOf(this.configs.inputBusca) >= 0 || 
+        log.origin.indexOf(this.configs.inputBusca) >= 0 || 
+        log.environment.indexOf(this.configs.inputBusca) >= 0 || 
+        log.date.indexOf(this.configs.inputBusca) >= 0  ||
+        log.events.toString().indexOf(this.configs.inputBusca) >= 0 
+      );
     }
   }
 };
