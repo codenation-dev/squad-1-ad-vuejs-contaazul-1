@@ -1,7 +1,8 @@
 import axios from "axios";
+import { api } from "../env";
 
 export const getLogs = () => {
-    const url = `https://5eb01c26e6828200164a66ae.mockapi.io/api/el/logs`
+    const url = `${api}/logs`
     return axios.get(url);
 };
 

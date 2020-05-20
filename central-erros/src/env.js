@@ -1,0 +1,1 @@
+export const api = "https://5eb01c26e6828200164a66ae.mockapi.io/api/el";
