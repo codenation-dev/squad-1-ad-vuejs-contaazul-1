@@ -14,7 +14,6 @@
                     <span class="icon is-small is-left padding-icon">
                       <i class="fa fa-user"></i>
                     </span>
-
                 </p>
                 <br/>
                 <p class="control has-icons-left">
@@ -25,7 +24,7 @@
                 </p>
                 <br />
                 <p class="control has-icons-left">
-                  <input class="input" v-model="password1" type="password" placeholder="Password" />
+                  <input class="input" v-model="password1" type="password" placeholder="Senha" />
                     <span class="icon is-small is-left padding-icon">
                       <i class="fa fa-lock"></i>
                     </span>
@@ -36,7 +35,7 @@
                     class="input"
                     type="password"
                     v-model="password2"
-                    placeholder="Confirm password"
+                    placeholder="Confirmar senha"
                   />
                     <span class="icon is-small is-left padding-icon">
                       <i class="fa fa-lock"></i>
@@ -51,13 +50,13 @@
                     class="column button button-margin button-padding button-register is-medium is-fullwidth"
                   >
                     <i class="fa fa-user-plus icon-space"></i>
-                    Register
+                    Registrar
                   </button>
                     <button
                     @click="redirect('login')"
                     class="column button button-back button-padding is-medium">
                     <i class="fa fa-arrow-left icon-space"></i>
-                    Back
+                    Voltar
                   </button>
                 </p>
               </div>
@@ -68,10 +67,10 @@
     </section>
   </body>
 </template>
-
 <script>
 
-import axios from 'axios';
+
+import { addUser, getUsers } from '@/services/login';
 
 export default {
   name: "Register",
@@ -81,12 +80,11 @@ export default {
       email:null,
       password1:null,
       password2:null,
-      errors: []
+      errors: [],
+      hasEmail: '',
     }
   },
-
   methods: {
-    
     redirect(rota) {
       if (rota === "login") {
         this.$router.push({
@@ -94,48 +92,49 @@ export default {
         });
       }
     },
-    addUser() {
+    async hasEmailCadastrado(email) {
+        const users = await getUsers();
+        this.hasEmail = users.data.find(user => user.email === email);
+      },
+    async addUser() {
       let date = new Date ();
       const user = {
         name: this.name,
         createdAt: date.toLocaleString(),
         email: this.email,
         password: this.password1
-
       }
-      console.log(user)
-      axios.post('https://5eb01c26e6828200164a66ae.mockapi.io/api/el/users', user)
-            .then(response => {
-                console.log(response.data);
-            })
+
+      await this.hasEmailCadastrado(user.email);
+
+      if(!this.hasEmail) {
+        addUser(user)
+      .then(this.$router.push('/'))
+      } else {
+        this.errors.push("* Este já está cadastrado..");
+      }
     },   
-    
     validaUser(){
+      this.errors = [];
       if (!this.name) {
         this.errors.push("* Você precisa preencher o nome.");
       }
       if (!this.email) {
         this.errors.push("* Você precisa preencher o e-mail.");
       }
-      if (!this.password1) {
+      if (!this.password1 || !this.password2) {
         this.errors.push("* Você precisa preencher a senha.");
       }
-      if (!this.password2) {
-        this.errors.push("* Você precisa preencher a senha.");
-      }
+
       if (this.password1 != this.password2) {
         this.errors.push("* Senhas não conferem");
       }
       if (this.errors.length == 0){
         this.addUser();
       }
-
-      }
-
+    },
   }
 }
-
-
 </script>
 
 <style scoped>

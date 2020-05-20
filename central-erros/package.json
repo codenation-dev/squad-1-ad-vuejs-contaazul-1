@@ -12,7 +12,9 @@
     "bulma": "^0.8.2",
     "core-js": "^3.6.4",
     "vue": "^2.6.11",
-    "vue-router": "^2.7.0"
+    "vue-router": "^2.7.0",
+    "vuex": "^3.4.0",
+    "vuex-persist": "^2.2.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.3.0",
