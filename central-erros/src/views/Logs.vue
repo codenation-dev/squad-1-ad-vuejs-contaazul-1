@@ -44,8 +44,8 @@
           <div class="dropdown-menu" id="dropdown-menu1" role="menu">
             <div class="dropdown-content">
               <div class="dropdown-item">
-                <a class="navbar-item" @click="productionByHomologacao">Homologação</a>
-                <a class="navbar-item" @click="productionByDev">Dev</a>
+                <a class="navbar-item" @click="productionByHomologacao" :class="{'has-text-weight-bold': configs.orderBy == 'environment' && orderProducao[0] == 'Homologação'}" >Homologação</a>
+                <a class="navbar-item" @click="productionByDev" :class="{'has-text-weight-bold': configs.orderBy == 'environment' && orderProducao[0] == 'Dev'}">Dev</a>
               </div>
             </div>
           </div>
@@ -62,9 +62,9 @@
           <div class="dropdown-menu" id="dropdown-menu2" role="menu">
             <div class="dropdown-content">
               <div class="dropdown-item">
-                <a class="navbar-item" @click="orderByLevel">Level</a>
-                <a class="navbar-item" @click="orderByFrequence">Frequência</a>
-                <a class="navbar-item" @click="orderByData">Data</a>
+                <a class="navbar-item" @click="orderByLevel" :class="{'has-text-weight-bold': configs.orderBy == 'level'}">Level</a>
+                <a class="navbar-item" @click="orderByFrequence" :class="{'has-text-weight-bold': configs.orderBy == 'events'}">Frequência</a>
+                <a class="navbar-item" @click="orderByData" :class="{'has-text-weight-bold': configs.orderBy == 'date'}">Data</a>
               </div>
             </div>
           </div>
@@ -83,10 +83,13 @@
           <div class="dropdown-menu" id="dropdown-menu3" role="menu">
             <div class="dropdown-content">
               <div class="dropdown-item">
-                <a class="navbar-item">Level</a>
-                <a class="navbar-item">Descrição</a>
-                <a class="navbar-item">Origem</a>
-                <a class="navbar-item">Data</a>
+                <a class="navbar-item" @click="configs.filterBusca = null" :class="{'has-text-weight-bold': configs.filterBusca == null}">Todos</a>
+                <a class="navbar-item" @click="configs.filterBusca = 'level'" :class="{'has-text-weight-bold': configs.filterBusca == 'level'}">Level</a>
+                <a class="navbar-item" @click="configs.filterBusca = 'description'" :class="{'has-text-weight-bold': configs.filterBusca == 'description'}">Descrição</a>
+                <a class="navbar-item" @click="configs.filterBusca = 'origin'" :class="{'has-text-weight-bold': configs.filterBusca == 'origin'}">Origem</a>
+                <a class="navbar-item" @click="configs.filterBusca = 'environment'" :class="{'has-text-weight-bold': configs.filterBusca == 'environment'}">Produção</a>
+                <a class="navbar-item" @click="configs.filterBusca = 'date'" :class="{'has-text-weight-bold': configs.filterBusca == 'date'}">Data</a>
+                <a class="navbar-item" @click="configs.filterBusca = 'events'" :class="{'has-text-weight-bold': configs.filterBusca == 'events'}">Frequência</a>
               </div>
             </div>
           </div>
@@ -112,8 +115,8 @@
               <div class="dropdown-item">
                 <p>
                   Inicialmente a entrada de busca é feita por Level,
-                  Descrição, Origem e Data. Caso deseje procurar por um tipo específico,
-                  indicar no campo "Buscar por"
+                  Descrição, Origem, Produção, Data e Frequência. Caso deseje procurar por um tipo específico,
+                  indique no campo "Buscar por"
                 </p>
               </div>
             </div>
@@ -145,7 +148,7 @@
           </thead>
           <tbody>
             <tr v-for="log in computedLogs" :key="log.id" class="has-clickable">
-              <td class="padding">
+              <td class="space-level">
                 <input class="space-checkbox" type="checkbox" />
                 <span v-if="log.level == 'error'" class="tag is-danger space-tag">{{ log.level }}</span>
                 <span
@@ -154,7 +157,7 @@
                 >{{ log.level }}</span>
                 <span v-else class="tag is-info space-tag">{{ log.level }}</span>
               </td>
-              <td class="space-info-log">
+              <td class="space-info-logs">
                 <strong>Descrição:</strong>
                 {{ log.description }}
                 <br />
@@ -191,6 +194,7 @@ export default {
       configs: {
         orderBy: "date",
         order: "desc",
+        filterBusca: null,
         inputBusca: null
       },
       orderLevel: ["error", "warning", "debug"],
@@ -248,11 +252,7 @@ export default {
       this.configs.orderBy = "environment";
       this.orderProducao = [];
       this.orderProducao.push("Dev", "Homologação");
-    },
-
-    // onFilterSuggestions: debounce(function() {
-    //   console.log(this.configs.inputBusca);
-    // }, 300)
+    }
   },
   computed: {
     computedLogs() {
@@ -283,23 +283,81 @@ export default {
 
       if (_.isEmpty(this.configs.inputBusca)) {
         return returnComputedLogs;
-      } 
+      }
 
-      return _.filter(
-        returnComputedLogs,
-        log => log.level.indexOf(this.configs.inputBusca) >= 0 ||
-        log.description.indexOf(this.configs.inputBusca) >= 0 || 
-        log.origin.indexOf(this.configs.inputBusca) >= 0 || 
-        log.environment.indexOf(this.configs.inputBusca) >= 0 || 
-        log.date.indexOf(this.configs.inputBusca) >= 0  ||
-        log.events.toString().indexOf(this.configs.inputBusca) >= 0 
-      );
+      if (_.isEmpty(this.configs.filterBusca)) {
+        return _.filter(
+          returnComputedLogs,
+          log =>
+            log.level
+              .toLowerCase()
+              .indexOf(this.configs.inputBusca.toLowerCase()) >= 0 ||
+            log.description
+              .toLowerCase()
+              .indexOf(this.configs.inputBusca.toLowerCase()) >= 0 ||
+            log.origin
+              .toLowerCase()
+              .indexOf(this.configs.inputBusca.toLowerCase()) >= 0 ||
+            log.environment
+              .toLowerCase()
+              .indexOf(this.configs.inputBusca.toLowerCase()) >= 0 ||
+            log.date.indexOf(this.configs.inputBusca) >= 0 ||
+            log.events.toString().indexOf(this.configs.inputBusca) >= 0
+        );
+      } else {
+        if (this.configs.filterBusca == "level") {
+          return _.filter(
+            returnComputedLogs,
+            log =>
+              log.level
+                .toLowerCase()
+                .indexOf(this.configs.inputBusca.toLowerCase()) >= 0
+          );
+        } else if (this.configs.filterBusca == "description") {
+          return _.filter(
+            returnComputedLogs,
+            log =>
+              log.description
+                .toLowerCase()
+                .indexOf(this.configs.inputBusca.toLowerCase()) >= 0
+          );
+        } else if (this.configs.filterBusca == "origin") {
+          return _.filter(
+            returnComputedLogs,
+            log =>
+              log.origin
+                .toLowerCase()
+                .indexOf(this.configs.inputBusca.toLowerCase()) >= 0
+          );
+        } else if (this.configs.filterBusca == "environment") {
+          return _.filter(
+            returnComputedLogs,
+            log =>
+              log.environment
+                .toLowerCase()
+                .indexOf(this.configs.inputBusca.toLowerCase()) >= 0
+          );
+        } else if (this.configs.filterBusca == "date") {
+          return _.filter(
+            returnComputedLogs,
+            log => log.date.indexOf(this.configs.inputBusca) >= 0
+          );
+        } else {
+          return _.filter(
+            returnComputedLogs,
+            log => log.events.toString().indexOf(this.configs.inputBusca) >= 0
+          );
+        }
+      }
     }
   }
 };
 </script>
 
 <style scoped>
+td {
+  height: 50px;
+}
 #space-logo {
   padding: 0px;
   width: 60px;
@@ -351,6 +409,10 @@ export default {
   padding: 10px;
   margin-right: 30px;
 }
+.space-info-logs {
+  width: 836px;
+  height: 110.1px;
+}
 .configure-question {
   color: white;
   padding: 5px;
@@ -387,5 +449,8 @@ table {
 .configure-title-filtro-busca {
   color: white;
   margin-bottom: 5px;
+}
+.teste{
+  border-color: rgb(21, 72, 84);
 }
 </style>
