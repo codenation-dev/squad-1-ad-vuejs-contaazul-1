@@ -1,9 +1,9 @@
 <template>
-  <body class="layout-default">
     <section class="hero is-fullheight is-medium login-color is-bold">
       <div class="hero-body">
         <div class="container">
-          <div class="columns is-centered">
+          <div class="columns">
+            <div class="column is-offset-4">
             <article class="card is-rounded card-login">
               <div class="card-content">
                 <h1 class="title">
@@ -42,17 +42,17 @@
                 <h6 v-for="error in errors" :key="error"> {{ error }}</h6>
                 <br />
                 <br />
-                <p class="columns control">
+                <p class="columns control is-multiline">
                   <button
                     @click="validaUser"
-                    class="column button button-margin button-padding password-change is-medium"
+                    class="column is-12-mobile button button-margin button-padding password-change is-medium"
                   >
                     <i class="fa fa-exchange-alt icon-space"></i>
                     Change password
                   </button>
                   <button
                     @click="redirect('login')"
-                    class="button-back column button button-padding is-medium"
+                    class="button-back column is-12-mobile button button-padding is-medium"
                   >
                     <i class="fa fa-arrow-left icon-space"></i>
                     Back
@@ -61,10 +61,10 @@
               </div>
             </article>
           </div>
+          </div>
         </div>
       </div>
     </section>
-  </body>
 </template>
 
 <script>
@@ -129,7 +129,13 @@ export default {
 <style scoped>
 
 .card-login {
-  width: 30%;
+  width: 50%;
+}
+
+@media screen and (max-width: 768px) {
+  .card-login {
+    width: 100%;
+  }
 }
 
 .login-color {
@@ -158,10 +164,18 @@ export default {
   color: #ffffff;
 }
 
+.password-change:hover {
+  background-color: rgba(60,101,113,1);
+}
+
 .button-back {
   padding-left: 3px;
   background-color: #ff7272;
   color: #ffffff;
+}
+
+.button-back:hover {
+  background-color: #fc9191;
 }
 
 .padding-icon {

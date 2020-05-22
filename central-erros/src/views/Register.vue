@@ -3,7 +3,8 @@
     <section class="hero is-fullheight is-medium login-color is-bold">
       <div class="hero-body">
         <div class="container">
-          <div class="columns is-centered">
+          <div class="columns">
+            <div class="column is-offset-4">
             <article class="card is-rounded card-login">
               <div class="card-content">
                 <h1 class="title">
@@ -47,20 +48,21 @@
                 <p class="columns control">
                   <button
                     @click="validaUser()"
-                    class="column button button-margin button-padding button-register is-medium is-fullwidth"
+                    class="column is-12-mobile button button-register button-margin is-medium"
                   >
                     <i class="fa fa-user-plus icon-space"></i>
                     Registrar
                   </button>
                     <button
                     @click="redirect('login')"
-                    class="column button button-back button-padding is-medium">
+                    class="column is-12-mobile button button-back is-medium">
                     <i class="fa fa-arrow-left icon-space"></i>
                     Voltar
                   </button>
                 </p>
               </div>
             </article>
+            </div>
           </div>
         </div>
       </div>
@@ -140,8 +142,16 @@ export default {
 <style scoped>
 
 .card-login {
-  width: 30%;
+  width: 50%;
 }
+
+@media screen and (max-width: 768px) {
+  .card-login {
+    width: 100%;
+  }
+}
+
+
 
 .login-color {
   background: rgb(21,72,84);
@@ -161,11 +171,15 @@ export default {
   color: #ffffff;
 }
 
+.button-register:hover {
+  background-color: rgba(60,101,113,1);
+}
+
 .button-margin {
   margin-right: 10px;
 }
 
-.button-padding {
+.button {
   padding-top: 6px;
 }
 
@@ -175,7 +189,8 @@ export default {
   color: #ffffff;
 }
 
-.button-padding {
-  padding-top: 6px;
+.button-back:hover {
+  background-color: #fc9191;
 }
+
 </style>
