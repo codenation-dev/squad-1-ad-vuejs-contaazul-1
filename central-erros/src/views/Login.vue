@@ -2,7 +2,8 @@
   <section class="hero is-fullheight is-medium login-color is-bold">
     <div class="hero-body">
       <div class="container">
-        <div class="columns is-centered">
+        <div class="columns">
+          <div class="column is-offset-4">
           <article class="card is-rounded card-login">
             <div class="card-content">
               <h1 class="title">
@@ -34,17 +35,18 @@
               </p>
               <a
                 @click="redirect('register')"
-                class="is-pulled-left login-space"
+                class="is-pulled-left login-space hover-link"
                 >Registrar</a
               >
               <a
                 @click="redirect('change-password')"
-                class="is-pulled-right login-space"
+                class="is-pulled-right login-space hover-link"
                 >Esqueceu a senha?</a
               >
               <br />
             </div>
           </article>
+        </div>
         </div>
       </div>
     </div>
@@ -119,7 +121,13 @@ export default {
 
 <style scoped>
 .card-login {
-  width: 30%;
+  width: 50%;
+}
+
+@media screen and (max-width: 768px) {
+  .card-login {
+    width: 100%;
+  }
 }
 
 .login-color {
@@ -140,7 +148,20 @@ export default {
   color: #ffffff;
 }
 
+.button-color:hover {
+  background-color: rgba(60,101,113,1);
+}
+
 .padding-icon {
   padding-top: 2px;
 }
+
+.hover-link {
+  text-decoration: none;
+  color: #154854;
+}
+
+.hover-link:hover {
+  color: #3273dc;
+} 
 </style>
