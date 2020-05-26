@@ -30,7 +30,7 @@
                   class="button button-color is-medium is-fullwidth"
                 >
                   <i class="fa fa-user icon-space"></i>
-                  Login
+                  Entrar
                 </button>
               </p>
               <a
@@ -93,7 +93,7 @@ export default {
           this.login(this.hasEmail);
           this.redirect('logs');
         } else {
-          this.errors.push("* Password incorreto..");
+          this.errors.push("* Senha incorreta..");
         }
       } else {
         this.errors.push("* E-mail não cadastrado..");
