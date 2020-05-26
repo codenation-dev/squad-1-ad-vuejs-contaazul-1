@@ -4,7 +4,7 @@ import Router from "vue-router";
 import Login from "@/views/Login";
 import Register from "@/views/Register";
 import ChangePassword from "@/views/ChangePassword";
-import Logs from "@/views/Logs";
+import Logs from "@/views/Logs/Index";
 import Erro from "@/views/Erro";
 
 Vue.use(Router);
