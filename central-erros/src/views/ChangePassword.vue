@@ -48,14 +48,14 @@
                     class="column button button-margin button-padding password-change is-medium"
                   >
                     <i class="fa fa-exchange-alt icon-space"></i>
-                    Change password
+                    Mudar senha
                   </button>
                   <button
                     @click="redirect('login')"
                     class="button-back column button button-padding is-medium"
                   >
                     <i class="fa fa-arrow-left icon-space"></i>
-                    Back
+                    Voltar
                   </button>
                 </p>
               </div>

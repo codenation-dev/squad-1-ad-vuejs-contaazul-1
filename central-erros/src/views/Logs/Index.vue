@@ -35,7 +35,7 @@
         <div class="dropdown is-hoverable">
           <div class="dropdown-trigger">
             <button class="button" aria-haspopup="true" aria-controls="dropdown-menu1">
-              <span>Produção</span>
+              <span>Ambiente</span>
               <span class="icon is-small">
                 <i class="fas fa-sort"></i>
               </span>
@@ -44,8 +44,9 @@
           <div class="dropdown-menu" id="dropdown-menu1" role="menu">
             <div class="dropdown-content">
               <div class="dropdown-item">
-                <a class="navbar-item" @click="productionByHomologacao">Homologação</a>
-                <a class="navbar-item" @click="productionByDev">Dev</a>
+                <a class="navbar-item" @click="hmlEnviroment">Homologação</a>
+                <a class="navbar-item" @click="devEnviroment">Desenvolvimento</a>
+                <a class="navbar-item" @click="prodEnviroment">Produção</a>
               </div>
             </div>
           </div>
@@ -83,10 +84,13 @@
           <div class="dropdown-menu" id="dropdown-menu3" role="menu">
             <div class="dropdown-content">
               <div class="dropdown-item">
-                <a class="navbar-item">Level</a>
-                <a class="navbar-item">Descrição</a>
-                <a class="navbar-item">Origem</a>
-                <a class="navbar-item">Data</a>
+                <a class="navbar-item" @click="filterInputBusca = null" :class="{'has-text-weight-bold': filterInputBusca == null}">Todos</a>
+                <a class="navbar-item" @click="filterInputBusca = 'level'" :class="{'has-text-weight-bold': filterInputBusca == 'level'}">Level</a>
+                <a class="navbar-item" @click="filterInputBusca = 'description'" :class="{'has-text-weight-bold': filterInputBusca == 'description'}">Descrição</a>
+                <a class="navbar-item" @click="filterInputBusca = 'origin'" :class="{'has-text-weight-bold': filterInputBusca == 'origin'}">Origem</a>
+                <a class="navbar-item" @click="filterInputBusca = 'environment'" :class="{'has-text-weight-bold': filterInputBusca == 'environment'}">Produção</a>
+                <a class="navbar-item" @click="filterInputBusca = 'date'" :class="{'has-text-weight-bold': filterInputBusca == 'date'}">Data</a>
+                <a class="navbar-item" @click="filterInputBusca = 'events'" :class="{'has-text-weight-bold': filterInputBusca == 'events'}">Frequência</a>
               </div>
             </div>
           </div>
@@ -95,7 +99,8 @@
           <input
             class="input margin-left-dropdown"
             placeholder="Digite sua busca"
-            v-model="configs.inputBusca"
+            v-model="inputBusca"
+            @keyup="onSearch"
           />
           <span class="icon is-small is-right">
             <i class="fas fa-search"></i>
@@ -144,7 +149,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="log in computedLogs" :key="log.id" class="has-clickable">
+            <tr v-for="log in getComputedLogs" :key="log.id" class="has-clickable">
               <td class="padding">
                 <input class="space-checkbox" type="checkbox" />
                 <span v-if="log.level == 'error'" class="tag is-danger space-tag">{{ log.level }}</span>
@@ -161,7 +166,7 @@
                 <strong>Origem:</strong>
                 {{ log.origin }}
                 <br />
-                <strong>Produção:</strong>
+                <strong>Ambiente:</strong>
                 {{ log.environment }}
                 <br />
                 <strong>Data:</strong>
@@ -177,9 +182,7 @@
 </template>
 
 <script>
-import { getLogs } from "@/services/logs.js";
-import _ from "lodash";
-// import debounce from "lodash/debounce";
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   created() {
@@ -187,17 +190,13 @@ export default {
   },
   data() {
     return {
-      logs: [],
-      configs: {
-        orderBy: "date",
-        order: "desc",
-        inputBusca: null
-      },
-      orderLevel: ["error", "warning", "debug"],
-      orderProducao: []
+      inputBusca: null,
+      filterInputBusca: null,
     };
   },
+
   methods: {
+    ...mapActions(['loadLogs', 'orderBy', 'orderByEnviroment', 'search', 'changeFilterSearch']),
     redirect(rota) {
       if (rota === "logs") {
         this.$router.push({
@@ -209,92 +208,43 @@ export default {
         });
       }
     },
-    loadingLogs() {
-      getLogs().then(({ data }) => {
-        this.logs = data;
-      });
+    async loadingLogs() {
+      await this.loadLogs();
     },
 
     orderByFrequence() {
-      this.configs.orderBy = "events";
-      if (this.configs.order == "desc") {
-        this.configs.order = "asc";
-      } else {
-        this.configs.order = "desc";
-      }
+      this.orderBy('events');
     },
     orderByLevel() {
-      this.configs.orderBy = "level";
-      if (this.configs.order == "desc") {
-        this.configs.order = "asc";
-      } else {
-        this.configs.order = "desc";
-      }
+      this.orderBy('level');
     },
     orderByData() {
-      this.configs.orderBy = "date";
-      if (this.configs.order == "desc") {
-        this.configs.order = "asc";
-      } else {
-        this.configs.order = "desc";
-      }
-    },
-    productionByHomologacao() {
-      this.configs.orderBy = "environment";
-      this.orderProducao = [];
-      this.orderProducao.push("Homologação", "Dev");
-    },
-    productionByDev() {
-      this.configs.orderBy = "environment";
-      this.orderProducao = [];
-      this.orderProducao.push("Dev", "Homologação");
+      this.orderBy('date');
     },
 
-    // onFilterSuggestions: debounce(function() {
-    //   console.log(this.configs.inputBusca);
-    // }, 300)
-  },
-  computed: {
-    computedLogs() {
-      let returnComputedLogs = null;
-
-      if (this.configs.orderBy == "level") {
-        if (this.configs.order == "desc") {
-          returnComputedLogs = _.sortBy(this.logs, logs => {
-            return this.orderLevel.indexOf(logs.level);
-          });
-        } else {
-          const arrayAux = _.sortBy(this.logs, logs => {
-            return this.orderLevel.indexOf(logs.level);
-          });
-          returnComputedLogs = arrayAux.reverse();
-        }
-      } else if (this.configs.orderBy == "environment") {
-        returnComputedLogs = _.sortBy(this.logs, logs => {
-          return this.orderProducao.indexOf(logs.environment);
-        });
-      } else {
-        returnComputedLogs = _.orderBy(
-          this.logs,
-          this.configs.orderBy,
-          this.configs.order
-        );
-      }
-
-      if (_.isEmpty(this.configs.inputBusca)) {
-        return returnComputedLogs;
-      } 
-
-      return _.filter(
-        returnComputedLogs,
-        log => log.level.indexOf(this.configs.inputBusca) >= 0 ||
-        log.description.indexOf(this.configs.inputBusca) >= 0 || 
-        log.origin.indexOf(this.configs.inputBusca) >= 0 || 
-        log.environment.indexOf(this.configs.inputBusca) >= 0 || 
-        log.date.indexOf(this.configs.inputBusca) >= 0  ||
-        log.events.toString().indexOf(this.configs.inputBusca) >= 0 
-      );
+    hmlEnviroment() {
+      this.orderByEnviroment(["Homologação", "Desenvolvimento", "Produção"])
+    },
+    devEnviroment() {
+      this.orderByEnviroment(["Desenvolvimento", "Homologação", "Produção"])
+    },
+    prodEnviroment() {
+      this.orderByEnviroment(["Produção", "Homologação", "Desenvolvimento"])
+    },
+    onSearch() {
+      this.search(this.inputBusca);
+    },
+    onChangeSearch() {
+      this.changeFilterSearch(this.filterInputBusca);
     }
+  },
+   watch: {
+    filterInputBusca: function () {
+      this.onChangeSearch();
+    },
+   },
+  computed: {
+    ...mapGetters(['getComputedLogs']),
   }
 };
 </script>
