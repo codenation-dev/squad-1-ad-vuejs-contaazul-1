@@ -10,44 +10,85 @@
                 <h1 class="title">
                   <img src="../assets/login-logo.png" alt="logo" width="200" />
                 </h1>
+                <div class="field">
+                  <p class="control has-icons-left">
+                    <input
+                      class="input"  
+                      v-model="name" 
+                      type="nome" 
+                      placeholder="Nome" 
+                      :class="{invalid: $v.name.$invalid && $v.name.$dirty}"
+                      @input="$v.name.$touch()"
+                    />
+                      <span class="icon is-small is-left padding-icon">
+                        <i class="fa fa-user"></i>
+                      </span>
+                  </p>
+                  <p class="help is-danger" v-if="$v.name.$invalid && $v.name.$dirty">
+                    * Nome é obrigatório.
+                  </p>
+                </div>
+                <div class="field">
                 <p class="control has-icons-left">
-                  <input class="input" v-model="name" type="nome" placeholder="Nome" />
-                    <span class="icon is-small is-left padding-icon">
-                      <i class="fa fa-user"></i>
-                    </span>
-                </p>
-                <br/>
-                <p class="control has-icons-left">
-                  <input class="input" v-model="email" type="email" placeholder="Email" />
+                  <input 
+                      class="input" 
+                      v-model="email" 
+                      type="email" 
+                      placeholder="Email"
+                      :class="{invalid: $v.email.$invalid && $v.email.$dirty}"
+                      @blur="$v.email.$touch()" 
+                  />
                     <span class="icon is-small is-left padding-icon">
                       <i class="fa fa-envelope"></i>
                     </span>
                 </p>
-                <br />
+                 <p class="help is-danger" v-if="$v.email.$invalid && $v.email.$dirty">
+                    * É necessário um e-mail válido.
+                  </p>
+                </div>
+                <div class="field">
                 <p class="control has-icons-left">
-                  <input class="input" v-model="password1" type="password" placeholder="Senha" />
+                  <input  class="input" 
+                          v-model="password1" 
+                          type="password" 
+                          placeholder="Senha" 
+                          :class="{invalid: $v.password1.$invalid && $v.password1.$dirty}"
+                          @input="$v.password1.$touch()" 
+                  />
                     <span class="icon is-small is-left padding-icon">
                       <i class="fa fa-lock"></i>
                     </span>
                 </p>
-                <br />
+                <p class="help is-danger" v-if="$v.password1.$invalid && $v.password1.$dirty">
+                    * É necessário inserir uma senha.
+                  </p>
+                </div>
+                <div class="field">
                 <p class="control has-icons-left">
                   <input
                     class="input"
                     type="password"
                     v-model="password2"
                     placeholder="Confirmar senha"
+                    :class="{invalid: $v.password2.$invalid && $v.password2.$dirty}"
+                    @blur="$v.password2.$touch()" 
                   />
                     <span class="icon is-small is-left padding-icon">
                       <i class="fa fa-lock"></i>
                     </span>
                 </p>
-                <h6 v-for="error in errors" :key="error"> {{ error }}</h6>
-                <br />
+                <p class="help is-danger" v-if="$v.password2.$invalid && $v.password2.$dirty">
+                    * As senhas não conferem.
+                  </p>
+                </div>
+                <p class="help is-danger" v-if="hasEmail">* E-mail já cadastrado.</p>
+                <div v-if="teste" class="notification is-success">
+                  Usuário cadastrado com sucesso!
+                </div>
                 <br />
                 <p class="columns control">
                   <button
-                    @click="validaUser()"
+                    @click="addUser()"
                     class="column is-12-mobile button button-register button-margin is-medium"
                   >
                     <i class="fa fa-user-plus icon-space"></i>
@@ -72,7 +113,8 @@
 <script>
 
 
-import { addUser, getUsers } from '@/services/login';
+import {  addUser, getUsers } from '@/services/login';
+import { required, email, sameAs } from 'vuelidate/lib/validators';
 
 export default {
   name: "Register",
@@ -84,7 +126,24 @@ export default {
       password2:null,
       errors: [],
       hasEmail: '',
+      teste: false
     }
+  },
+  validations: {
+    name: {
+      required,
+    },
+    email: {
+      required,
+      email,
+    },
+    password1: {
+      required,
+    },
+    password2: {
+      required,
+      sameAs: sameAs('password1')
+    },
   },
   methods: {
     redirect(rota) {
@@ -96,8 +155,8 @@ export default {
     },
     async hasEmailCadastrado(email) {
         const users = await getUsers();
-        this.hasEmail = users.data.find(user => user.email === email);
-      },
+        this.hasEmail = users.data.some(user => user.email === email);
+    },
     async addUser() {
       let date = new Date ();
       const user = {
@@ -106,35 +165,18 @@ export default {
         email: this.email,
         password: this.password1
       }
-
-      await this.hasEmailCadastrado(user.email);
-
-      if(!this.hasEmail) {
+      await this.hasEmailCadastrado(user.email)
+      
+    
+      if(!this.$v.$invalid && !this.hasEmail) {
         addUser(user)
-      .then(this.$router.push('/'))
-      } else {
-        this.errors.push("* Este já está cadastrado..");
-      }
-    },   
-    validaUser(){
-      this.errors = [];
-      if (!this.name) {
-        this.errors.push("* Você precisa preencher o nome.");
-      }
-      if (!this.email) {
-        this.errors.push("* Você precisa preencher o e-mail.");
-      }
-      if (!this.password1 || !this.password2) {
-        this.errors.push("* Você precisa preencher a senha.");
-      }
-
-      if (this.password1 != this.password2) {
-        this.errors.push("* Senhas não conferem");
-      }
-      if (this.errors.length == 0){
-        this.addUser();
-      }
+      .then(this.returnLogin.bind(this))
+      } 
     },
+    returnLogin() {
+       window.setTimeout(this.$router.push('/') , 3000);
+        this.teste = true;
+    }
   }
 }
 </script>
@@ -193,4 +235,10 @@ export default {
   background-color: #fc9191;
 }
 
+.invalid {
+  border-color: red;
+}
+.field {
+  text-align: initial;
+}
 </style>
