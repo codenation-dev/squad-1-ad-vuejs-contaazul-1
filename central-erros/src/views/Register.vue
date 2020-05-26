@@ -53,15 +53,21 @@
                           type="password" 
                           placeholder="Senha" 
                           :class="{invalid: $v.password1.$invalid && $v.password1.$dirty}"
-                          @input="$v.password1.$touch()" 
+                          @blur="$v.password1.$touch()" 
                   />
                     <span class="icon is-small is-left padding-icon">
                       <i class="fa fa-lock"></i>
                     </span>
                 </p>
-                <p class="help is-danger" v-if="$v.password1.$invalid && $v.password1.$dirty">
+                <p class="help is-danger" v-if="!$v.password1.required && $v.password1.$dirty">
                     * É necessário inserir uma senha.
-                  </p>
+                </p>
+                <p class="help is-danger" v-if="!$v.password1.alphaNum && $v.password1.$dirty">
+                    * A senha deve conter apenas letras e números.
+                </p>
+                <p class="help is-danger" v-if="!$v.password1.minLength && $v.password1.$dirty">
+                    * A senha deve conter no mínimo 6 caracteres.
+                </p>  
                 </div>
                 <div class="field">
                 <p class="control has-icons-left">
@@ -82,9 +88,6 @@
                   </p>
                 </div>
                 <p class="help is-danger" v-if="hasEmail">* E-mail já cadastrado.</p>
-                <div v-if="teste" class="notification is-success">
-                  Usuário cadastrado com sucesso!
-                </div>
                 <br />
                 <p class="columns control">
                   <button
@@ -114,7 +117,8 @@
 
 
 import {  addUser, getUsers } from '@/services/login';
-import { required, email, sameAs } from 'vuelidate/lib/validators';
+import { required, email, sameAs, alphaNum, minLength } from 'vuelidate/lib/validators';
+
 
 export default {
   name: "Register",
@@ -126,7 +130,6 @@ export default {
       password2:null,
       errors: [],
       hasEmail: '',
-      teste: false
     }
   },
   validations: {
@@ -139,9 +142,13 @@ export default {
     },
     password1: {
       required,
+      alphaNum,
+      minLength: minLength(6),
     },
     password2: {
       required,
+      alphaNum,
+      minLength: minLength(6),
       sameAs: sameAs('password1')
     },
   },
@@ -165,18 +172,22 @@ export default {
         email: this.email,
         password: this.password1
       }
+
       await this.hasEmailCadastrado(user.email)
       
-    
       if(!this.$v.$invalid && !this.hasEmail) {
-        addUser(user)
-      .then(this.returnLogin.bind(this))
+        addUser(user).then(
+          this.$toasted.show('Usuário cadastrado com Sucesso!',{
+            type: 'success',
+            duration : 2000,
+            onComplete: this.returnLogin,
+          })
+        )
       } 
     },
     returnLogin() {
-       window.setTimeout(this.$router.push('/') , 3000);
-        this.teste = true;
-    }
+      this.$router.push('/');
+    },
   }
 }
 </script>
@@ -198,10 +209,6 @@ export default {
 .login-color {
   background: rgb(21,72,84);
   background: linear-gradient(180deg, rgba(21,72,84,1) 0%, rgba(36,83,95,1) 23%, rgba(60,101,113,1) 47%, rgba(99,132,142,1) 71%, rgba(255,255,255,1) 100%);
-}
-
-.login-space {
-  margin-top: 10px;
 }
 
 .icon-space {
@@ -241,4 +248,9 @@ export default {
 .field {
   text-align: initial;
 }
+
+.toasted.toasted-primary{
+  font-size: 50px;
+}
+
 </style>
