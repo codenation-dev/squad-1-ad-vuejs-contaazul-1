@@ -10,14 +10,14 @@
                 <img src="../assets/login-logo.png" alt="logo" width="200" />
               </h1>
               <p class="control has-icons-left">
-                <input v-model="user.email" class="input" type="email" placeholder="Email" >
+                <input v-model="user.email" class="input" type="email" placeholder="Email" @keyup.enter="validaUser">
                   <span class="icon is-small is-left padding-icon">
                     <i class="fa fa-envelope"></i>
                   </span>
               </p>
               <br />
               <p class="control has-icons-left">
-                <input v-model="user.password" class="input" type="password" placeholder="Senha" />
+                <input v-model="user.password" class="input" type="password" placeholder="Senha" @keyup.enter="validaUser"/>
                   <span class="icon is-small is-left padding-icon">
                     <i class="fa fa-lock"></i>
                   </span>

@@ -12,7 +12,8 @@ const types = {
   ORDER: 'ORDER',
   ENVIROMENT: 'ENVIROMENT',
   SEARCH: 'SEARCH',
-  FILTERSEARCH: 'FILTERSEARCH'
+  FILTERSEARCH: 'FILTERSEARCH',
+  CLEAR: 'CLEAR',
 };
 
 const local = new Persistence({
@@ -49,6 +50,17 @@ export default new Vuex.Store({
 
     [types.FILTERSEARCH](state, filter){
       state.configs.filterBusca = filter;
+    },
+
+    [types.CLEAR](state){
+      state.configs = {
+        orderBy: "date",
+        order: "desc",
+        inputBusca: null,
+        filterBusca: null,
+      };
+      state.orderLevel = ["error", "warning", "debug"];
+      state.orderEnviroment = [];
     },
 
     [types.ORDER](state, order) {
@@ -92,6 +104,10 @@ export default new Vuex.Store({
     changeFilterSearch({commit}, filter) {
       return commit(types.FILTERSEARCH, filter)
     },
+
+    clearFilters({commit}) {
+      return commit(types.CLEAR)
+    }
 
   },
 

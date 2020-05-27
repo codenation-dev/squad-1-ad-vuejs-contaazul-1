@@ -11,21 +11,21 @@
                   <img src="../assets/login-logo.png" alt="logo" width="200" />
                 </h1>
                 <p class="control has-icons-left">
-                  <input class="input" v-model="name" type="nome" placeholder="Nome" />
+                  <input class="input" v-model="name" type="nome" placeholder="Nome" @keyup.enter="validaUser"/>
                     <span class="icon is-small is-left padding-icon">
                       <i class="fa fa-user"></i>
                     </span>
                 </p>
                 <br/>
                 <p class="control has-icons-left">
-                  <input class="input" v-model="email" type="email" placeholder="Email" />
+                  <input class="input" v-model="email" type="email" placeholder="Email" @keyup.enter="validaUser"/>
                     <span class="icon is-small is-left padding-icon">
                       <i class="fa fa-envelope"></i>
                     </span>
                 </p>
                 <br />
                 <p class="control has-icons-left">
-                  <input class="input" v-model="password1" type="password" placeholder="Senha" />
+                  <input class="input" v-model="password1" type="password" placeholder="Senha" @keyup.enter="validaUser"/>
                     <span class="icon is-small is-left padding-icon">
                       <i class="fa fa-lock"></i>
                     </span>

@@ -10,7 +10,7 @@
                   <img src="../assets/login-logo.png" alt="logo" width="200" />
                 </h1>
                 <p class="control has-icons-left">
-                  <input v-model="user.email" class="input" type="email" placeholder="Email" />
+                  <input v-model="user.email" class="input" type="email" placeholder="Email" @keyup.enter="validaUser"/>
                     <span class="icon is-small is-left padding-icon">
                       <i class="fa fa-envelope"></i>
                     </span>
@@ -22,6 +22,7 @@
                     class="input"
                     type="password"
                     placeholder="New Password"
+                    @keyup.enter="validaUser"
                   />
                   <span class="icon is-small is-left padding-icon">
                     <i class="fa fa-lock"></i>
@@ -34,6 +35,7 @@
                     class="input"
                     type="password"
                     placeholder="Confirm new password"
+                    @keyup.enter="validaUser"
                   />
                   <span class="icon is-small is-left padding-icon">
                     <i class="fa fa-lock"></i>
