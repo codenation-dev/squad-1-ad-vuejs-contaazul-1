@@ -22,9 +22,9 @@
                 <a class="navbar-item" @click="filterInputBusca = 'level'" :class="{'has-text-weight-bold': filterInputBusca == 'level'}">Level</a>
                 <a class="navbar-item" @click="filterInputBusca = 'description'" :class="{'has-text-weight-bold': filterInputBusca == 'description'}">Descrição</a>
                 <a class="navbar-item" @click="filterInputBusca = 'origin'" :class="{'has-text-weight-bold': filterInputBusca == 'origin'}">Origem</a>
-                <a class="navbar-item" @click="filterInputBusca = 'environment'" :class="{'has-text-weight-bold': filterInputBusca == 'environment'}">Produção</a>
+                <a class="navbar-item" @click="filterInputBusca = 'environment'" :class="{'has-text-weight-bold': filterInputBusca == 'environment'}">Ambiente</a>
                 <a class="navbar-item" @click="filterInputBusca = 'date'" :class="{'has-text-weight-bold': filterInputBusca == 'date'}">Data</a>
-                <a class="navbar-item" @click="filterInputBusca = 'events'" :class="{'has-text-weight-bold': filterInputBusca == 'events'}">Frequência</a>
+                <a class="navbar-item" @click="filterInputBusca = 'events'" :class="{'has-text-weight-bold': filterInputBusca == 'events'}">Eventos</a>
               </div>
             </div>
           </div>
@@ -63,8 +63,8 @@
               <div class="dropdown-item">
                 <p>
                   Inicialmente a entrada de busca é feita por Level,
-                  Descrição, Origem e Data. Caso deseje procurar por um tipo específico,
-                  indicar no campo "Buscar por"
+                  Descrição, Origem, Ambiente, Data e Eventos. Caso deseje procurar apenas por um destes tipos,
+                  indique no campo "Buscar por"
                 </p>
               </div>
             </div>
@@ -94,25 +94,25 @@ export default {
    },
   methods: {
     ...mapActions(['orderBy', 'orderByEnviroment', 'search', 'changeFilterSearch', 'clearFilters']),
-     orderByFrequence() {
-      this.orderBy('events');
-    },
-    orderByLevel() {
-      this.orderBy('level');
-    },
-    orderByData() {
-      this.orderBy('date');
-    },
+    //  orderByFrequence() {
+    //   this.orderBy('events');
+    // },
+    // orderByLevel() {
+    //   this.orderBy('level');
+    // },
+    // orderByData() {
+    //   this.orderBy('date');
+    // },
 
-    hmlEnviroment() {
-      this.orderByEnviroment(["Homologação", "Desenvolvimento", "Produção"])
-    },
-    devEnviroment() {
-      this.orderByEnviroment(["Desenvolvimento", "Homologação", "Produção"])
-    },
-    prodEnviroment() {
-      this.orderByEnviroment(["Produção", "Homologação", "Desenvolvimento"])
-    },
+    // hmlEnviroment() {
+    //   this.orderByEnviroment(["Homologação", "Desenvolvimento", "Produção"])
+    // },
+    // devEnviroment() {
+    //   this.orderByEnviroment(["Desenvolvimento", "Homologação", "Produção"])
+    // },
+    // prodEnviroment() {
+    //   this.orderByEnviroment(["Produção", "Homologação", "Desenvolvimento"])
+    // },
     onSearch() {
       this.search(this.inputBusca);
     },

@@ -30,31 +30,52 @@
     </div>
     <div class="container is-fluid">
       <div class="section section-padding">
-        <toolbar class="toolbar-margin"></toolbar> 
+        <toolbar class="toolbar-margin"></toolbar>
         <div class="panel-position">
           <p class="container is-fluid panel-tabs panel-margin">
-          <a class="panel-item" v-on:click="isActive = 'logs'" v-bind:class="{ 'activate': isActive == 'logs' }">
-            <span class="icon is-small icon-align"><i class="fas fa-list" aria-hidden="true"></i></span>
-            Logs
+            <a
+              class="panel-item"
+              v-on:click="isActive = 'logs'"
+              @click="changeTabs('Coletado')"
+              v-bind:class="{ 'activate': isActive == 'logs' }"
+            >
+              <span class="icon is-small icon-align">
+                <i class="fas fa-list" aria-hidden="true"></i>
+              </span>
+              Coletados
+            </a>
+            <a
+              class="panel-item"
+              v-on:click="isActive = 'arquivados'"
+              @click="changeTabs('Arquivado')"
+              v-bind:class="{ 'activate': isActive == 'arquivados' }"
+            >
+              <span class="icon is-small icon-align">
+                <i class="fas fa-folder-open" aria-hidden="true"></i>
+              </span>
+              Arquivados
+            </a>
+            <a
+              class="panel-item"
+              v-on:click="isActive = 'apagados'"
+              @click="changeTabs('Apagado')"
+              v-bind:class="{ 'activate': isActive == 'apagados' }"
+            >
+              <span class="icon is-small icon-align">
+                <i class="fas fa-trash" aria-hidden="true"></i>
+              </span>
+              Apagados
+            </a>
+          </p>
+          <a v-if="isActive == 'logs'" class="content">
+            <logs></logs>
           </a>
-          <a class="panel-item" v-on:click="isActive = 'arquivados'" v-bind:class="{ 'activate': isActive == 'arquivados' }">
-            <span class="icon is-small icon-align"><i class="fas fa-folder-open" aria-hidden="true"></i></span>
-            Arquivados
+          <a v-if="isActive == 'arquivados'" class="content">
+            <logs></logs>
           </a>
-          <a class="panel-item" v-on:click="isActive = 'apagados'" v-bind:class="{ 'activate': isActive == 'apagados' }">
-            <span class="icon is-small icon-align"><i class="fas fa-trash" aria-hidden="true"></i></span>
-            Apagados
+          <a v-if="isActive == 'apagados'" class="content">
+            <logs></logs>
           </a>
-        </p>
-        <a v-if="isActive == 'logs'" class="content">
-          <logs></logs>    
-        </a>
-        <a v-if="isActive == 'arquivados'" class="content">
-          Arquivados
-        </a>
-        <a v-if="isActive == 'apagados'" class="content">
-          Apagado
-        </a>
         </div>
       </div>
     </div>
@@ -62,20 +83,27 @@
 </template>
 
 <script>
-import Toolbar from './Toolbar';
-import Logs from './Logs';
+import { mapActions } from "vuex";
+import Toolbar from "./Toolbar";
+import Logs from "./Logs";
 
 export default {
-  name: 'Index',
+  name: "Index",
   components: {
     Toolbar,
-    Logs,
+    Logs
   },
-   data() {
+  data() {
     return {
-    isActive: 'logs'
-    }
+      isActive: "logs"
+    };
   },
+  methods: {
+    ...mapActions(["changeTab"]),
+    changeTabs(tab) {
+      this.changeTab(tab);
+    }
+  }
 };
 </script>
 
@@ -148,7 +176,7 @@ export default {
 }
 
 .panel-position {
-  padding-top: 0px
+  padding-top: 0px;
 }
 
 .panel-margin {
@@ -164,5 +192,4 @@ export default {
 .icon-align {
   margin-bottom: 5px;
 }
-
 </style>

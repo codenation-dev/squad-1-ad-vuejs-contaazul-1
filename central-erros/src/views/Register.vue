@@ -31,18 +31,6 @@
                 <div class="field">
                 <p class="control has-icons-left">
                   <input 
-                      class="input"
-                      v-model="name"
-                      type="nome"
-                      placeholder="Nome"
-                    <span class="icon is-small is-left padding-icon">
-                      <i class="fa fa-user"></i>
-                    </span>
-                </p>
-                <br/>
-                <p class="control has-icons-left">
-                  <input class="input" v-model="email" type="email" placeholder="Email" @keyup.enter="validaUser"/>
-                  <input 
                       class="input" 
                       v-model="email" 
                       type="email" 
@@ -126,12 +114,8 @@
   </body>
 </template>
 <script>
-
-
 import {  addUser, getUsers } from '@/services/login';
 import { required, email, sameAs, alphaNum, minLength } from 'vuelidate/lib/validators';
-
-
 export default {
   name: "Register",
   data() {
@@ -184,7 +168,6 @@ export default {
         email: this.email,
         password: this.password1
       }
-
       await this.hasEmailCadastrado(user.email)
       
       if(!this.$v.$invalid && !this.hasEmail) {
@@ -205,64 +188,49 @@ export default {
 </script>
 
 <style scoped>
-
 .card-login {
   width: 50%;
 }
-
 @media screen and (max-width: 768px) {
   .card-login {
     width: 100%;
   }
 }
-
-
-
 .login-color {
   background: rgb(21,72,84);
   background: linear-gradient(180deg, rgba(21,72,84,1) 0%, rgba(36,83,95,1) 23%, rgba(60,101,113,1) 47%, rgba(99,132,142,1) 71%, rgba(255,255,255,1) 100%);
 }
-
 .icon-space {
   margin-right: 5px;
 }
-
 .button-register {
   background-color: #154854;
   color: #ffffff;
 }
-
 .button-register:hover {
   background-color: rgba(60,101,113,1);
 }
-
 .button-margin {
   margin-right: 10px;
 }
-
 .button {
   padding-top: 6px;
 }
-
 .button-back {
   padding-left: 3px;
   background-color: #ff7272;
   color: #ffffff;
 }
-
 .button-back:hover {
   background-color: #fc9191;
 }
-
 .invalid {
   border-color: red;
 }
 .field {
   text-align: initial;
 }
-
 .toasted.toasted-primary{
   font-size: 50px;
 }
-
 </style>

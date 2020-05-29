@@ -6,3 +6,7 @@ export const getLogs = () => {
     return axios.get(url);
 };
 
+export const patchLogs = log => {
+    console.log("chegou aq")
+    return axios.put(`${api}/logs/${log.id}`, log)
+}
