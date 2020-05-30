@@ -62,9 +62,7 @@ export default new Vuex.Store({
     },
 
     [types.ARCHIVE](state, log) {
-      console.log(log)
       log.status = "Arquivado"
-      console.log(log)
       putLogs(log)
     },
 
