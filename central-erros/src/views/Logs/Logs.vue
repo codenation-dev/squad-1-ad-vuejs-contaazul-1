@@ -52,23 +52,22 @@
               <td v-if="getTab == 'Coletado'">
                 <span
                   class="icon icon-padding is-small"
-                  @click="archiveLogs(log)"
+                  @click="openModalConfirmacao('archive', log)"
                   v-tooltip="{ content: 'Arquivar' }"
                 >
                   <i class="fas fa-archive"></i>
                 </span>
-
-                <span class="icon icon-padding is-small" @click="deleteLogs(log)" v-tooltip="{ content: 'Apagar' }">
+                <span class="icon icon-padding is-small" @click="openModalConfirmacao('delete', log)" v-tooltip="{ content: 'Apagar' }">
                   <i class="fas fa-trash-alt"></i>
                 </span>
               </td>
               <td v-else-if="getTab == 'Arquivado'">
-                <span class="icon icon-padding is-small" @click="deleteLogs(log)" v-tooltip="{ content: 'Apagar' }">
+                <span class="icon icon-padding is-small" @click="openModalConfirmacao('delete', log)" v-tooltip="{ content: 'Apagar' }">
                   <i class="fas fa-trash-alt"></i>
                 </span>
               </td>
               <td v-else>
-                <span class="icon icon-padding is-small" @click="unarchiveLogs(log)" v-tooltip="{ content: 'Restaurar' }">
+                <span class="icon icon-padding is-small" @click="openModalConfirmacao('unarchive', log)" v-tooltip="{ content: 'Restaurar' }">
                   <i class="fas fa-undo-alt"></i>
                 </span>
               </td>
@@ -82,17 +81,31 @@
         </button>
       </back-to-top>
     </div>
+    <modal-confirmacao 
+      v-if="isModalActive" 
+      @close="isModalActive = false" 
+      @confirm="confirmAction"
+      :type="typeModal"
+      :log="logToAction"
+      ></modal-confirmacao>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
 import BackToTop from "vue-backtotop";
+import ModalConfirmacao from './ModalCofirmacao';
 
 export default {
   name: "Logs",
-  components: { BackToTop },
-
+  components: { BackToTop, ModalConfirmacao },
+  data() {
+    return {
+      typeModal: null,
+      isModalActive: false,
+      logToAction: null,
+    }
+  },
   created() {
     this.loadingLogs();
   },
@@ -126,7 +139,26 @@ export default {
     orderEnviroment() {
       this.orderByEnviroment("environment");
     },
+    openModalConfirmacao(type, log){
+      this.typeModal = type;
+      this.logToAction = log
+      this.isModalActive = true;
+    },
+    confirmAction(type, log){
+      if(type == 'delete') {
+        this.deleteLogs(log)
+      }
 
+      if(type == 'archive') {
+        this.archiveLogs(log)
+      }
+
+      if(type == 'unarchive') {
+        this.unarchiveLog(log)
+      }
+
+      this.isModalActive = false;
+    },
     deleteLogs(log) {
       this.deleteLog(log);
     },
