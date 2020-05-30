@@ -9,40 +9,72 @@
                 <h1 class="title">
                   <img src="../assets/login-logo.png" alt="logo" width="200" />
                 </h1>
-                <p class="control has-icons-left">
-                  <input v-model="user.email" class="input" type="email" placeholder="Email" />
-                    <span class="icon is-small is-left padding-icon">
-                      <i class="fa fa-envelope"></i>
-                    </span>
-                </p>
-                <br />
+                <div class="field">
+                    <p class="control has-icons-left">
+                      <input 
+                      v-model="email" 
+                      @blur="$v.email.$touch()"
+                      class="input" 
+                      :class="{invalid: $v.email.$invalid && $v.email.$dirty}"
+                      type="email" 
+                      placeholder="Email" 
+                      />
+                      <span class="icon is-small is-left padding-icon">
+                        <i class="fa fa-envelope"></i>
+                      </span>
+                    </p>
+                    <p class="help is-danger" v-if="$v.email.$invalid && $v.email.$dirty">
+                          * É necessário um e-mail válido.
+                    </p>
+                </div>
+                <div class="field">
                 <p class="control has-icons-left">
                   <input
-                    v-model="user.newPassword"
+                    @blur="$v.newPassword.$touch()"
+                    v-model="newPassword"
                     class="input"
+                    :class="{invalid: $v.newPassword.$invalid && $v.newPassword.$dirty}"
                     type="password"
-                    placeholder="New Password"
+                    placeholder="Nova senha"
                   />
                   <span class="icon is-small is-left padding-icon">
                     <i class="fa fa-lock"></i>
                   </span>
                 </p>
-                <br />
+                <p class="help is-danger" v-if="!$v.newPassword.required && $v.newPassword.$dirty">
+                    * É necessário inserir uma senha.
+                </p>
+                <p class="help is-danger" v-if="!$v.newPassword.alphaNum && $v.newPassword.$dirty">
+                    * A senha deve conter apenas letras e números.
+                </p>
+                <p class="help is-danger" v-if="!$v.newPassword.minLength && $v.newPassword.$dirty">
+                    * A senha deve conter no mínimo 6 caracteres.
+                </p>  
+                </div>
+                <div class="field">
                 <p class="control has-icons-left">
                   <input
-                    v-model="user.confirmNewPassword"
+                    @blur="$v.confirmNewPassword.$touch()"
+                    v-model="confirmNewPassword"
                     class="input"
+                    :class="{invalid: $v.confirmNewPassword.$invalid && $v.confirmNewPassword.$dirty}"
                     type="password"
-                    placeholder="Confirm new password"
+                    placeholder="Confirme nova senha"
                   />
                   <span class="icon is-small is-left padding-icon">
                     <i class="fa fa-lock"></i>
                   </span>
-                </p>
-                <h6 v-for="error in errors" :key="error"> {{ error }}</h6>
-                <br />
-                <br />
-                <p class="columns control is-multiline">
+                  </p>
+                  <p class="help is-danger" v-if="$v.confirmNewPassword.$invalid && $v.confirmNewPassword.$dirty">
+                    * As senhas não conferem.
+                  </p>
+                </div>
+                <div class="field">
+                   <p class="help is-danger" v-if="hasEmptyField">{{ hasEmptyField }}</p>
+                  <p class="help is-danger" v-if="hasValidEmail">{{ hasValidEmail }}</p>
+                </div>
+                  <br/>
+                <p class="columns control">
                   <button
                     @click="validaUser"
                     class="column is-12-mobile button button-margin button-padding password-change is-medium"
@@ -69,15 +101,38 @@
 
 <script>
 import { getUsers, patchUser } from '@/services/login';
+import { required, email, sameAs, alphaNum, minLength } from 'vuelidate/lib/validators';
 
 export default {
   name: "ChangePassword",
   data() {
     return {
       user: {},
+      email:null,
+      newPassword:null,
+      confirmNewPassword:null,
       errors: [],
       hasEmail: '',
+      hasEmptyField: '',
+      hasValidEmail: ''
     }
+  },
+  validations: {
+    email: {
+      required,
+      email,
+    },
+    newPassword: {
+      required,
+      alphaNum,
+      minLength: minLength(6),
+    },
+    confirmNewPassword: {
+      required,
+      alphaNum,
+      minLength: minLength(6),
+      sameAs: sameAs('newPassword')
+    },
   },
   methods: {
     redirect(rota) {
@@ -92,36 +147,36 @@ export default {
         this.hasEmail = users.data.find(user => user.email === email);
       },
     async changePassword() {
-      this.errors = [];
-      await this.hasEmailCadastrado(this.user.email);
+      await this.hasEmailCadastrado(this.email);
 
       if (this.hasEmail) {
         const newUser = {
           ...this.hasEmail,
-          password: this.user.newPassword,
+          password: this.newPassword,
         };
           patchUser(newUser)
-          .then(this.redirect('login'))
+          .then(this.$toasted.show('Senha alterada com sucesso!',{
+            type: 'success',
+            duration : 2000,
+            onComplete: this.redirect('login'),
+          }))
       } else {
-        this.errors.push("* E-mail não cadastrado..");
+        this.hasValidEmail = "* E-mail não cadastrado.";
       }
     },
     validaUser(){
-      this.errors = [];
-      if (!this.user.email) {
-        this.errors.push("* Você precisa preencher o e-mail.");
-      }
-      if (!this.user.newPassword || !this.user.confirmNewPassword) {
-        this.errors.push("* Você precisa preencher a senha.");
-      }
-
-      if (this.user.newPassword != this.user.confirmNewPassword) {
-        this.errors.push("* Senhas não conferem");
-      }
-      if (this.errors.length == 0){
-        this.changePassword();
-      }
+      this.validaCamposVazios()
+        if(!this.$v.$invalid) {
+          this.changePassword();
+        } 
     },
+    validaCamposVazios() {
+      if(!this.email || !this.newPassword || !this.confirmNewPassword) {
+          this.hasEmptyField = " *Você precisa preencher todos os campos.";
+      } else {
+         this.hasEmptyField = null;
+      }
+    }
   },
 };
 </script>
@@ -180,5 +235,12 @@ export default {
 
 .padding-icon {
   padding-top: 2px;
+}
+
+.invalid {
+  border-color: red;
+}
+.field {
+  text-align: initial;
 }
 </style>

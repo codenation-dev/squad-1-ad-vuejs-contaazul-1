@@ -35,10 +35,15 @@ const routes = [
   },
 
   {
-    name: "erro",
-    path: "/erro",
+    name: "error",
+    path: "/error",
     component: Erro,
   },
+  {
+    path: "*",
+    component: Erro,
+  },
+
 ];
 
 const router = new Router({ routes });
