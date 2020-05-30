@@ -15,6 +15,7 @@
     "bulma-tooltip": "^3.0.2",
     "core-js": "^3.6.4",
     "lodash": "^4.17.15",
+    "v-tooltip": "^2.0.3",
     "vue": "^2.6.11",
     "vue-backtotop": "^1.6.1",
     "vue-router": "^2.7.0",
@@ -31,6 +32,8 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {

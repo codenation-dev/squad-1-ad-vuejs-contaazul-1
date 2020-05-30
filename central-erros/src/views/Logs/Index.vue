@@ -19,8 +19,8 @@
             </a>
             <div class="navbar-dropdown">
               <div class="dropdown-item">
-                <strong>Token:</strong>
-                4274836246
+                <strong>Usuário:</strong>
+                {{ getUser.name }}
               </div>
               <a class="navbar-item button-color" @click="redirect('login')">Sair</a>
             </div>
@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import Toolbar from "./Toolbar";
 import Logs from "./Logs";
 
@@ -102,7 +102,21 @@ export default {
     ...mapActions(["changeTab"]),
     changeTabs(tab) {
       this.changeTab(tab);
+    },
+    redirect(rota) {
+      if (rota === "logs") {
+        this.$router.push({
+          name: "logs"
+        });
+      } else if (rota === "login") {
+        this.$router.push({
+          name: "login"
+        });
+      }
     }
+  },
+  computed: {
+    ...mapGetters(["getUser"])
   }
 };
 </script>

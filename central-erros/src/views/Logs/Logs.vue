@@ -24,7 +24,7 @@
                 <i class="fas fa-sort"></i>
               </th>
               <th v-if="getTab == 'Coletado'">Ações</th>
-              <th v-else-if="getTab == 'Arquivado'">Ação</th>
+              <th v-else>Ação</th>
             </tr>
           </thead>
           <tbody>
@@ -50,15 +50,25 @@
               <td>{{ log.date }}</td>
               <td>{{ log.events }}</td>
               <td v-if="getTab == 'Coletado'">
-                <span class="icon icon-padding is-small" @click="deleteLogs(log)">
-                  <i class="fas fa-trash-alt"></i>
-                </span>
-                <span class="icon icon-padding is-small" @click="archiveLogs(log)">
+                <span
+                  class="icon icon-padding is-small"
+                  @click="archiveLogs(log)"
+                  v-tooltip="{ content: 'Arquivar' }"
+                >
                   <i class="fas fa-archive"></i>
+                </span>
+
+                <span class="icon icon-padding is-small" @click="deleteLogs(log)" v-tooltip="{ content: 'Apagar' }">
+                  <i class="fas fa-trash-alt"></i>
                 </span>
               </td>
               <td v-else-if="getTab == 'Arquivado'">
-                <span class="icon icon-padding is-small" @click="unarchiveLogs(log)">
+                <span class="icon icon-padding is-small" @click="deleteLogs(log)" v-tooltip="{ content: 'Apagar' }">
+                  <i class="fas fa-trash-alt"></i>
+                </span>
+              </td>
+              <td v-else>
+                <span class="icon icon-padding is-small" @click="unarchiveLogs(log)" v-tooltip="{ content: 'Restaurar' }">
                   <i class="fas fa-undo-alt"></i>
                 </span>
               </td>
@@ -100,17 +110,6 @@ export default {
       "deleteLog",
       "unarchiveLog"
     ]),
-    redirect(rota) {
-      if (rota === "logs") {
-        this.$router.push({
-          name: "logs"
-        });
-      } else if (rota === "login") {
-        this.$router.push({
-          name: "login"
-        });
-      }
-    },
     async loadingLogs() {
       await this.loadLogs();
     },
@@ -128,16 +127,6 @@ export default {
       this.orderByEnviroment("environment");
     },
 
-    // hmlEnviroment() {
-    //   this.orderByEnviroment(["Homologação", "Desenvolvimento", "Produção"]);
-    // },
-    // devEnviroment() {
-    //   this.orderByEnviroment(["Desenvolvimento", "Homologação", "Produção"]);
-    // },
-    // prodEnviroment() {
-    //   this.orderByEnviroment(["Produção", "Homologação", "Desenvolvimento"]);
-    // }
-
     deleteLogs(log) {
       this.deleteLog(log);
     },
@@ -145,7 +134,7 @@ export default {
       this.archiveLog(log);
     },
     unarchiveLogs(log) {
-      this.unarchiveLog(log)
+      this.unarchiveLog(log);
     }
   }
 };

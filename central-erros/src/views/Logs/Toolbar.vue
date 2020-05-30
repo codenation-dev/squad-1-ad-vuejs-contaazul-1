@@ -94,25 +94,6 @@ export default {
    },
   methods: {
     ...mapActions(['orderBy', 'orderByEnviroment', 'search', 'changeFilterSearch', 'clearFilters']),
-    //  orderByFrequence() {
-    //   this.orderBy('events');
-    // },
-    // orderByLevel() {
-    //   this.orderBy('level');
-    // },
-    // orderByData() {
-    //   this.orderBy('date');
-    // },
-
-    // hmlEnviroment() {
-    //   this.orderByEnviroment(["Homologação", "Desenvolvimento", "Produção"])
-    // },
-    // devEnviroment() {
-    //   this.orderByEnviroment(["Desenvolvimento", "Homologação", "Produção"])
-    // },
-    // prodEnviroment() {
-    //   this.orderByEnviroment(["Produção", "Homologação", "Desenvolvimento"])
-    // },
     onSearch() {
       this.search(this.inputBusca);
     },

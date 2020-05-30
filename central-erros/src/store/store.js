@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import Persistence from 'vuex-persist';
-import { patchLogs, getLogs } from '@/services/logs';
+import { putLogs, getLogs } from '@/services/logs';
 import _ from "lodash";
 
 Vue.use(Vuex);
@@ -62,18 +62,20 @@ export default new Vuex.Store({
     },
 
     [types.ARCHIVE](state, log) {
+      console.log(log)
       log.status = "Arquivado"
-      patchLogs(log)
+      console.log(log)
+      putLogs(log)
     },
 
     [types.UNARCHIVE](state, log){
       log.status = "Coletado"
-      patchLogs(log)
+      putLogs(log)
     },
 
     [types.DELETE](state, log) {
       log.status = "Apagado"
-      patchLogs(log)
+      putLogs(log)
     },
 
     [types.CLEAR](state) {
