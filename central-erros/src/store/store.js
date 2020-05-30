@@ -167,11 +167,9 @@ export default new Vuex.Store({
     getUser(state) {
       return state.user;
     },
-
     getTab(state){
       return state.tab
     },
-
     getComputedLogs(state) {
       if (state.configs.orderBy == "level") {
         if (state.configs.order == "desc") {
@@ -195,8 +193,6 @@ export default new Vuex.Store({
           state.configs.order
         );
       }
-
-      //VER SE TEM COMO MELHORAR ISTO
       const filterComputedLogsByTabs = []
       state.computedLogs.forEach(function(log) {
         if (log.status == state.tab){
