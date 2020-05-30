@@ -99,7 +99,7 @@ export default new Vuex.Store({
     getUser(state) {
       return state.user;
     },
-
+    
     getComputedLogs(state) {
       if (state.configs.orderBy == "level") {
         if (state.configs.order == "desc") {

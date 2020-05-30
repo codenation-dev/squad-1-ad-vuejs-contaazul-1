@@ -86,6 +86,9 @@
                 <p class="help is-danger" v-if="$v.password2.$invalid && $v.password2.$dirty">
                     * As senhas não conferem.
                   </p>
+                   <p class="help is-danger" v-if="hasEmptyField">
+                    {{hasEmptyField}}
+                  </p>
                 </div>
                 <p class="help is-danger" v-if="hasEmail">* E-mail já cadastrado.</p>
                 <br />
@@ -119,7 +122,6 @@
 import {  addUser, getUsers } from '@/services/login';
 import { required, email, sameAs, alphaNum, minLength } from 'vuelidate/lib/validators';
 
-
 export default {
   name: "Register",
   data() {
@@ -128,8 +130,8 @@ export default {
       email:null,
       password1:null,
       password2:null,
-      errors: [],
       hasEmail: '',
+      hasEmptyField: ''
     }
   },
   validations: {
@@ -165,6 +167,7 @@ export default {
         this.hasEmail = users.data.some(user => user.email === email);
     },
     async addUser() {
+      this.validaCamposVazios();
       let date = new Date ();
       const user = {
         name: this.name,
@@ -188,6 +191,13 @@ export default {
     returnLogin() {
       this.$router.push('/');
     },
+    validaCamposVazios() {
+      if(!this.name || !this.email || !this.password1 || !this.password2) {
+          this.hasEmptyField = " *Você precisa preencher todos os campos.";
+      } else {
+         this.hasEmptyField = null;
+      }
+    }
   }
 }
 </script>
