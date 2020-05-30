@@ -4,10 +4,12 @@ import router from "@/router/routes";
 import store from "@/store/store";
 import Vuelidate from 'vuelidate';
 import Toasted from 'vue-toasted';
+import VTooltip from 'v-tooltip';
 
+Vue.use(VTooltip)
 Vue.use(Toasted)
-
 Vue.use(Vuelidate)
+
 Vue.config.productionTip = false;
 
 new Vue({

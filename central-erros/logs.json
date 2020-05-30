@@ -6,7 +6,8 @@
     "origin": "database",
     "date": "2020-05-04 08:07:45",
     "environment": "Homologação",
-    "events": 245
+    "events": 245,
+    "status": "Coletado"
   },
   {
     "id": 2,
@@ -15,7 +16,8 @@
     "origin": "database",
     "date": "2020-01-30 10:20:30",
     "environment": "Produção",
-    "events": 300
+    "events": 300,
+    "status": "Coletado"
   },
   {
     "id": 3,
@@ -24,7 +26,8 @@
     "origin": "database",
     "date": "2020-04-12 21:07:30",
     "environment": "Produção",
-    "events": 198
+    "events": 198,
+    "status": "Coletado"
   },
   {
     "id": 4,
@@ -33,7 +36,8 @@
     "origin": "database",
     "date": "2020-03-20 00:50:20",
     "environment": "Produção",
-    "events": 76
+    "events": 76,
+    "status": "Arquivado"
   },
   {
     "id": 5,
@@ -42,7 +46,8 @@
     "origin": "database",
     "date": "2020-02-26 16:48:59",
     "environment": "Produção",
-    "events": 151
+    "events": 151,
+    "status": "Coletado"
   },
   {
     "id": 6,
@@ -51,7 +56,8 @@
     "origin": "database",
     "date": "2019-12-11 20:30:28",
     "environment": "Produção",
-    "events": 346
+    "events": 346,
+    "status": "Coletado"
   },
   {
     "id": 7,
@@ -60,7 +66,8 @@
     "origin": "database",
     "date": "2020-03-15 17:17:37",
     "environment": "Produção",
-    "events": 234
+    "events": 234,
+    "status": "Apagado"
   },
   {
     "id": 8,
@@ -69,7 +76,8 @@
     "origin": "database",
     "date": "2020-05-09 18:32:19",
     "environment": "Desenvolvimento",
-    "events": 78
+    "events": 78,
+    "status": "Arquivado"
   },
   {
     "id": 9,
@@ -78,7 +86,8 @@
     "origin": "database",
     "date": "2020-04-27 13:56:26",
     "environment": "Desenvolvimento",
-    "events": 399
+    "events": 399,
+    "status": "Arquivado"
   },
   {
     "id": 10,
@@ -87,7 +96,8 @@
     "origin": "database",
     "date": "2020-05-20 23:13:15",
     "environment": "Produção",
-    "events": 273
+    "events": 273,
+    "status": "Arquivado"
   },
   {
     "id": 11,
@@ -96,7 +106,8 @@
     "origin": "database",
     "date": "2020-02-16 19:27:40",
     "environment": "Desenvolvimento",
-    "events": 124
+    "events": 124,
+    "status": "Coletado"
   },
   {
     "id": 12,
@@ -105,7 +116,8 @@
     "origin": "database",
     "date": "2020-05-20 02:23:19",
     "environment": "Desenvolvimento",
-    "events": 259
+    "events": 259,
+    "status": "Coletado"
   },
   {
     "id": 13,
@@ -114,7 +126,8 @@
     "origin": "database",
     "date": "2020-04-19 14:24:14",
     "environment": "Homologação",
-    "events": 303
+    "events": 303,
+    "status": "Coletado"
   },
   {
     "id": 14,
@@ -123,7 +136,8 @@
     "origin": "database",
     "date": "2020-03-29 12:15:24",
     "environment": "Desenvolvimento",
-    "events": 346
+    "events": 346,
+    "status": "Coletado"
   },
   {
     "id": 15,
@@ -132,7 +146,8 @@
     "origin": "database",
     "date": "2020-05-23 01:07:30",
     "environment": "Homologação",
-    "events": 212
+    "events": 212,
+    "status": "Coletado"
   },
   {
     "id": 16,
@@ -141,7 +156,8 @@
     "origin": "database",
     "date": "2020-02-18 21:33:44",
     "environment": "Desenvolvimento",
-    "events": 365
+    "events": 365,
+    "status": "Arquivado"
   },
   {
     "id": 17,
@@ -150,7 +166,8 @@
     "origin": "database",
     "date": "2020-05-17 06:44:59",
     "environment": "Homologação",
-    "events": 319
+    "events": 319,
+    "status": "Arquivado"
   },
   {
     "id": 18,
@@ -159,7 +176,8 @@
     "origin": "database",
     "date": "2020-03-13 23:07:25",
     "environment": "Desenvolvimento",
-    "events": 145
+    "events": 145,
+    "status": "Arquivado"
   },
   {
     "id": 19,
@@ -168,7 +186,8 @@
     "origin": "database",
     "date": "2020-02-09 15:09:24",
     "environment": "Homologação",
-    "events": 267
+    "events": 267,
+    "status": "Apagado"
   },
   {
     "id": 20,
@@ -177,7 +196,8 @@
     "origin": "database",
     "date": "2020-04-05 13:37:30",
     "environment": "Homologação",
-    "events": 401
+    "events": 401,
+    "status": "Apagado"
   },
   {
     "id": 21,
@@ -186,6 +206,7 @@
     "origin": "database",
     "date": "1019-04-05 13:37:30",
     "environment": "Homologação",
-    "events": 20
+    "events": 20,
+    "status": "Apagado"
   }
 ]

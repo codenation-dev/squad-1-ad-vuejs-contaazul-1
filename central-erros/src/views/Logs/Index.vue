@@ -19,8 +19,8 @@
             </a>
             <div class="navbar-dropdown">
               <div class="dropdown-item">
-                <strong>Token:</strong>
-                4274836246
+                <strong>Usuário:</strong>
+                {{ getUser.name }}
               </div>
               <a class="navbar-item button-color" @click="redirect('login')">Sair</a>
             </div>
@@ -28,175 +28,81 @@
         </div>
       </nav>
     </div>
-
-    <div class="is-fluid padding-filters">
-      <h5 class="title is-5 is-flex configure-title-filtro-busca">Filtros de Busca</h5>
-      <div class="is-flex">
-        <div class="dropdown is-hoverable">
-          <div class="dropdown-trigger">
-            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu1">
-              <span>Ambiente</span>
-              <span class="icon is-small">
-                <i class="fas fa-sort"></i>
+    <div class="container is-fluid">
+      <div class="section section-padding">
+        <toolbar class="toolbar-margin"></toolbar>
+        <div class="panel-position">
+          <p class="container is-fluid panel-tabs panel-margin">
+            <a
+              class="panel-item"
+              v-on:click="isActive = 'logs'"
+              @click="changeTabs('Coletado')"
+              v-bind:class="{ 'activate': isActive == 'logs' }"
+            >
+              <span class="icon is-small icon-align">
+                <i class="fas fa-list" aria-hidden="true"></i>
               </span>
-            </button>
-          </div>
-          <div class="dropdown-menu" id="dropdown-menu1" role="menu">
-            <div class="dropdown-content">
-              <div class="dropdown-item">
-                <a class="navbar-item" @click="hmlEnviroment">Homologação</a>
-                <a class="navbar-item" @click="devEnviroment">Desenvolvimento</a>
-                <a class="navbar-item" @click="prodEnviroment">Produção</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="dropdown is-hoverable margin-left-dropdown">
-          <div class="dropdown-trigger">
-            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu2">
-              <span>Ordenar por</span>
-              <span class="icon is-small">
-                <i class="fas fa-sort"></i>
+              Coletados
+            </a>
+            <a
+              class="panel-item"
+              v-on:click="isActive = 'arquivados'"
+              @click="changeTabs('Arquivado')"
+              v-bind:class="{ 'activate': isActive == 'arquivados' }"
+            >
+              <span class="icon is-small icon-align">
+                <i class="fas fa-folder-open" aria-hidden="true"></i>
               </span>
-            </button>
-          </div>
-          <div class="dropdown-menu" id="dropdown-menu2" role="menu">
-            <div class="dropdown-content">
-              <div class="dropdown-item">
-                <a class="navbar-item" @click="orderByLevel">Level</a>
-                <a class="navbar-item" @click="orderByFrequence">Frequência</a>
-                <a class="navbar-item" @click="orderByData">Data</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="dropdown is-hoverable margin-left-dropdown-busca">
-          <div class="dropdown is-hoverable is-pulled-left">
-            <div class="dropdown-trigger">
-              <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
-                <span>Buscar por</span>
-                <span class="icon is-small">
-                  <i class="fas fa-sort"></i>
-                </span>
-              </button>
-            </div>
-          </div>
-          <div class="dropdown-menu" id="dropdown-menu3" role="menu">
-            <div class="dropdown-content">
-              <div class="dropdown-item">
-                <a class="navbar-item" @click="filterInputBusca = null" :class="{'has-text-weight-bold': filterInputBusca == null}">Todos</a>
-                <a class="navbar-item" @click="filterInputBusca = 'level'" :class="{'has-text-weight-bold': filterInputBusca == 'level'}">Level</a>
-                <a class="navbar-item" @click="filterInputBusca = 'description'" :class="{'has-text-weight-bold': filterInputBusca == 'description'}">Descrição</a>
-                <a class="navbar-item" @click="filterInputBusca = 'origin'" :class="{'has-text-weight-bold': filterInputBusca == 'origin'}">Origem</a>
-                <a class="navbar-item" @click="filterInputBusca = 'environment'" :class="{'has-text-weight-bold': filterInputBusca == 'environment'}">Produção</a>
-                <a class="navbar-item" @click="filterInputBusca = 'date'" :class="{'has-text-weight-bold': filterInputBusca == 'date'}">Data</a>
-                <a class="navbar-item" @click="filterInputBusca = 'events'" :class="{'has-text-weight-bold': filterInputBusca == 'events'}">Frequência</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <p class="control has-icons-right width-control-input-busca">
-          <input
-            class="input margin-left-dropdown"
-            placeholder="Digite sua busca"
-            v-model="inputBusca"
-            @keyup="onSearch"
-          />
-          <span class="icon is-small is-right">
-            <i class="fas fa-search"></i>
-          </span>
-        </p>
-        <div class="dropdown is-hoverable configure-question is-right">
-          <div class="dropdown-trigger">
-            <div class="icon">
-              <i class="fas fa-question-circle"></i>
-            </div>
-          </div>
-          <div class="dropdown-menu">
-            <div class="dropdown-content">
-              <div class="dropdown-item">
-                <p>
-                  Inicialmente a entrada de busca é feita por Level,
-                  Descrição, Origem e Data. Caso deseje procurar por um tipo específico,
-                  indicar no campo "Buscar por"
-                </p>
-              </div>
-            </div>
-          </div>
+              Arquivados
+            </a>
+            <a
+              class="panel-item"
+              v-on:click="isActive = 'apagados'"
+              @click="changeTabs('Apagado')"
+              v-bind:class="{ 'activate': isActive == 'apagados' }"
+            >
+              <span class="icon is-small icon-align">
+                <i class="fas fa-trash" aria-hidden="true"></i>
+              </span>
+              Apagados
+            </a>
+          </p>
+          <a v-if="isActive == 'logs'" class="content">
+            <logs></logs>
+          </a>
+          <a v-if="isActive == 'arquivados'" class="content">
+            <logs></logs>
+          </a>
+          <a v-if="isActive == 'apagados'" class="content">
+            <logs></logs>
+          </a>
         </div>
       </div>
-    </div>
-
-    <div class="padding-arquivar-apagar is-flex">
-      <button class="button">Arquivar</button>
-      <button class="button margin-left-dropdown">Apagar</button>
-    </div>
-
-    <div class="container is-fluid">
-      <section class="space-section-padding">
-        <table class="table is-hoverable">
-          <thead>
-            <tr>
-              <th @click="orderByLevel" class="has-clickable">
-                Level
-                <i class="fas fa-sort"></i>
-              </th>
-              <th>Log</th>
-              <th @click="orderByFrequence" class="has-clickable">
-                Eventos
-                <i class="fas fa-sort"></i>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="log in getComputedLogs" :key="log.id" class="has-clickable">
-              <td class="padding">
-                <input class="space-checkbox" type="checkbox" />
-                <span v-if="log.level == 'error'" class="tag is-danger space-tag">{{ log.level }}</span>
-                <span
-                  v-else-if="log.level == 'warning'"
-                  class="tag is-warning space-tag"
-                >{{ log.level }}</span>
-                <span v-else class="tag is-info space-tag">{{ log.level }}</span>
-              </td>
-              <td class="space-info-log">
-                <strong>Descrição:</strong>
-                {{ log.description }}
-                <br />
-                <strong>Origem:</strong>
-                {{ log.origin }}
-                <br />
-                <strong>Ambiente:</strong>
-                {{ log.environment }}
-                <br />
-                <strong>Data:</strong>
-                {{ log.date }}
-              </td>
-              <td>{{ log.events }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
     </div>
   </section>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from "vuex";
+import Toolbar from "./Toolbar";
+import Logs from "./Logs";
 
 export default {
-  created() {
-    this.loadingLogs();
+  name: "Index",
+  components: {
+    Toolbar,
+    Logs
   },
   data() {
     return {
-      inputBusca: null,
-      filterInputBusca: null,
+      isActive: "logs"
     };
   },
-
   methods: {
-    ...mapActions(['loadLogs', 'orderBy', 'orderByEnviroment', 'search', 'changeFilterSearch']),
+    ...mapActions(["changeTab"]),
+    changeTabs(tab) {
+      this.changeTab(tab);
+    },
     redirect(rota) {
       if (rota === "logs") {
         this.$router.push({
@@ -207,44 +113,10 @@ export default {
           name: "login"
         });
       }
-    },
-    async loadingLogs() {
-      await this.loadLogs();
-    },
-
-    orderByFrequence() {
-      this.orderBy('events');
-    },
-    orderByLevel() {
-      this.orderBy('level');
-    },
-    orderByData() {
-      this.orderBy('date');
-    },
-
-    hmlEnviroment() {
-      this.orderByEnviroment(["Homologação", "Desenvolvimento", "Produção"])
-    },
-    devEnviroment() {
-      this.orderByEnviroment(["Desenvolvimento", "Homologação", "Produção"])
-    },
-    prodEnviroment() {
-      this.orderByEnviroment(["Produção", "Homologação", "Desenvolvimento"])
-    },
-    onSearch() {
-      this.search(this.inputBusca);
-    },
-    onChangeSearch() {
-      this.changeFilterSearch(this.filterInputBusca);
     }
   },
-   watch: {
-    filterInputBusca: function () {
-      this.onChangeSearch();
-    },
-   },
   computed: {
-    ...mapGetters(['getComputedLogs']),
+    ...mapGetters(["getUser"])
   }
 };
 </script>
@@ -269,57 +141,20 @@ export default {
   background-color: #154854;
   color: #ffffff;
 }
-.width-control-input-busca {
-  width: 100%;
-}
-.margin-left-dropdown {
-  margin-left: 5px;
-}
-.margin-left-dropdown-busca {
-  margin-left: 60px;
-}
-.padding-arquivar-apagar {
-  padding-left: 32px;
-  padding-right: 32px;
-  padding-top: 70px;
-}
-.padding-filters {
-  padding-left: 32px;
-  padding-right: 5px;
-  padding-top: 20px;
-}
-.space-section-padding {
-  margin-top: 5px;
-}
-.space-checkbox {
-  margin-top: 30px;
-}
+
 .space-head-margin-left {
   margin-left: 30px;
 }
+
 .space-navbarend-padding {
   padding: 10px;
   margin-right: 30px;
 }
-.configure-question {
-  color: white;
-  padding: 5px;
-  margin-top: 3px;
+
+.navbar {
+  background-color: white;
 }
-.space-tag {
-  margin-left: 5%;
-}
-.tag {
-  height: 20px;
-  width: 50px;
-}
-table {
-  width: 100%;
-  border-radius: 5px;
-}
-.has-clickable {
-  cursor: pointer;
-}
+
 .logs-color {
   background: rgb(21, 72, 84);
   background: linear-gradient(
@@ -331,11 +166,44 @@ table {
     rgba(255, 255, 255, 1) 100%
   );
 }
-.navbar {
+
+.section-padding {
+  padding-top: 20px;
+}
+
+.toolbar-margin {
+  margin-bottom: 40px;
+}
+
+.content {
+  width: 100%;
+}
+
+.panel-item {
+  background-color: #d3d3d3;
+  border: solid 1px black;
+  border-radius: 5px 5px 0px 0px;
+}
+
+.activate {
   background-color: white;
 }
-.configure-title-filtro-busca {
-  color: white;
+
+.panel-position {
+  padding-top: 0px;
+}
+
+.panel-margin {
+  margin-bottom: -10px;
+  border-bottom: none;
+}
+
+.panel-tabs {
+  justify-content: left;
+  margin-left: -1px;
+}
+
+.icon-align {
   margin-bottom: 5px;
 }
 </style>

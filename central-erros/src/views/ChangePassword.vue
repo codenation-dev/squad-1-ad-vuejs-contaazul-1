@@ -35,7 +35,8 @@
                     class="input"
                     :class="{invalid: $v.newPassword.$invalid && $v.newPassword.$dirty}"
                     type="password"
-                    placeholder="Nova senha"
+                    placeholder="New Password"
+                    @keyup.enter="validaUser"
                   />
                   <span class="icon is-small is-left padding-icon">
                     <i class="fa fa-lock"></i>
@@ -59,7 +60,8 @@
                     class="input"
                     :class="{invalid: $v.confirmNewPassword.$invalid && $v.confirmNewPassword.$dirty}"
                     type="password"
-                    placeholder="Confirme nova senha"
+                    placeholder="Confirm new password"
+                    @keyup.enter="validaUser"
                   />
                   <span class="icon is-small is-left padding-icon">
                     <i class="fa fa-lock"></i>

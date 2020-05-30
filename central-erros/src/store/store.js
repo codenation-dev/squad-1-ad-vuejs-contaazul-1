@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import Persistence from 'vuex-persist';
-import { getLogs } from '@/services/logs';
+import { putLogs, getLogs } from '@/services/logs';
 import _ from "lodash";
 
 Vue.use(Vuex);
@@ -12,7 +12,12 @@ const types = {
   ORDER: 'ORDER',
   ENVIROMENT: 'ENVIROMENT',
   SEARCH: 'SEARCH',
-  FILTERSEARCH: 'FILTERSEARCH'
+  FILTERSEARCH: 'FILTERSEARCH',
+  CLEAR: 'CLEAR',
+  TAB: 'TAB',
+  ARCHIVE: 'ARCHIVE',
+  DELETE: 'DELETE',
+  UNARCHIVE: 'UNARCHIVE'
 };
 
 const local = new Persistence({
@@ -24,14 +29,15 @@ export default new Vuex.Store({
     user: {},
     logs: [],
     configs: {
-        orderBy: "date",
-        order: "desc",
-        inputBusca: null,
-        filterBusca: null,
+      orderBy: "date",
+      order: "desc",
+      inputBusca: null,
+      filterBusca: null,
     },
     orderLevel: ["error", "warning", "debug"],
     orderEnviroment: [],
     computedLogs: [],
+    tab: "Coletado"
   },
 
   mutations: {
@@ -43,12 +49,42 @@ export default new Vuex.Store({
       state.logs = logs;
     },
 
-    [types.SEARCH](state, search){
+    [types.SEARCH](state, search) {
       state.configs.inputBusca = search;
     },
 
-    [types.FILTERSEARCH](state, filter){
+    [types.FILTERSEARCH](state, filter) {
       state.configs.filterBusca = filter;
+    },
+
+    [types.TAB](state, tab) {
+      state.tab = tab
+    },
+
+    [types.ARCHIVE](state, log) {
+      log.status = "Arquivado"
+      putLogs(log)
+    },
+
+    [types.UNARCHIVE](state, log){
+      log.status = "Coletado"
+      putLogs(log)
+    },
+
+    [types.DELETE](state, log) {
+      log.status = "Apagado"
+      putLogs(log)
+    },
+
+    [types.CLEAR](state) {
+      state.configs = {
+        orderBy: "date",
+        order: "desc",
+        inputBusca: null,
+        filterBusca: null,
+      };
+      state.orderLevel = ["error", "warning", "debug"];
+      state.orderEnviroment = [];
     },
 
     [types.ORDER](state, order) {
@@ -61,8 +97,20 @@ export default new Vuex.Store({
     },
 
     [types.ENVIROMENT](state, order) {
-      state.configs.orderBy = "environment";
-      state.orderEnviroment = order;
+      state.configs.orderBy = order
+      if (
+        JSON.stringify(state.orderEnviroment) ===
+        JSON.stringify(["Homologação", "Desenvolvimento", "Produção"])
+      ) {
+        state.orderEnviroment = ["Desenvolvimento", "Homologação", "Produção"]
+      } else if (
+        JSON.stringify(state.orderEnviroment) ===
+        JSON.stringify(["Desenvolvimento", "Homologação", "Produção"])
+      ) {
+        state.orderEnviroment = ["Produção", "Homologação", "Desenvolvimento"]
+      } else {
+        state.orderEnviroment = ["Homologação", "Desenvolvimento", "Produção"]
+      }
     }
   },
 
@@ -71,27 +119,47 @@ export default new Vuex.Store({
       return commit(types.LOGIN, user);
     },
 
-    loadLogs({commit}) {
-      return getLogs().then(({data}) => {
-        commit(types.LOGS, data);  
+    loadLogs({ commit }) {
+      return getLogs().then(({ data }) => {
+        commit(types.LOGS, data);
       })
     },
 
-    orderBy({commit}, order) {
+    orderBy({ commit }, order) {
       return commit(types.ORDER, order);
     },
 
-    orderByEnviroment({commit}, order) {
+    orderByEnviroment({ commit }, order) {
       return commit(types.ENVIROMENT, order);
     },
 
-    search({commit}, search) {
+    search({ commit }, search) {
       return commit(types.SEARCH, search);
     },
 
-    changeFilterSearch({commit}, filter) {
+    changeFilterSearch({ commit }, filter) {
       return commit(types.FILTERSEARCH, filter)
     },
+
+    clearFilters({ commit }) {
+      return commit(types.CLEAR)
+    },
+
+    changeTab({ commit }, tab) {
+      return commit(types.TAB, tab)
+    },
+
+    archiveLog({ commit }, log) {
+      return commit(types.ARCHIVE, log)
+    },
+
+    unarchiveLog({ commit }, log) {
+      return commit(types.UNARCHIVE, log)
+    },
+   
+    deleteLog({ commit }, log) {
+      return commit(types.DELETE, log)
+    }
 
   },
 
@@ -99,7 +167,9 @@ export default new Vuex.Store({
     getUser(state) {
       return state.user;
     },
-    
+    getTab(state){
+      return state.tab
+    },
     getComputedLogs(state) {
       if (state.configs.orderBy == "level") {
         if (state.configs.order == "desc") {
@@ -123,6 +193,15 @@ export default new Vuex.Store({
           state.configs.order
         );
       }
+      const filterComputedLogsByTabs = []
+      state.computedLogs.forEach(function(log) {
+        if (log.status == state.tab){
+          filterComputedLogsByTabs.push(log)
+        } 
+      })
+      state.computedLogs = filterComputedLogsByTabs
+
+
       if (_.isEmpty(state.configs.inputBusca)) {
         return state.computedLogs;
       }
