@@ -10,8 +10,8 @@
        {{ modalMessage }}
       </section>
       <footer class="modal-card-foot">
-          <button class="button button-success is-success" @click="confirm" >Confirmar</button>
-          <button class="button" @click="close">Cancelar</button>
+        <button class="button is-pulled-left" @click="close">Cancelar</button>
+        <button class="button button-success is-success is-pulled-right" @click="confirm" >Confirmar</button>
       </footer>
     </div>
   </div>
@@ -58,16 +58,8 @@ export default {
   padding-bottom: 0px;
 }
 
-.padding-message {
-  padding-right: 323px;
-}
-
 .button-margin {
   margin-top: -26px;
-}
-
-.section-padding {
-  padding-right: 323px;
 }
 
 .button-success {

@@ -45,11 +45,11 @@
         </div>
         <div class="column is-1">
         <button class="button margin-left-dropdown" @click="limparFiltros">
-            <span>Limpar filtros</span>
-             <span class="icon icon-padding is-small">
-                <i class="fas fa-trash-alt"></i>
-              </span>
-          </button>
+          <span class="icon is-small">
+            <i class="fas fa-trash-alt"></i>
+          </span>
+          <span>Limpar filtros</span>
+         </button>
           </div>
           <div class="column is-1">
         <div class=" is-pulled-right dropdown is-hoverable configure-question is-right">
@@ -129,7 +129,7 @@ export default {
 }
 
 .icon-padding {
-  padding-top: 4px;
+  padding-top: 4.5px;
 }
 
 .margin-left-dropdown {

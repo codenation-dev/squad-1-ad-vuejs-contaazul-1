@@ -94,17 +94,17 @@
                 <br />
                 <p class="columns control">
                   <button
+                    @click="redirect('login')"
+                    class="column is-12-mobile button button-back is-medium">
+                    <i class="fa fa-arrow-left icon-space"></i>
+                    Voltar
+                  </button>
+                  <button
                     @click="addUser()"
                     class="column is-12-mobile button button-register button-margin is-medium"
                   >
                     <i class="fa fa-user-plus icon-space"></i>
                     Registrar
-                  </button>
-                    <button
-                    @click="redirect('login')"
-                    class="column is-12-mobile button button-back is-medium">
-                    <i class="fa fa-arrow-left icon-space"></i>
-                    Voltar
                   </button>
                 </p>
               </div>
@@ -117,8 +117,10 @@
   </body>
 </template>
 <script>
+import { mapActions } from 'vuex';
 import {  addUser, getUsers } from '@/services/login';
 import { required, email, sameAs, alphaNum, minLength } from 'vuelidate/lib/validators';
+
 export default {
   name: "Register",
   data() {
@@ -151,7 +153,11 @@ export default {
       sameAs: sameAs('password1')
     },
   },
+  created() {
+    console.log(this)
+  },
   methods: {
+    ...mapActions(['setUserEmail']),
     redirect(rota) {
       if (rota === "login") {
         this.$router.push({
@@ -185,6 +191,7 @@ export default {
       } 
     },
     returnLogin() {
+      this.setUserEmail(this.email);
       this.$router.push('/');
     },
     validaCamposVazios() {
