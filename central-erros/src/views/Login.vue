@@ -121,7 +121,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['login']),
+    ...mapActions(['login', 'clearFilters']),
 
     redirect(rota) {
       if (rota === "register") {
@@ -143,6 +143,7 @@ export default {
       if (this.hasEmail) {
         if(this.hasEmail.password === this.password) {
           this.login(this.hasEmail);
+          this.clearFilters();
           this.redirect('logs');
         } else {
           this.hasValidPassword = "* Senha incorreta.";

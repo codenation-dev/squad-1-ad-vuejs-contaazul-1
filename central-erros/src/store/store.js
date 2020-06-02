@@ -91,6 +91,7 @@ export default new Vuex.Store({
       };
       state.orderLevel = ["error", "warning", "debug"];
       state.orderEnviroment = [];
+      state.userEmailTemp = null;
     },
 
     [types.ORDER](state, order) {

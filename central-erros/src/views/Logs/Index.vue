@@ -112,7 +112,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["changeTab"]),
+    ...mapActions(['changeTab', 'clearFilters']),
     changeTabs(tab) {
       this.changeTab(tab);
     },
@@ -122,6 +122,7 @@ export default {
           name: "logs"
         });
       } else if (rota === "login") {
+        this.clearFilters();
         this.$router.push({
           name: "login"
         });
