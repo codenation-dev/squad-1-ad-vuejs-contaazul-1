@@ -17,7 +17,8 @@ const types = {
   TAB: 'TAB',
   ARCHIVE: 'ARCHIVE',
   DELETE: 'DELETE',
-  UNARCHIVE: 'UNARCHIVE'
+  UNARCHIVE: 'UNARCHIVE',
+  USEREMAIL: 'USEREMAIL',
 };
 
 const local = new Persistence({
@@ -27,6 +28,7 @@ const local = new Persistence({
 export default new Vuex.Store({
   state: {
     user: {},
+    userEmailTemp: null,
     logs: [],
     configs: {
       orderBy: "date",
@@ -43,6 +45,10 @@ export default new Vuex.Store({
   mutations: {
     [types.LOGIN](state, user) {
       state.user = user;
+    },
+
+    [types.USEREMAIL](state, email) {
+      state.userEmailTemp = email;
     },
 
     [types.LOGS](state, logs) {
@@ -119,6 +125,10 @@ export default new Vuex.Store({
       return commit(types.LOGIN, user);
     },
 
+    setUserEmail({commit}, email) {
+      return commit(types.USEREMAIL, email);
+    },
+
     loadLogs({ commit }) {
       return getLogs().then(({ data }) => {
         commit(types.LOGS, data);
@@ -166,6 +176,9 @@ export default new Vuex.Store({
   getters: {
     getUser(state) {
       return state.user;
+    },
+    getUserEmail(state) {
+      return state.userEmailTemp;
     },
     getTab(state){
       return state.tab

@@ -35,7 +35,7 @@
                     class="input"
                     :class="{invalid: $v.newPassword.$invalid && $v.newPassword.$dirty}"
                     type="password"
-                    placeholder="New Password"
+                    placeholder="Nova senha"
                     @keyup.enter="validaUser"
                   />
                   <span class="icon is-small is-left padding-icon">
@@ -60,7 +60,7 @@
                     class="input"
                     :class="{invalid: $v.confirmNewPassword.$invalid && $v.confirmNewPassword.$dirty}"
                     type="password"
-                    placeholder="Confirm new password"
+                    placeholder="Confirmar nova senha"
                     @keyup.enter="validaUser"
                   />
                   <span class="icon is-small is-left padding-icon">
@@ -78,18 +78,18 @@
                   <br/>
                 <p class="columns control">
                   <button
-                    @click="validaUser"
-                    class="column is-12-mobile button button-margin button-padding password-change is-medium"
-                  >
-                    <i class="fa fa-exchange-alt icon-space"></i>
-                    Mudar senha
-                  </button>
-                  <button
                     @click="redirect('login')"
                     class="button-back column is-12-mobile button button-padding is-medium"
                   >
                     <i class="fa fa-arrow-left icon-space"></i>
                     Voltar
+                  </button>
+                  <button
+                    @click="validaUser"
+                    class="column is-12-mobile button button-margin button-padding password-change is-medium"
+                  >
+                    <i class="fa fa-exchange-alt icon-space"></i>
+                    Mudar senha
                   </button>
                 </p>
               </div>

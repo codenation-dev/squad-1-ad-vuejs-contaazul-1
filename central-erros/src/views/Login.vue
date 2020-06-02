@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { getUsers } from '@/services/login';
 import { required, email, alphaNum, minLength } from 'vuelidate/lib/validators';
 
@@ -111,6 +111,14 @@ export default {
       alphaNum,
       minLength: minLength(6),
     },
+  },
+  computed: {
+    ...mapGetters(['getUserEmail'])
+  },
+  created() {
+    if(this.getUserEmail) {
+      this.email = this.getUserEmail;
+    }
   },
   methods: {
     ...mapActions(['login']),

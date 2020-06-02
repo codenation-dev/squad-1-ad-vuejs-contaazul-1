@@ -27,18 +27,15 @@
               <th v-else>Ação</th>
             </tr>
           </thead>
-          <tbody>
-            <tr v-if="getComputedLogs == 0">
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>
-                <strong>Nenhum retorno para esta busca</strong>
+          <tbody v-if="getComputedLogs == 0">
+            <tr>
+              <td colspan="7" class="has-text-centered">
+                <strong>Nenhum retorno para esta busca</strong> 
               </td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr v-else v-for="log in getComputedLogs" :key="log.id" class="has-clickable">
+            </tr>              
+          </tbody>
+            <tbody v-else>
+            <tr v-for="log in getComputedLogs" :key="log.id" class="has-clickable">
               <td>
                 <span v-if="log.level == 'error'" class="tag is-danger">{{ log.level }}</span>
                 <span v-else-if="log.level == 'warning'" class="tag is-warning">{{ log.level }}</span>

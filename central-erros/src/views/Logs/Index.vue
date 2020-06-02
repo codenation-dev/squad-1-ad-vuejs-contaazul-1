@@ -17,12 +17,25 @@
                 <i class="fas fa-angle-down"></i>
               </div>
             </a>
-            <div class="navbar-dropdown">
+            <div class="navbar-dropdown is-right">
               <div class="dropdown-item">
-                <strong>Usuário:</strong>
-                {{ getUser.name }}
+                <div class="card card-size">
+                  <div class="card-content card-size">
+                    <p class="text-align is-size-5"><strong>Usuário:</strong> {{getUser.name}} </p>
+                    <p class="text-align is-size-5"><strong>E-mail:</strong> {{getUser.email}} </p>
+                  </div>
+                  <footer class="card-footer">
+                    <p class="card-footer-item control">
+                      <button @click="redirect('login')" class="button exit-button-color">
+                        <span class="icon">
+                          <i class="fa fa-times"></i>
+                        </span>
+                        <span>Sair</span>
+                      </button>
+                    </p>
+                  </footer>
+                </div>
               </div>
-              <a class="navbar-item button-color" @click="redirect('login')">Sair</a>
             </div>
           </div>
         </div>
@@ -179,6 +192,10 @@ export default {
   width: 100%;
 }
 
+.text-align {
+  text-align: left;
+}
+
 .panel-item {
   background-color: #d3d3d3;
   border: solid 1px black;
@@ -206,4 +223,18 @@ export default {
 .icon-align {
   margin-bottom: 5px;
 }
+
+.card-size {
+  width: 405px;
+}
+
+.exit-button-color {
+  background-color: #154854;
+  color: #ffffff;
+}
+
+.exit-button-color:hover {
+  background-color: rgba(60,101,113,1);
+}
+
 </style>
