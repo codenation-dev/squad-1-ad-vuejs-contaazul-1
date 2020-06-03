@@ -2,7 +2,7 @@
   <div>
     <div class="container is-fluid padding-filters">
       <h5 class="title is-5 is-flex configure-title-filtro-busca">Filtros de Busca</h5>
-      <div class="columns">
+      <div class="columns is-mobile">
         <div class="column is-2 buscar-por-margin">
         <div class="dropdown is-hoverable is-pulled-left">
           <div class="dropdown is-hoverable">
@@ -30,7 +30,7 @@
           </div>
         </div>
         </div>
-        <div class="column is-3">
+        <div class="column is-3 input-align">
         <p class="control has-icons-right">
           <input
             class="input margin-left-dropdown"
@@ -43,7 +43,7 @@
           </span>
         </p>
         </div>
-        <div class="column is-1">
+        <div class="column is-1 limpa-filtros-align">
         <button class="button margin-left-dropdown" @click="limparFiltros">
           <span class="icon is-small">
             <i class="fas fa-trash-alt"></i>
@@ -51,7 +51,7 @@
           <span>Limpar filtros</span>
          </button>
           </div>
-          <div class="column is-1">
+          <div class="column is-1 tooltip-align">
         <div class=" is-pulled-right dropdown is-hoverable configure-question is-right">
           <div class="dropdown-trigger">
             <div class="icon">
@@ -146,6 +146,87 @@ export default {
 
 .buscar-por-margin {
   margin-right: -90px;
+}
+
+.input-align {
+  margin-left: -67px;
+}
+
+.limpa-filtros-align {
+  margin-left: -4px;
+}
+
+.tooltip-align {
+  margin-left: -71px;
+}
+
+@media screen and (max-width: 1408px) {
+  .input-align {
+    margin-left: 34px;
+  }
+
+  .tooltip-align {
+  margin-left: 31px;
+  }
+}
+
+@media screen and (max-width: 2560px) {
+  .input-align {
+    margin-left: -170px;
+  }
+
+  .limpa-filtros-align {
+  margin-left: -13px;
+  }
+
+  .tooltip-align {
+  margin-left: -170px;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .input-align {
+    margin-left: 18px;
+  }
+
+  .limpa-filtros-align {
+  margin-left: 0px;
+  }
+
+  .tooltip-align {
+  margin-left: 8px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .input-align {
+    margin-left: 82px;
+  }
+
+  .limpa-filtros-align {
+  margin-left: -5px;
+  }
+
+  .tooltip-align {
+  margin-left: 73px;
+  }
+  
+}
+
+@media screen and (max-width: 768px) {
+  .input-align {
+    margin-left: 126px;
+    width: 210px !important;
+  }
+
+  .limpa-filtros-align {
+  margin-left: -5px;
+  }
+
+  .tooltip-align {
+  margin-left: 118px;
+  }
+  
 }
 
 </style>
