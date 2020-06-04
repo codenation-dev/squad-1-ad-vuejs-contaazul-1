@@ -4,13 +4,14 @@
       <section class="space-section-padding">
         <table class="table is-hoverable">
           <thead>
-            <tr>
+            <tr class="font-smaller">
               <th @click="orderByLevel" class="has-clickable">
                 Level
                 <i class="fas fa-sort"></i>
               </th>
-              <th>Descrição</th>
-              <th>Origem</th>
+              <th class="is-hidden-mobile">Descrição</th>
+              <th class="is-hidden-mobile">Origem</th>
+              <th class="is-hidden-desktop">Descrição<br />Origem</th>
               <th @click="orderEnviroment" class="has-clickable">
                 Ambiente
                 <i class="fas fa-sort"></i>
@@ -30,21 +31,40 @@
           <tbody v-if="getComputedLogs == 0">
             <tr>
               <td colspan="7" class="has-text-centered">
-                <strong>Nenhum retorno para esta busca</strong> 
+                <strong>Nenhum retorno para esta busca</strong>
               </td>
-            </tr>              
+            </tr>
           </tbody>
-            <tbody v-else>
-            <tr v-for="log in getComputedLogs" :key="log.id" class="has-clickable">
+          <tbody v-else>
+            <tr
+              v-for="log in getComputedLogs"
+              :key="log.id"
+              class="has-clickable"
+            >
               <td>
-                <span v-if="log.level == 'error'" class="tag is-danger">{{ log.level }}</span>
-                <span v-else-if="log.level == 'warning'" class="tag is-warning">{{ log.level }}</span>
+                <span v-if="log.level == 'error'" class="tag is-danger">{{
+                  log.level
+                }}</span>
+                <span
+                  v-else-if="log.level == 'warning'"
+                  class="tag is-warning"
+                  >{{ log.level }}</span
+                >
                 <span v-else class="tag is-info">{{ log.level }}</span>
               </td>
-              <td class="space-info-logs">{{ log.description }}</td>
-              <td>{{ log.origin }}</td>
+              <td class="space-info-logs is-hidden-mobile">
+                {{ log.description }}
+              </td>
+              <td class="is-hidden-mobile">{{ log.origin }}</td>
+              <td class="is-hidden-desktop space-info-logs">
+                <strong class="strong-font-size">Descrição: </strong>
+                {{ log.description }}
+                <br />
+                <strong class="strong-font-size">Origem: </strong>
+                {{ log.origin }}
+              </td>
               <td>{{ log.environment }}</td>
-              <td>{{ log.date }}</td>
+              <td class="space-info-data">{{ log.date }}</td>
               <td>{{ log.events }}</td>
               <td v-if="getTab == 'Coletado'">
                 <span
@@ -54,17 +74,29 @@
                 >
                   <i class="fas fa-archive"></i>
                 </span>
-                <span class="icon icon-padding is-small" @click="openModalConfirmacao('delete', log)" v-tooltip="{ content: 'Apagar' }">
+                <span
+                  class="icon icon-padding is-small"
+                  @click="openModalConfirmacao('delete', log)"
+                  v-tooltip="{ content: 'Apagar' }"
+                >
                   <i class="fas fa-trash-alt"></i>
                 </span>
               </td>
               <td v-else-if="getTab == 'Arquivado'">
-                <span class="icon icon-padding is-small" @click="openModalConfirmacao('delete', log)" v-tooltip="{ content: 'Apagar' }">
+                <span
+                  class="icon icon-padding is-small"
+                  @click="openModalConfirmacao('delete', log)"
+                  v-tooltip="{ content: 'Apagar' }"
+                >
                   <i class="fas fa-trash-alt"></i>
                 </span>
               </td>
               <td v-else>
-                <span class="icon icon-padding is-small" @click="openModalConfirmacao('unarchive', log)" v-tooltip="{ content: 'Restaurar' }">
+                <span
+                  class="icon icon-padding is-small"
+                  @click="openModalConfirmacao('unarchive', log)"
+                  v-tooltip="{ content: 'Restaurar' }"
+                >
                   <i class="fas fa-undo-alt"></i>
                 </span>
               </td>
@@ -78,20 +110,20 @@
         </button>
       </back-to-top>
     </div>
-    <modal-confirmacao 
-      v-if="isModalActive" 
-      @close="isModalActive = false" 
+    <modal-confirmacao
+      v-if="isModalActive"
+      @close="isModalActive = false"
       @confirm="confirmAction"
       :type="typeModal"
       :log="logToAction"
-      ></modal-confirmacao>
+    ></modal-confirmacao>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
 import BackToTop from "vue-backtotop";
-import ModalConfirmacao from './ModalCofirmacao';
+import ModalConfirmacao from "./ModalCofirmacao";
 
 export default {
   name: "Logs",
@@ -101,13 +133,13 @@ export default {
       typeModal: null,
       isModalActive: false,
       logToAction: null,
-    }
+    };
   },
   created() {
     this.loadingLogs();
   },
   computed: {
-    ...mapGetters(["getComputedLogs", "getTab"])
+    ...mapGetters(["getComputedLogs", "getTab"]),
   },
   methods: {
     ...mapActions([
@@ -118,7 +150,7 @@ export default {
       "changeFilterSearch",
       "archiveLog",
       "deleteLog",
-      "unarchiveLog"
+      "unarchiveLog",
     ]),
     async loadingLogs() {
       await this.loadLogs();
@@ -136,22 +168,22 @@ export default {
     orderEnviroment() {
       this.orderByEnviroment("environment");
     },
-    openModalConfirmacao(type, log){
+    openModalConfirmacao(type, log) {
       this.typeModal = type;
-      this.logToAction = log
+      this.logToAction = log;
       this.isModalActive = true;
     },
-    confirmAction(type, log){
-      if(type == 'delete') {
-        this.deleteLogs(log)
+    confirmAction(type, log) {
+      if (type == "delete") {
+        this.deleteLogs(log);
       }
 
-      if(type == 'archive') {
-        this.archiveLogs(log)
+      if (type == "archive") {
+        this.archiveLogs(log);
       }
 
-      if(type == 'unarchive') {
-        this.unarchiveLog(log)
+      if (type == "unarchive") {
+        this.unarchiveLog(log);
       }
 
       this.isModalActive = false;
@@ -164,8 +196,8 @@ export default {
     },
     unarchiveLogs(log) {
       this.unarchiveLog(log);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -220,5 +252,32 @@ table {
 
 .space-section-padding {
   margin-top: 5px;
+}
+
+@media screen and (max-width: 1440px) {
+  .space-info-logs {
+    width: 181px;
+    height: 44px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .font-smaller {
+    font-size: 14px;
+  }
+
+  .space-info-logs {
+    width: 160px;
+    height: 44px;
+  }
+
+  .strong-font-size {
+    font-size: 13px;
+  }
+
+  .space-info-data {
+    width: 120px;
+    height: 44px;
+  }
 }
 </style>

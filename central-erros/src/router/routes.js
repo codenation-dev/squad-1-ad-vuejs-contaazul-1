@@ -43,9 +43,8 @@ const routes = [
     path: "*",
     component: Erro,
   },
-
 ];
 
-const router = new Router({ routes, mode: 'history' });
+const router = new Router({ routes, mode: "history" });
 
 export default router;
