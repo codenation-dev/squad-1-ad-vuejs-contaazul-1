@@ -195,9 +195,6 @@ export default {
       sameAs: sameAs("password1"),
     },
   },
-  created() {
-    console.log(this);
-  },
   methods: {
     ...mapActions(["setUserEmail"]),
     redirect(rota) {
