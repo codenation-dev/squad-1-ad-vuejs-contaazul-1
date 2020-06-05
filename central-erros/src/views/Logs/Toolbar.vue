@@ -23,7 +23,7 @@
             </div>
             <div class="dropdown-menu" id="dropdown-menu3" role="menu">
               <div class="dropdown-content">
-                <div class="dropdown-item">
+                <div class="dropdown-item left-align">
                   <a
                     class="navbar-item"
                     @click="filterInputBusca = null"
@@ -220,6 +220,10 @@ export default {
 
 .tooltip-align {
   margin-left: -71px;
+}
+
+.left-align {
+  text-align: initial;
 }
 
 @media screen and (max-width: 2560px) {
