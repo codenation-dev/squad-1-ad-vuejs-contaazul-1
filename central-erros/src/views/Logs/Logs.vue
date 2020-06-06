@@ -122,12 +122,11 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import BackToTop from "vue-backtotop";
 import ModalConfirmacao from "./ModalCofirmacao";
 
 export default {
   name: "Logs",
-  components: { BackToTop, ModalConfirmacao },
+  components: { ModalConfirmacao },
   data() {
     return {
       typeModal: null,

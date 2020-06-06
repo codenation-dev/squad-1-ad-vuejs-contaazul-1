@@ -5,7 +5,9 @@ import store from "@/store/store";
 import Vuelidate from 'vuelidate';
 import Toasted from 'vue-toasted';
 import VTooltip from 'v-tooltip';
-
+import BackToTop from 'vue-backtotop'
+ 
+Vue.use(BackToTop)
 Vue.use(VTooltip)
 Vue.use(Toasted)
 Vue.use(Vuelidate)
