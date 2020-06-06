@@ -1,14 +1,30 @@
 <template>
   <section class="hero is-fullheight-with-navbar logs-color">
     <div class="hero-head">
-      <nav class="navbar">
+      <nav class="navbar mobile-height">
         <div class="navbar-brand space-head-margin-left">
           <a class="navbar-item" id="space-logo">
-            <img src="@/assets/login-logo.png" alt="logo" id="size-logo" @click="redirect('logs')" />
+            <img
+              src="@/assets/login-logo.png"
+              alt="logo"
+              id="size-logo"
+              @click="redirect('logs')"
+            />
           </a>
+          <div class="navbar-item mobile-space">
+            <button
+              @click="redirect('login')"
+              class="button exit-button-color is-hidden-desktop button-width"
+            >
+              <span class="icon">
+                <i class="fa fa-times"></i>
+              </span>
+              <span>Sair</span>
+            </button>
+          </div>
         </div>
         <div class="navbar-end space-navbarend-padding">
-          <div class="navbar-item has-dropdown is-hoverable">
+          <div class="navbar-item is-hidden-mobile has-dropdown is-hoverable">
             <a class="button width-button-profile button-color">
               <div class="icon">
                 <i class="fa fa-user icon-space"></i>
@@ -27,7 +43,10 @@
                   </div>
                   <footer class="card-footer">
                     <p class="card-footer-item control">
-                      <button @click="redirect('login')" class="button exit-button-color">
+                      <button
+                        @click="redirect('login')"
+                        class="button exit-button-color"
+                      >
                         <span class="icon">
                           <i class="fa fa-times"></i>
                         </span>
@@ -42,8 +61,8 @@
         </div>
       </nav>
     </div>
-    <div class="container is-fluid">
-      <div class="section section-padding">
+    <div class="container is-fluid mobile-padding">
+      <div class="section section-padding mobile-padding">
         <toolbar class="toolbar-margin"></toolbar>
         <div class="panel-position">
           <p class="container is-fluid panel-tabs panel-margin">
@@ -51,7 +70,7 @@
               class="panel-item"
               v-on:click="isActive = 'logs'"
               @click="changeTabs('Coletado')"
-              v-bind:class="{ 'activate': isActive == 'logs' }"
+              v-bind:class="{ activate: isActive == 'logs' }"
             >
               <span class="icon is-small icon-align">
                 <i class="fas fa-list" aria-hidden="true"></i>
@@ -62,7 +81,7 @@
               class="panel-item"
               v-on:click="isActive = 'arquivados'"
               @click="changeTabs('Arquivado')"
-              v-bind:class="{ 'activate': isActive == 'arquivados' }"
+              v-bind:class="{ activate: isActive == 'arquivados' }"
             >
               <span class="icon is-small icon-align">
                 <i class="fas fa-folder-open" aria-hidden="true"></i>
@@ -73,7 +92,7 @@
               class="panel-item"
               v-on:click="isActive = 'apagados'"
               @click="changeTabs('Apagado')"
-              v-bind:class="{ 'activate': isActive == 'apagados' }"
+              v-bind:class="{ activate: isActive == 'apagados' }"
             >
               <span class="icon is-small icon-align">
                 <i class="fas fa-trash" aria-hidden="true"></i>
@@ -105,11 +124,11 @@ export default {
   name: "Index",
   components: {
     Toolbar,
-    Logs
+    Logs,
   },
   data() {
     return {
-      isActive: "logs"
+      isActive: "logs",
     };
   },
   methods: {
@@ -120,13 +139,13 @@ export default {
     redirect(rota) {
       if (rota === "logs") {
         this.$router.push({
-          name: "logs"
+          name: "logs",
         });
       } else if (rota === "login") {
         this.userLogout();
         this.clearFilters();
         this.$router.push({
-          name: "login"
+          name: "login",
         });
       }
     },
@@ -205,7 +224,7 @@ export default {
 
 .panel-item {
   background-color: #d3d3d3;
-  border: solid 1px black;
+  border: solid 1px #777070;
   border-radius: 5px 5px 0px 0px;
 }
 
@@ -233,15 +252,63 @@ export default {
 
 .card-size {
   width: 405px;
+  height: 125px;
+  margin-top: -7px;
+}
+
+.card-size-interno {
+  width: 285px;
+  height: 125px;
+}
+
+.card-footer {
+  margin-top: -55px;
 }
 
 .exit-button-color {
   background-color: #154854;
   color: #ffffff;
+  height: 35px;
+  width: 91px;
 }
 
 .exit-button-color:hover {
-  background-color: rgba(60,101,113,1);
+  background-color: rgba(60, 101, 113, 1);
 }
 
+.dropdown-item {
+  height: 125px;
+  width: 315px;
+}
+
+.card-content {
+  padding: 0.6rem;
+}
+
+@media screen and (max-width: 768px) {
+  .mobile-height {
+    height: 60px;
+  }
+
+  .button-width {
+    width: 100px;
+  }
+
+  .mobile-space {
+    margin-left: 537px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .hero {
+    width: 749px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .mobile-padding {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
 </style>
