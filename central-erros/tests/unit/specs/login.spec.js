@@ -88,7 +88,7 @@ describe("Login", () => {
 
     wrapper.vm.validaCamposVazios = jest.fn()
 
-    wrapper.findAll("button").trigger('click')
+    wrapper.find("button").trigger('click')
     expect(wrapper.vm.validaCamposVazios).toBeCalled()
 
   });
