@@ -1,4 +1,4 @@
-import { shallowMount } from '@vue/test-utils'
+import { shallowMount, mount } from '@vue/test-utils'
 import Register from "@/views/Register"
 
 describe("Register", () => {
@@ -88,4 +88,5 @@ describe("Register", () => {
         expect(wrapper.vm.hasEmailCadastrado).toBeCalled()
 
     });
+
 })
