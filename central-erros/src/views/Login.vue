@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 import { getUsers } from '@/services/login';
 import { required, email, alphaNum, minLength } from 'vuelidate/lib/validators';
 
@@ -122,7 +122,7 @@ export default {
   },
   methods: {
     ...mapActions(['login', 'clearFilters']),
-
+    ...mapState(['token', 'user']),
     redirect(rota) {
       if (rota === "register") {
         this.$router.push({
@@ -141,8 +141,12 @@ export default {
     async loginUser() { 
       await this.hasEmailCadastrado(this.email);
       if (this.hasEmail) {
+        let credentials = {
+          email: this.email,
+          password: this.password
+        }
         if(this.hasEmail.password === this.password) {
-          this.login(this.hasEmail);
+          this.login(credentials);
           this.clearFilters();
           this.redirect('logs');
         } else {

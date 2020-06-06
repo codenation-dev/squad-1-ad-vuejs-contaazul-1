@@ -23,6 +23,7 @@
                   <div class="card-content card-size">
                     <p class="text-align is-size-5"><strong>Usuário:</strong> {{getUser.name}} </p>
                     <p class="text-align is-size-5"><strong>E-mail:</strong> {{getUser.email}} </p>
+                     <p class="text-align is-size-5"><strong>Token:</strong> {{getToken}} </p>
                   </div>
                   <footer class="card-footer">
                     <p class="card-footer-item control">
@@ -66,7 +67,7 @@
               <span class="icon is-small icon-align">
                 <i class="fas fa-folder-open" aria-hidden="true"></i>
               </span>
-              Arquivados
+              Arquivados 
             </a>
             <a
               class="panel-item"
@@ -112,7 +113,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['changeTab', 'clearFilters']),
+    ...mapActions(['changeTab', 'clearFilters', 'logOut']),
     changeTabs(tab) {
       this.changeTab(tab);
     },
@@ -122,15 +123,20 @@ export default {
           name: "logs"
         });
       } else if (rota === "login") {
+        this.userLogout();
         this.clearFilters();
         this.$router.push({
           name: "login"
         });
       }
+    },
+    userLogout() {
+      const credentials = {}
+      this.logOut(credentials)
     }
   },
   computed: {
-    ...mapGetters(["getUser"])
+    ...mapGetters(["getUser","getToken"])
   }
 };
 </script>

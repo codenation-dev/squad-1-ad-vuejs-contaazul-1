@@ -2,7 +2,9 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import Persistence from 'vuex-persist';
 import { putLogs, getLogs } from '@/services/logs';
+import { getUsersByCredentials } from '@/services/login';
 import _ from "lodash";
+
 
 Vue.use(Vuex);
 
@@ -28,6 +30,7 @@ const local = new Persistence({
 export default new Vuex.Store({
   state: {
     user: {},
+    token: null,
     userEmailTemp: null,
     logs: [],
     configs: {
@@ -45,6 +48,7 @@ export default new Vuex.Store({
   mutations: {
     [types.LOGIN](state, user) {
       state.user = user;
+      state.token = user.token;
     },
 
     [types.USEREMAIL](state, email) {
@@ -122,8 +126,13 @@ export default new Vuex.Store({
   },
 
   actions: {
-    login({ commit }, user) {
-      return commit(types.LOGIN, user);
+    login({ commit }, credentials) {
+      return getUsersByCredentials(credentials).then(res => {
+        commit(types.LOGIN, res);
+      })
+    },
+    logOut({ commit }, credentials) {
+      commit(types.LOGIN, credentials)
     },
 
     setUserEmail({commit}, email) {
@@ -177,6 +186,9 @@ export default new Vuex.Store({
   getters: {
     getUser(state) {
       return state.user;
+    },
+    getToken(state) {
+      return state.token;
     },
     getUserEmail(state) {
       return state.userEmailTemp;
@@ -285,7 +297,6 @@ export default new Vuex.Store({
       }
     }
   },
-
   plugins: [
     local.plugin,
   ],

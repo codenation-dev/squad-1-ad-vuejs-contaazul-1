@@ -6,6 +6,7 @@ import Register from "@/views/Register";
 import ChangePassword from "@/views/ChangePassword";
 import Logs from "@/views/Logs/Index";
 import Erro from "@/views/Erro";
+import beforeRoute from '@/router/beforeRoute'
 
 Vue.use(Router);
 
@@ -47,5 +48,5 @@ const routes = [
 ];
 
 const router = new Router({ routes, mode: 'history' });
-
+router.beforeEach(beforeRoute);
 export default router;
