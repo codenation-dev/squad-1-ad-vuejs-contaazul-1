@@ -169,7 +169,7 @@ export default {
           password: this.password
         }
         if(this.hasEmail.password === this.password) {
-          this.login(credentials);
+          await this.login(credentials);
           this.clearFilters();
           this.redirect("logs");
         } else {
