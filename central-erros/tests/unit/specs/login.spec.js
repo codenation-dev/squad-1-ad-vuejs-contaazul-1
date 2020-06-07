@@ -75,6 +75,26 @@ describe("Login", () => {
     expect(password.element.value).toEqual("123456")
   });
 
+  it("Deve ser chamado a função de validaUser quando o click no botão de 'Login' for disparado", () => {
+    const wrapper = shallowMount(Login, {
+      mocks: {
+        $store: {
+          getters: {
+            getUserEmail: null
+          }
+        }
+      }
+    })
+    const validaUser = jest.fn()
+    wrapper.setMethods({
+      validaUser: validaUser
+    })
+
+    wrapper.find("button").trigger("click")
+    expect(wrapper.vm.validaUser).toBeCalled()
+
+  });
+
   it("Deve ser chamado a função de validaCamposVazios quando o click no botão de 'Login' for disparado", () => {
     const wrapper = shallowMount(Login, {
       mocks: {
@@ -91,6 +111,42 @@ describe("Login", () => {
     wrapper.find("button").trigger('click')
     expect(wrapper.vm.validaCamposVazios).toBeCalled()
 
+  });
+
+  it("Deve validar o vuelidate", () => {
+    const wrapper = shallowMount(Login, {
+      mocks: {
+        $store: {
+          getters: {
+            getUserEmail: null
+          }
+        }
+      }
+    })
+    wrapper.setData({
+      email: "errorlogs@teste.com",
+      password: "123456"
+    })
+    expect(wrapper.vm.$v.$invalid).toBeFalsy()
+  });
+
+  it("Deve ser chamado a função de login quando o click no botão de 'Login' for disparado", () => {
+    const wrapper = shallowMount(Login, {
+      mocks: {
+        $store: {
+          getters: {
+            getUserEmail: null
+          }
+        }
+      }
+    })
+    wrapper.setData({
+      hasEmail: true,
+      hasEmail: { password: "123456" },
+      password: "123456"
+    })
+    wrapper.vm.loginUser()
+    expect(wrapper.vm.login).toBeCalled
   });
 
 })

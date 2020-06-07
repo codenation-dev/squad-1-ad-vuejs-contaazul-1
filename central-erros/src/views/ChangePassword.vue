@@ -108,7 +108,7 @@
                 <br />
                 <p class="columns control">
                   <button
-                    @click="redirect('login')"
+                    @click="redirect"
                     class="button-back column is-12-mobile button button-padding is-medium"
                   >
                     <i class="fa fa-arrow-left icon-space"></i>
@@ -173,12 +173,10 @@ export default {
     },
   },
   methods: {
-    redirect(rota) {
-      if (rota === "login") {
+    redirect() {
         this.$router.push({
           name: "login",
         });
-      }
     },
     async hasEmailCadastrado(email) {
       const users = await getUsers();

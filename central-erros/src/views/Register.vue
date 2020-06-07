@@ -1,156 +1,136 @@
 <template>
-  <body class="layout-default">
-    <section class="hero is-fullheight is-medium login-color is-bold">
-      <div class="hero-body">
-        <div class="container">
-          <div class="columns">
-            <div class="column is-offset-4">
-              <article class="card is-rounded card-login">
-                <div class="card-content">
-                  <h1 class="title">
-                    <img
-                      src="../assets/login-logo.png"
-                      alt="logo"
-                      width="200"
+<body class="layout-default">
+  <section class="hero is-fullheight is-medium login-color is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-offset-4">
+            <article class="card is-rounded card-login">
+              <div class="card-content">
+                <h1 class="title">
+                  <img src="../assets/login-logo.png" alt="logo" width="200" />
+                </h1>
+                <div class="field">
+                  <p class="control has-icons-left">
+                    <input
+                      class="input"
+                      v-model="name"
+                      type="nome"
+                      placeholder="Nome"
+                      :class="{ invalid: $v.name.$invalid && $v.name.$dirty }"
+                      @input="$v.name.$touch()"
+                      @keyup.enter="addUser"
                     />
-                  </h1>
-                  <div class="field">
-                    <p class="control has-icons-left">
-                      <input
-                        class="input"
-                        v-model="name"
-                        type="nome"
-                        placeholder="Nome"
-                        :class="{ invalid: $v.name.$invalid && $v.name.$dirty }"
-                        @input="$v.name.$touch()"
-                        @keyup.enter="addUser"
-                      />
-                      <span class="icon is-small is-left padding-icon">
-                        <i class="fa fa-user"></i>
-                      </span>
-                    </p>
-                    <p
-                      class="help is-danger"
-                      v-if="$v.name.$invalid && $v.name.$dirty"
-                    >
-                      * Nome é obrigatório.
-                    </p>
-                  </div>
-                  <div class="field">
-                    <p class="control has-icons-left">
-                      <input
-                        class="input"
-                        v-model="email"
-                        type="email"
-                        placeholder="Email"
-                        :class="{
+                    <span class="icon is-small is-left padding-icon">
+                      <i class="fa fa-user"></i>
+                    </span>
+                  </p>
+                  <p
+                    class="help is-danger"
+                    v-if="$v.name.$invalid && $v.name.$dirty"
+                  >* Nome é obrigatório.</p>
+                </div>
+                <div class="field">
+                  <p class="control has-icons-left">
+                    <input
+                      class="input"
+                      v-model="email"
+                      type="email"
+                      placeholder="Email"
+                      :class="{
                           invalid: $v.email.$invalid && $v.email.$dirty,
                         }"
-                        @blur="$v.email.$touch()"
-                        @keyup.enter="addUser"
-                      />
-                      <span class="icon is-small is-left padding-icon">
-                        <i class="fa fa-envelope"></i>
-                      </span>
-                    </p>
-                    <p
-                      class="help is-danger"
-                      v-if="$v.email.$invalid && $v.email.$dirty"
-                    >
-                      * É necessário um e-mail válido.
-                    </p>
-                  </div>
-                  <div class="field">
-                    <p class="control has-icons-left">
-                      <input
-                        class="input"
-                        v-model="password1"
-                        type="password"
-                        placeholder="Senha"
-                        :class="{
+                      @blur="$v.email.$touch()"
+                      @keyup.enter="addUser"
+                    />
+                    <span class="icon is-small is-left padding-icon">
+                      <i class="fa fa-envelope"></i>
+                    </span>
+                  </p>
+                  <p
+                    class="help is-danger"
+                    v-if="$v.email.$invalid && $v.email.$dirty"
+                  >* É necessário um e-mail válido.</p>
+                </div>
+                <div class="field">
+                  <p class="control has-icons-left">
+                    <input
+                      class="input"
+                      v-model="password1"
+                      type="password"
+                      placeholder="Senha"
+                      :class="{
                           invalid: $v.password1.$invalid && $v.password1.$dirty,
                         }"
-                        @blur="$v.password1.$touch()"
-                        @keyup.enter="addUser"
-                      />
-                      <span class="icon is-small is-left padding-icon">
-                        <i class="fa fa-lock"></i>
-                      </span>
-                    </p>
-                    <p
-                      class="help is-danger"
-                      v-if="!$v.password1.required && $v.password1.$dirty"
-                    >
-                      * É necessário inserir uma senha.
-                    </p>
-                    <p
-                      class="help is-danger"
-                      v-if="!$v.password1.alphaNum && $v.password1.$dirty"
-                    >
-                      * A senha deve conter apenas letras e números.
-                    </p>
-                    <p
-                      class="help is-danger"
-                      v-if="!$v.password1.minLength && $v.password1.$dirty"
-                    >
-                      * A senha deve conter no mínimo 6 caracteres.
-                    </p>
-                  </div>
-                  <div class="field">
-                    <p class="control has-icons-left">
-                      <input
-                        class="input"
-                        type="password"
-                        v-model="password2"
-                        placeholder="Confirmar senha"
-                        :class="{
+                      @blur="$v.password1.$touch()"
+                      @keyup.enter="addUser"
+                    />
+                    <span class="icon is-small is-left padding-icon">
+                      <i class="fa fa-lock"></i>
+                    </span>
+                  </p>
+                  <p
+                    class="help is-danger"
+                    v-if="!$v.password1.required && $v.password1.$dirty"
+                  >* É necessário inserir uma senha.</p>
+                  <p
+                    class="help is-danger"
+                    v-if="!$v.password1.alphaNum && $v.password1.$dirty"
+                  >* A senha deve conter apenas letras e números.</p>
+                  <p
+                    class="help is-danger"
+                    v-if="!$v.password1.minLength && $v.password1.$dirty"
+                  >* A senha deve conter no mínimo 6 caracteres.</p>
+                </div>
+                <div class="field">
+                  <p class="control has-icons-left">
+                    <input
+                      class="input"
+                      type="password"
+                      v-model="password2"
+                      placeholder="Confirmar senha"
+                      :class="{
                           invalid: $v.password2.$invalid && $v.password2.$dirty,
                         }"
-                        @blur="$v.password2.$touch()"
-                        @keyup.enter="addUser"
-                      />
-                      <span class="icon is-small is-left padding-icon">
-                        <i class="fa fa-lock"></i>
-                      </span>
-                    </p>
-                    <p
-                      class="help is-danger"
-                      v-if="$v.password2.$invalid && $v.password2.$dirty"
-                    >
-                      * As senhas não conferem.
-                    </p>
-                    <p class="help is-danger" v-if="hasEmptyField">
-                      {{ hasEmptyField }}
-                    </p>
-                  </div>
-                  <p class="help is-danger" v-if="hasEmail">
-                    * E-mail já cadastrado.
+                      @blur="$v.password2.$touch()"
+                      @keyup.enter="addUser"
+                    />
+                    <span class="icon is-small is-left padding-icon">
+                      <i class="fa fa-lock"></i>
+                    </span>
                   </p>
-                  <br />
-                  <p class="columns control">
-                    <button
-                      @click="redirect('login')"
-                      class="column is-12-mobile button button-back is-medium"
-                    >
-                      <i class="fa fa-arrow-left icon-space"></i>
-                      Voltar
-                    </button>
-                    <button
-                      @click="addUser"
-                      class="column is-12-mobile button button-register button-margin is-medium"
-                    >
-                      <i class="fa fa-user-plus icon-space"></i>
-                      Registrar
-                    </button>
-                  </p>
+                  <p
+                    class="help is-danger"
+                    v-if="$v.password2.$invalid && $v.password2.$dirty"
+                  >* As senhas não conferem.</p>
+                  <p class="help is-danger" v-if="hasEmptyField">{{ hasEmptyField }}</p>
                 </div>
-              </article>
-            </div>
+                <p class="help is-danger" v-if="hasEmail">* E-mail já cadastrado.</p>
+                <br />
+                <p class="columns control">
+                  <button
+                    @click="redirect"
+                    class="column is-12-mobile button button-back is-medium"
+                  >
+                    <i class="fa fa-arrow-left icon-space"></i>
+                    Voltar
+                  </button>
+                  <button
+                    @click="addUser"
+                    class="column is-12-mobile button button-register button-margin is-medium"
+                  >
+                    <i class="fa fa-user-plus icon-space"></i>
+                    Registrar
+                  </button>
+                </p>
+              </div>
+            </article>
           </div>
         </div>
       </div>
-    </section>
-  </body>
+    </div>
+  </section>
+</body>
 </template>
 <script>
 import { mapActions } from "vuex";
@@ -160,7 +140,7 @@ import {
   email,
   sameAs,
   alphaNum,
-  minLength,
+  minLength
 } from "vuelidate/lib/validators";
 
 export default {
@@ -172,41 +152,39 @@ export default {
       password1: null,
       password2: null,
       hasEmail: "",
-      hasEmptyField: "",
+      hasEmptyField: ""
     };
   },
   validations: {
     name: {
-      required,
+      required
     },
     email: {
       required,
-      email,
+      email
     },
     password1: {
       required,
       alphaNum,
-      minLength: minLength(6),
+      minLength: minLength(6)
     },
     password2: {
       required,
       alphaNum,
       minLength: minLength(6),
-      sameAs: sameAs("password1"),
-    },
+      sameAs: sameAs("password1")
+    }
   },
   methods: {
     ...mapActions(["setUserEmail"]),
-    redirect(rota) {
-      if (rota === "login") {
-        this.$router.push({
-          name: "login",
-        });
-      }
+    redirect() {
+      this.$router.push({
+        name: "login"
+      });
     },
     async hasEmailCadastrado(email) {
       const users = await getUsers();
-      this.hasEmail = users.data.some((user) => user.email === email);
+      this.hasEmail = users.data.some(user => user.email === email);
     },
     async addUser() {
       this.validaCamposVazios();
@@ -215,7 +193,7 @@ export default {
         name: this.name,
         createdAt: date.toLocaleString(),
         email: this.email,
-        password: this.password1,
+        password: this.password1
       };
       await this.hasEmailCadastrado(user.email);
 
@@ -224,7 +202,7 @@ export default {
           this.$toasted.show("Usuário cadastrado com Sucesso!", {
             type: "success",
             duration: 2000,
-            onComplete: this.returnLogin,
+            onComplete: this.returnLogin
           })
         );
       }
@@ -239,8 +217,8 @@ export default {
       } else {
         this.hasEmptyField = null;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

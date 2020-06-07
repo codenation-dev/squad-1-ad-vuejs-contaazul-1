@@ -1,4 +1,4 @@
-import { shallowMount, mount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import Register from "@/views/Register"
 
 describe("Register", () => {
@@ -67,6 +67,30 @@ describe("Register", () => {
         expect(password2.element.value).toEqual("123456");
     });
 
+    it("Deve validar o vuelidate", () => {
+        const wrapper = shallowMount(Register)
+        wrapper.setData({
+            name: "error",
+            email: "errorlogs@teste.com",
+            password1: "123456",
+            password2: "123456",
+        })
+        expect(wrapper.vm.$v.$invalid).toBeFalsy()
+    });
+
+    it("Deve ser chamado a função de addUser quando o click no botão de Registro for disparado", () => {
+        const wrapper = shallowMount(Register)
+        const addUser = jest.fn()
+        wrapper.setMethods({
+            addUser: addUser
+        })
+
+        const buttons = wrapper.findAll("button")
+        buttons.at(1).trigger("click")
+        expect(wrapper.vm.addUser).toBeCalled()
+
+    });
+
     it("Deve ser chamado a função de validaCamposVazios quando o click no botão de Registro for disparado", () => {
         const wrapper = shallowMount(Register)
 
@@ -88,5 +112,30 @@ describe("Register", () => {
         expect(wrapper.vm.hasEmailCadastrado).toBeCalled()
 
     });
+
+    it("Deve ser chamado a função de redirect quando o click no botão de Voltar for disparado", () => {
+        const wrapper = shallowMount(Register)
+        wrapper.vm.$router = { push: jest.fn() };
+
+        wrapper.vm.redirect();
+        const [args] = wrapper.vm.$router.push.mock.calls[0];
+
+        expect(args.name).toEqual("login");
+
+    });
+
+    it("Deve ser chamado a função de addUser quando o click nono botão de Registro for disparado", () => {
+        const wrapper = shallowMount(Register)
+        wrapper.setData({
+            name: "error",
+            email: "errorlogs@teste.com",
+            password1: "123456",
+            password2: "123456",
+            hasEmail: false
+        })
+        wrapper.vm.addUser()
+        expect(wrapper.vm.addUser).toBeCalled
+    });
+
 
 })

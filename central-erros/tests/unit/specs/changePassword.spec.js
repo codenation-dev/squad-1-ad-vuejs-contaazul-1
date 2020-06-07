@@ -51,4 +51,62 @@ describe("ChangePassword", () => {
 
         expect(confirmNewPassword.element.value).toEqual("123456");
     });
+
+    it("Deve ser chamado a função de validaCamposVazios quando o click no botão de Mudar Senha for disparado", () => {
+        const wrapper = shallowMount(ChangePassword)
+
+        wrapper.vm.validaCamposVazios = jest.fn()
+
+        const buttons = wrapper.findAll("button")
+        buttons.at(1).trigger("click")
+        expect(wrapper.vm.validaCamposVazios).toBeCalled()
+
+    });
+
+    it("Deve ser chamado a função de validaUser quando o click no botão de Mudar Senha for disparado", () => {
+        const wrapper = shallowMount(ChangePassword)
+        const validaUser = jest.fn()
+        wrapper.setMethods({
+            validaUser: validaUser
+        })
+
+        const buttons = wrapper.findAll("button")
+        buttons.at(1).trigger("click")
+        expect(wrapper.vm.validaUser).toBeCalled()
+
+    });
+
+    it("Deve ser chamado a função de redirect quando o click no botão de Voltar for disparado", () => {
+        const wrapper = shallowMount(ChangePassword)
+        wrapper.vm.$router = { push: jest.fn() };
+
+        wrapper.vm.redirect();
+        const [args] = wrapper.vm.$router.push.mock.calls[0];
+
+        expect(args.name).toEqual("login");
+
+    });
+
+    it("Deve validar o vuelidate", () => {
+        const wrapper = shallowMount(ChangePassword)
+
+        wrapper.setData({
+            email: "errorlogs@teste.com",
+            newPassword: "123456",
+            confirmNewPassword: "123456"
+        })
+        expect(wrapper.vm.$v.$invalid).toBeFalsy()
+    });
+
+    it("Deve chamar changePassword quando o click no botão de Mudar Senha for disparado", () => {
+        const wrapper = shallowMount(ChangePassword)
+        wrapper.vm.validaUser()
+        wrapper.setData({
+            email: "errorlogs@teste.com",
+            newPassword: "123456",
+            confirmNewPassword: "123456"
+        })
+        expect(wrapper.vm.changePassword).toBeCalled
+    });
+
 })
