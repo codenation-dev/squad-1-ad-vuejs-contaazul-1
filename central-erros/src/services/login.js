@@ -9,6 +9,14 @@ export const getUsers = () => {
   return axios.get(`${api}/users`);
 };
 
-export const patchUser = (user) => {
-  return axios.put(`${api}/users/${user.id}`, user);
+export const patchUser = user => {
+  return axios.put(`${api}/users/${user.id}`, user)
 };
+
+export const getUsersByCredentials = async function(credentials)  { 
+  const users = await axios.get(`${api}/users`);
+  const user = users.data.find(user => user.email === credentials.email && user.password === credentials.password);
+  return user;
+};
+
+

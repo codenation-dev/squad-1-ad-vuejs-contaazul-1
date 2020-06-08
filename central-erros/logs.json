@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": "1",
     "level": "error",
     "description": "Usuário inválido.",
     "origin": "database",
@@ -10,7 +10,7 @@
     "status": "Coletado"
   },
   {
-    "id": 2,
+    "id": "2",
     "level": "warning",
     "description": "Senha fraca.",
     "origin": "database",
@@ -20,7 +20,7 @@
     "status": "Coletado"
   },
   {
-    "id": 3,
+    "id": "3",
     "level": "warning",
     "description": "Tipo de requisição não indicado.",
     "origin": "database",
@@ -30,7 +30,7 @@
     "status": "Coletado"
   },
   {
-    "id": 4,
+    "id": "4",
     "level": "debug",
     "description": "Iniciando cadastro de usuário.",
     "origin": "database",
@@ -40,7 +40,7 @@
     "status": "Arquivado"
   },
   {
-    "id": 5,
+    "id": "5",
     "level": "error",
     "description": "Usuário inválido.",
     "origin": "database",
@@ -50,7 +50,7 @@
     "status": "Coletado"
   },
   {
-    "id": 6,
+    "id": "6",
     "level": "debug",
     "description": "Concluindo cadastro de usuário.",
     "origin": "database",
@@ -60,7 +60,7 @@
     "status": "Coletado"
   },
   {
-    "id": 7,
+    "id": "7",
     "level": "warning",
     "description": "Conexão não segura.",
     "origin": "database",
@@ -70,7 +70,7 @@
     "status": "Apagado"
   },
   {
-    "id": 8,
+    "id": "8",
     "level": "error",
     "description": "Usuário sem permissão de acesso.",
     "origin": "database",
@@ -80,7 +80,7 @@
     "status": "Arquivado"
   },
   {
-    "id": 9,
+    "id": "9",
     "level": "debug",
     "description": "Validando cadastro de usuário.",
     "origin": "database",
@@ -90,7 +90,7 @@
     "status": "Arquivado"
   },
   {
-    "id": 10,
+    "id": "10",
     "level": "debug",
     "description": "Iniciando cadastro de usuário.",
     "origin": "database",
@@ -100,7 +100,7 @@
     "status": "Arquivado"
   },
   {
-    "id": 11,
+    "id": "11",
     "level": "warning",
     "description": "Pode ser necessário atualizar a página.",
     "origin": "database",
@@ -110,7 +110,7 @@
     "status": "Coletado"
   },
   {
-    "id": 12,
+    "id": "12",
     "level": "error",
     "description": "Usuário inválido.",
     "origin": "database",
@@ -120,7 +120,7 @@
     "status": "Coletado"
   },
   {
-    "id": 13,
+    "id": "13",
     "level": "error",
     "description": "Usuário sem permissão de acesso.",
     "origin": "database",
@@ -130,7 +130,7 @@
     "status": "Coletado"
   },
   {
-    "id": 14,
+    "id": "14",
     "level": "warning",
     "description": "Não foi possível localizar a informação desejada.",
     "origin": "database",
@@ -140,7 +140,7 @@
     "status": "Coletado"
   },
   {
-    "id": 15,
+    "id": "15",
     "level": "error",
     "description": "Página não encontrada.",
     "origin": "database",
@@ -150,7 +150,7 @@
     "status": "Coletado"
   },
   {
-    "id": 16,
+    "id": "16",
     "level": "debug",
     "description": "Verificando cadastro de senha.",
     "origin": "database",
@@ -160,7 +160,7 @@
     "status": "Arquivado"
   },
   {
-    "id": 17,
+    "id": "17",
     "level": "error",
     "description": "Serviço indisponível.",
     "origin": "database",
@@ -170,7 +170,7 @@
     "status": "Arquivado"
   },
   {
-    "id": 18,
+    "id": "18",
     "level": "warning",
     "description": "Senha fraca.",
     "origin": "database",
@@ -180,7 +180,7 @@
     "status": "Arquivado"
   },
   {
-    "id": 19,
+    "id": "19",
     "level": "error",
     "description": "Usuário não cadastrado.",
     "origin": "database",
@@ -190,7 +190,7 @@
     "status": "Apagado"
   },
   {
-    "id": 20,
+    "id": "20",
     "level": "warning",
     "description": "Conexão não segura.",
     "origin": "database",
@@ -200,7 +200,7 @@
     "status": "Apagado"
   },
   {
-    "id": 21,
+    "id": "21",
     "level": "warning",
     "description": "Conexão não segura.",
     "origin": "database",
