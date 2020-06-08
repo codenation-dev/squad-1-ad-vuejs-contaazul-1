@@ -141,7 +141,6 @@ describe("Login", () => {
       }
     })
     wrapper.setData({
-      hasEmail: true,
       hasEmail: { password: "123456" },
       password: "123456"
     })
