@@ -37,9 +37,9 @@
               <div class="dropdown-item">
                 <div class="card card-size">
                   <div class="card-content card-size">
-                    <p class="text-align is-size-5"><strong>Usuário:</strong> {{getUser.name}} </p>
-                    <p class="text-align is-size-5"><strong>E-mail:</strong> {{getUser.email}} </p>
-                     <p class="text-align is-size-5"><strong>Token:</strong> {{getToken}} </p>
+                    <p class="text-align is-size-7"><strong>Usuário:</strong> {{getUser.name}} </p>
+                    <p class="text-align is-size-7"><strong>E-mail:</strong> {{getUser.email}} </p>
+                     <p class="text-align is-size-7"><strong>Token:</strong> {{getToken}} </p>
                   </div>
                   <footer class="card-footer">
                     <p class="card-footer-item control">
