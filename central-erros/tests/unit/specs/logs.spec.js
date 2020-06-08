@@ -17,4 +17,5 @@ describe("Logs", () => {
         })
         expect(wrapper.isVueInstance()).toBeTruthy();
     });
+
 })

@@ -22,9 +22,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">30.77% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/10</span>
+                <span class='fraction'>4/13</span>
             </div>
         
             
@@ -36,16 +36,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/3</span>
+                <span class='fraction'>1/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">30.77% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/10</span>
+                <span class='fraction'>4/13</span>
             </div>
         
             
@@ -368,10 +368,9 @@
 <a name='L310'></a><a href='#L310'>310</a>
 <a name='L311'></a><a href='#L311'>311</a>
 <a name='L312'></a><a href='#L312'>312</a>
-<a name='L313'></a><a href='#L313'>313</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L313'></a><a href='#L313'>313</a>
+<a name='L314'></a><a href='#L314'>314</a>
+<a name='L315'></a><a href='#L315'>315</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -500,7 +499,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -517,9 +516,14 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -718,13 +722,10 @@
             &lt;div class="navbar-dropdown is-right"&gt;
               &lt;div class="dropdown-item"&gt;
                 &lt;div class="card card-size"&gt;
-                  &lt;div class="card-content card-size-interno"&gt;
-                    &lt;p class="text-align is-size-6"&gt;
-                      &lt;strong&gt;Usuário:&lt;/strong&gt; {{ getUser.name }}
-                    &lt;/p&gt;
-                    &lt;p class="text-align is-size-6"&gt;
-                      &lt;strong&gt;E-mail:&lt;/strong&gt; {{ getUser.email }}
-                    &lt;/p&gt;
+                  &lt;div class="card-content card-size"&gt;
+                    &lt;p class="text-align is-size-5"&gt;&lt;strong&gt;Usuário:&lt;/strong&gt; {{getUser.name}} &lt;/p&gt;
+                    &lt;p class="text-align is-size-5"&gt;&lt;strong&gt;E-mail:&lt;/strong&gt; {{getUser.email}} &lt;/p&gt;
+                     &lt;p class="text-align is-size-5"&gt;&lt;strong&gt;Token:&lt;/strong&gt; {{getToken}} &lt;/p&gt;
                   &lt;/div&gt;
                   &lt;footer class="card-footer"&gt;
                     &lt;p class="card-footer-item control"&gt;
@@ -771,7 +772,7 @@
               &lt;span class="icon is-small icon-align"&gt;
                 &lt;i class="fas fa-folder-open" aria-hidden="true"&gt;&lt;/i&gt;
               &lt;/span&gt;
-              Arquivados
+              Arquivados 
             &lt;/a&gt;
             &lt;a
               class="panel-item"
@@ -817,7 +818,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["changeTab", "clearFilters"]),
+    ...mapActions(['changeTab', 'clearFilters', 'logOut']),
 <span class="fstat-no" title="function not covered" >    changeTabs(tab) {</span>
 <span class="cstat-no" title="statement not covered" >      this.changeTab(tab);</span>
     },
@@ -827,16 +828,21 @@ export default {
           name: "logs",
         });
 <span class="cstat-no" title="statement not covered" >      } else if (rota === "login") {</span>
+<span class="cstat-no" title="statement not covered" >        this.userLogout();</span>
 <span class="cstat-no" title="statement not covered" >        this.clearFilters();</span>
 <span class="cstat-no" title="statement not covered" >        this.$router.push({</span>
           name: "login",
         });
       }
     },
+<span class="fstat-no" title="function not covered" >    userLogout() {</span>
+<span class="cstat-no" title="statement not covered" >      const credentials = {}</span>
+<span class="cstat-no" title="statement not covered" >      this.logOut(credentials)</span>
+    }
   },
   computed: {
-    ...mapGetters(["getUser"]),
-  },
+    ...mapGetters(["getUser","getToken"])
+  }
 };
 &lt;/script&gt;
 &nbsp;
@@ -999,7 +1005,7 @@ export default {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Jun 07 2020 16:16:41 GMT-0300 (GMT-03:00)
+                at Mon Jun 08 2020 00:17:23 GMT-0300 (GMT-03:00)
             </div>
         </div>
         <script src="..\..\..\prettify.js"></script>
