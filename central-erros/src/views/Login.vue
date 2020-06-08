@@ -27,9 +27,7 @@
                   <p
                     class="help is-danger"
                     v-if="$v.email.$invalid && $v.email.$dirty"
-                  >
-                    * É necessário um e-mail válido.
-                  </p>
+                  >* É necessário um e-mail válido.</p>
                 </div>
                 <div class="field">
                   <p class="control has-icons-left">
@@ -51,38 +49,23 @@
                   <p
                     class="help is-danger"
                     v-if="!$v.password.required && $v.password.$dirty"
-                  >
-                    * É necessário inserir uma senha.
-                  </p>
+                  >* É necessário inserir uma senha.</p>
                   <p
                     class="help is-danger"
                     v-if="!$v.password.alphaNum && $v.password.$dirty"
-                  >
-                    * A senha deve conter apenas letras e números.
-                  </p>
+                  >* A senha deve conter apenas letras e números.</p>
                   <p
                     class="help is-danger"
                     v-if="!$v.password.minLength && $v.password.$dirty"
-                  >
-                    * A senha deve conter no mínimo 6 caracteres.
-                  </p>
+                  >* A senha deve conter no mínimo 6 caracteres.</p>
                 </div>
                 <div class="field">
-                  <p class="help is-danger" v-if="hasValidEmail">
-                    {{ hasValidEmail }}
-                  </p>
-                  <p class="help is-danger" v-if="hasValidPassword">
-                    {{ hasValidPassword }}
-                  </p>
-                  <p class="help is-danger" v-if="hasEmptyField">
-                    {{ hasEmptyField }}
-                  </p>
+                  <p class="help is-danger" v-if="hasValidEmail">{{ hasValidEmail }}</p>
+                  <p class="help is-danger" v-if="hasValidPassword">{{ hasValidPassword }}</p>
+                  <p class="help is-danger" v-if="hasEmptyField">{{ hasEmptyField }}</p>
                 </div>
                 <p class="control">
-                  <button
-                    @click="validaUser"
-                    class="button button-color is-medium is-fullwidth"
-                  >
+                  <button @click="validaUser" class="button button-color is-medium is-fullwidth">
                     <i class="fa fa-user icon-space"></i>
                     Entrar
                   </button>
@@ -90,13 +73,11 @@
                 <a
                   @click="redirect('register')"
                   class="is-pulled-left login-space hover-link"
-                  >Registrar</a
-                >
+                >Registrar</a>
                 <a
                   @click="redirect('change-password')"
                   class="is-pulled-right login-space hover-link"
-                  >Esqueceu a senha?</a
-                >
+                >Esqueceu a senha?</a>
                 <br />
               </div>
             </article>
@@ -121,22 +102,22 @@ export default {
       hasEmail: "",
       hasValidEmail: "",
       hasValidPassword: "",
-      hasEmptyField: "",
+      hasEmptyField: ""
     };
   },
   validations: {
     email: {
       required,
-      email,
+      email
     },
     password: {
       required,
       alphaNum,
-      minLength: minLength(6),
-    },
+      minLength: minLength(6)
+    }
   },
   computed: {
-    ...mapGetters(["getUserEmail"]),
+    ...mapGetters(["getUserEmail"])
   },
   created() {
     if (this.getUserEmail) {
@@ -149,15 +130,15 @@ export default {
     redirect(rota) {
       if (rota === "register") {
         this.$router.push({
-          name: "register",
+          name: "register"
         });
       } else if (rota === "change-password") {
         this.$router.push({
-          name: "change-password",
+          name: "change-password"
         });
       } else {
         this.$router.push({
-          name: "logs",
+          name: "logs"
         });
       }
     },
@@ -181,7 +162,7 @@ export default {
     },
     async hasEmailCadastrado(email) {
       const users = await getUsers(email);
-      this.hasEmail = users.data.find((user) => user.email === email);
+      this.hasEmail = users.data.find(user => user.email === email);
     },
     async validaUser() {
       this.validaCamposVazios();
@@ -195,8 +176,8 @@ export default {
       } else {
         this.hasEmptyField = null;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
