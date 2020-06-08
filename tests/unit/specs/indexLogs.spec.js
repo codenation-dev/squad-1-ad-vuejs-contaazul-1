@@ -1,18 +1,21 @@
 import { shallowMount } from '@vue/test-utils'
-import Logs from "@/views/Logs/Logs"
+import Index from "@/views/Logs/Index"
 
-describe("Logs", () => {
+describe("IndexLogs", () => {
     it("Deve ser um instância do vue", () => {
-        const wrapper = shallowMount(Logs, {
+        const wrapper = shallowMount(Index, {
             mocks: {
                 $store: {
                     getters: {
-                        getComputedLogs: null,
-                        getTab: null
+                        getUser: {
+                            name: null,
+                            email: null
+                        }
                     }
                 }
             }
         })
         expect(wrapper.isVueInstance()).toBeTruthy();
     });
+
 })
