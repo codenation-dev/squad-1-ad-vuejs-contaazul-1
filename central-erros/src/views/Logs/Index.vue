@@ -99,6 +99,17 @@
               </span>
               Apagados
             </a>
+            <a
+              class="panel-item"
+              v-on:click="isActive = 'relatorio'"
+              @click="changeTabs('Relatorio')"
+              v-bind:class="{ activate: isActive == 'relatorio' }"
+            >
+              <span class="icon is-small icon-align">
+                <img aria-hidden="true" src="@/assets/grafico-combinado.png"/>
+              </span>
+              Relatórios
+            </a>
           </p>
           <a v-if="isActive == 'logs'" class="content">
             <logs></logs>
@@ -107,6 +118,9 @@
             <logs></logs>
           </a>
           <a v-if="isActive == 'apagados'" class="content">
+            <logs></logs>
+          </a>
+          <a v-if="isActive == 'relatorio'" class="content">
             <logs></logs>
           </a>
         </div>
