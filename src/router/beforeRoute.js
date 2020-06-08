@@ -8,7 +8,7 @@ export default  (to, from, next) => {
             next()
         }
     } else {
-        if(to.name == 'login' || to.name == 'register' || to.name == 'register') {
+        if(to.name == 'login' || to.name == 'register' || to.name == 'change-password') {
             next({ name: 'logs'})
         } else {
             next()
