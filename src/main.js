@@ -5,7 +5,13 @@ import store from "@/store/store";
 import Vuelidate from 'vuelidate';
 import Toasted from 'vue-toasted';
 import VTooltip from 'v-tooltip';
-import BackToTop from 'vue-backtotop'
+import BackToTop from 'vue-backtotop';
+import Echarts from 'vue-echarts';
+import 'echarts/lib/chart/pie'
+import 'echarts/lib/chart/bar'
+
+Vue.use(require('vue-moment'));
+Vue.component('chart', Echarts)
  
 Vue.use(BackToTop)
 Vue.use(VTooltip)

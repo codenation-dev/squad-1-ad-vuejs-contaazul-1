@@ -121,7 +121,7 @@
             <logs></logs>
           </a>
           <a v-if="isActive == 'relatorio'" class="content">
-            <logs></logs>
+            <relatorios></relatorios>
           </a>
         </div>
       </div>
@@ -133,12 +133,14 @@
 import { mapActions, mapGetters } from "vuex";
 import Toolbar from "./Toolbar";
 import Logs from "./Logs";
+import Relatorios from "./Relatorios"
 
 export default {
   name: "Index",
   components: {
     Toolbar,
     Logs,
+    Relatorios
   },
   data() {
     return {

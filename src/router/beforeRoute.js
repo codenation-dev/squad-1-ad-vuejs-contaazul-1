@@ -1,13 +1,17 @@
 import store from '../store/store'
 
 export default  (to, from, next) => {
-    if (to.name == 'logs' && !store.getters['getToken']) {
-        next({ name: 'login'})
-    } else {
-        if( to.name != 'logs' && store.getters['getToken'] && to.name ) {
-            next({name: 'logs'})
+    if (!store.getters['getToken']) {
+        if (to.name == 'logs' || to.name == 'relatorios') {
+            next({ name: 'login'})
         } else {
             next()
         }
-    }
+    } else {
+        if(to.name == 'login' || to.name == 'register' || to.name == 'register') {
+            next({ name: 'logs'})
+        } else {
+            next()
+        }
+    }    
 }
