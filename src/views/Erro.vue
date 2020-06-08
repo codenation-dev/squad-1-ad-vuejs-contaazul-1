@@ -23,6 +23,7 @@
           </div>
           <h2 class="h1">Página não encontrada</h2>
         </div>
+        <router-link to="/">Voltar</router-link>
       </div>
     </div>
   </div>
