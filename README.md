@@ -1,6 +1,4 @@
-<p align="center>
- <img width="460" height="300" src="https://github.com/codenation-dev/squad-1-ad-vuejs-contaazul-1/blob/master/src/assets/login-logo.png">
-                                                                                                                                   </p>
+
                                                                                                                
                                                                                                                
 # Error.Log
