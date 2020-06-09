@@ -3,7 +3,7 @@
     <section class="space-section-padding">
       <table class="table is-hoverable">
         <div class="padding">
-          <div class="tile is-ancestor is-12">
+          <div class="tile is-ancestor is-12 resize-tile">
             <div class="tile is-parent">
               <article class="tile is-child box has-background-grey">
                 <p class="title">Total de Erros</p>
@@ -29,12 +29,12 @@
               </article>
             </div>
           </div>
-          <div class="tile is-ancestor pie is-12">
+          <div class="tile is-ancestor pie is-12 resize-tile">
             <div class="tile is-parent is-6">
               <div class="tile is-child is-5">
                 <chart :options="chartStatus"></chart>
               </div>
-              <div class="tile is-12 is-vertical">
+              <div class="tile is-12 is-vertical resize-legenda">
                 <p>Legenda</p>
                 <span>
                   <i class="far fa-square noventa"></i>
@@ -57,14 +57,12 @@
               </div>
             </div>
           </div>
-
-
-          <div class="tile is-ancestor pie is-12">
+          <div class="tile is-ancestor resize-tile pie is-12">
             <div class="tile is-parent is-6">
               <div class="tile is-child is-5">
                 <chart :options="chartAmbiente"></chart>
               </div>
-              <div class="tile is-12 is-vertical">
+              <div class="tile is-12 is-vertical resize-legenda">
                 <p>Legenda</p>
                 <span>
                   <i class="far fa-square noventa"></i>
@@ -87,7 +85,7 @@
             </div>
           </div>
           <div class="tile is-ancestor is-12" style="margin-top: -130px">
-            <div class="tile is-parent">
+            <div class="tile is-parent is-vertical">
               <article class="tile is-child box has-background-white-ter">
                 <p class="title">Coletados</p>
                 <p class="title">{{ totalStatus("Coletado") }}</p>
@@ -101,7 +99,7 @@
                 <p class="title">{{ totalStatus("Apagado") }}</p>
               </article>
             </div>
-            <div class="tile is-parent">
+            <div class="tile is-parent is-vertical">
               <article class="tile is-child box has-background-grey-lighter">
                 <p class="title">Produção</p>
                 <p class="title">{{ totalAmbiente("Produção") }}</p>
@@ -352,6 +350,18 @@ table {
 
 .space-section-padding {
   margin-top: 5px;
+}
+
+@media screen and (width: 1366px) {
+
+  .resize-tile {
+    width: 1160px;
+  }
+
+  .resize-legenda {
+    padding-left: 150px;
+  }
+
 }
 
 </style>
