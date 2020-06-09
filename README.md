@@ -21,7 +21,7 @@ Este projeto foi desenvolvido junto ao AceleraDev sobre Vue.js em Joinville - SC
 
 ### Instalação e Compilação do Projeto
 
-    * npm intall
+    * npm install
     * npm run lint
     * npm run test:unit
     * npm run serve
