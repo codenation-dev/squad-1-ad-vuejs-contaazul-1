@@ -11,7 +11,10 @@
               </th>
               <th class="is-hidden-mobile">Descrição</th>
               <th class="is-hidden-mobile">Origem</th>
-              <th class="is-hidden-desktop">Descrição<br />Origem</th>
+              <th class="is-hidden-desktop">
+                Descrição
+                <br />Origem
+              </th>
               <th @click="orderEnviroment" class="has-clickable">
                 Ambiente
                 <i class="fas fa-sort"></i>
@@ -36,69 +39,49 @@
             </tr>
           </tbody>
           <tbody v-else>
-            <tr
-              v-for="log in getComputedLogs"
-              :key="log.id"
-              class="has-clickable"
-            >
+            <tr v-for="log in getComputedLogs" :key="log.id" class="has-clickable">
               <td>
-                <span v-if="log.level == 'error'" class="tag is-danger">{{
+                <span v-if="log.level == 'error'" class="tag is-danger">
+                  {{
                   log.level
-                }}</span>
-                <span
-                  v-else-if="log.level == 'warning'"
-                  class="tag is-warning"
-                  >{{ log.level }}</span
-                >
+                  }}
+                </span>
+                <span v-else-if="log.level == 'warning'" class="tag is-warning">{{ log.level }}</span>
                 <span v-else class="tag is-info">{{ log.level }}</span>
               </td>
-              <td class="space-info-logs is-hidden-mobile">
-                {{ log.description }}
-              </td>
+              <td class="space-info-logs is-hidden-mobile">{{ log.description }}</td>
               <td class="is-hidden-mobile">{{ log.origin }}</td>
               <td class="is-hidden-desktop space-info-logs">
-                <strong class="strong-font-size">Descrição: </strong>
+                <strong class="strong-font-size">Descrição:</strong>
                 {{ log.description }}
                 <br />
-                <strong class="strong-font-size">Origem: </strong>
+                <strong class="strong-font-size">Origem:</strong>
                 {{ log.origin }}
               </td>
               <td>{{ log.environment }}</td>
               <td class="space-info-data">{{ log.date }}</td>
               <td>{{ log.events }}</td>
               <td v-if="getTab == 'Coletado'">
-                <span
-                  class="icon icon-padding is-small"
-                  @click="openModalConfirmacao('archive', log)"
-                  v-tooltip="{ content: 'Arquivar' }"
-                >
+                <div class="tooltip" @click="openModalConfirmacao('archive', log)">
                   <i class="fas fa-archive"></i>
-                </span>
-                <span
-                  class="icon icon-padding is-small"
-                  @click="openModalConfirmacao('delete', log)"
-                  v-tooltip="{ content: 'Apagar' }"
-                >
+                  <span class="tooltiptext">Arquivar</span>
+                </div>
+                <div class="tooltip margin-left" @click="openModalConfirmacao('delete', log)">
                   <i class="fas fa-trash-alt"></i>
-                </span>
+                  <span class="tooltiptext">Apagar</span>
+                </div>
               </td>
               <td v-else-if="getTab == 'Arquivado'">
-                <span
-                  class="icon icon-padding is-small"
-                  @click="openModalConfirmacao('delete', log)"
-                  v-tooltip="{ content: 'Apagar' }"
-                >
+                <div class="tooltip margin-left" @click="openModalConfirmacao('delete', log)">
                   <i class="fas fa-trash-alt"></i>
-                </span>
+                  <span class="tooltiptext">Apagar</span>
+                </div>
               </td>
               <td v-else>
-                <span
-                  class="icon icon-padding is-small"
-                  @click="openModalConfirmacao('unarchive', log)"
-                  v-tooltip="{ content: 'Restaurar' }"
-                >
+                <div class="tooltip margin-left" @click="openModalConfirmacao('unarchive', log)">
                   <i class="fas fa-undo-alt"></i>
-                </span>
+                  <span class="tooltiptext">Restaurar</span>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -131,14 +114,14 @@ export default {
     return {
       typeModal: null,
       isModalActive: false,
-      logToAction: null,
+      logToAction: null
     };
   },
   created() {
     this.loadingLogs();
   },
   computed: {
-    ...mapGetters(["getComputedLogs", "getTab"]),
+    ...mapGetters(["getComputedLogs", "getTab"])
   },
   methods: {
     ...mapActions([
@@ -149,7 +132,7 @@ export default {
       "changeFilterSearch",
       "archiveLog",
       "deleteLog",
-      "unarchiveLog",
+      "unarchiveLog"
     ]),
     async loadingLogs() {
       await this.loadLogs();
@@ -195,12 +178,38 @@ export default {
     },
     unarchiveLogs(log) {
       this.unarchiveLog(log);
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style scoped>
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 100px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  top: -150%;
+  right: 105%;
+}
+
+.margin-left {
+  margin-left: 10px;
+}
+
 .space-info-logs {
   width: 479px;
   height: 44px;

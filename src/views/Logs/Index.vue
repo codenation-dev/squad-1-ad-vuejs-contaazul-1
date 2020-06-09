@@ -4,12 +4,7 @@
       <nav class="navbar mobile-height">
         <div class="navbar-brand space-head-margin-left">
           <a class="navbar-item" id="space-logo">
-            <img
-              src="@/assets/login-logo.png"
-              alt="logo"
-              id="size-logo"
-              @click="redirect('logs')"
-            />
+            <img src="@/assets/login-logo.png" alt="logo" id="size-logo" @click="redirect('logs')" />
           </a>
           <div class="navbar-item mobile-space">
             <button
@@ -37,16 +32,22 @@
               <div class="dropdown-item">
                 <div class="card card-size">
                   <div class="card-content card-size">
-                    <p class="text-align is-size-7"><strong>Usuário:</strong> {{getUser.name}} </p>
-                    <p class="text-align is-size-7"><strong>E-mail:</strong> {{getUser.email}} </p>
-                     <p class="text-align is-size-7"><strong>Token:</strong> {{getToken}} </p>
+                    <p class="text-align is-size-7">
+                      <strong>Usuário:</strong>
+                      {{getUser.name}}
+                    </p>
+                    <p class="text-align is-size-7">
+                      <strong>E-mail:</strong>
+                      {{getUser.email}}
+                    </p>
+                    <p class="text-align is-size-7">
+                      <strong>Token:</strong>
+                      {{getToken}}
+                    </p>
                   </div>
                   <footer class="card-footer">
                     <p class="card-footer-item control">
-                      <button
-                        @click="redirect('login')"
-                        class="button exit-button-color"
-                      >
+                      <button @click="redirect('login')" class="button exit-button-color">
                         <span class="icon">
                           <i class="fa fa-times"></i>
                         </span>
@@ -86,7 +87,7 @@
               <span class="icon is-small icon-align">
                 <i class="fas fa-folder-open" aria-hidden="true"></i>
               </span>
-              Arquivados 
+              Arquivados
             </a>
             <a
               class="panel-item"
@@ -133,7 +134,7 @@
 import { mapActions, mapGetters } from "vuex";
 import Toolbar from "./Toolbar";
 import Logs from "./Logs";
-import Relatorios from "./Relatorios"
+import Relatorios from "./Relatorios";
 
 export default {
   name: "Index",
@@ -147,34 +148,34 @@ export default {
   },
   data() {
     return {
-      isActive: "logs",
+      isActive: "logs"
     };
   },
   methods: {
-    ...mapActions(['changeTab', 'clearFilters', 'logOut']),
+    ...mapActions(["changeTab", "clearFilters", "logOut"]),
     changeTabs(tab) {
       this.changeTab(tab);
     },
     redirect(rota) {
       if (rota === "logs") {
         this.$router.push({
-          name: "logs",
+          name: "logs"
         });
       } else if (rota === "login") {
         this.userLogout();
         this.clearFilters();
         this.$router.push({
-          name: "login",
+          name: "login"
         });
       }
     },
     userLogout() {
-      const credentials = {}
-      this.logOut(credentials)
+      const credentials = {};
+      this.logOut(credentials);
     }
   },
   computed: {
-    ...mapGetters(["getUser","getToken"])
+    ...mapGetters(["getUser", "getToken"])
   }
 };
 </script>
