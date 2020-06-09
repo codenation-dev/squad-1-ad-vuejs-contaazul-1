@@ -105,7 +105,7 @@
               @click="changeTabs('Relatorio')"
               v-bind:class="{ activate: isActive == 'relatorio' }"
             >
-              <span class="icon is-small icon-align">
+              <span class="icon is-small icon-align icon-relatorios">
                 <img aria-hidden="true" src="@/assets/grafico-combinado.png"/>
               </span>
               Relatórios
@@ -141,6 +141,9 @@ export default {
     Toolbar,
     Logs,
     Relatorios
+  },
+  created() {
+    this.changeTabs('Coletado');
   },
   data() {
     return {
@@ -264,6 +267,10 @@ export default {
 
 .icon-align {
   margin-bottom: 5px;
+}
+
+.icon-relatorios {
+  height: 7px;
 }
 
 .card-size {
