@@ -1,6 +1,4 @@
-<p align="center">
- ![Alt text](https://github.com/codenation-dev/squad-1-ad-vuejs-contaazul-1/blob/master/src/assets/login-logo.png)
-</p>
+<img align="right" src="https://github.com/codenation-dev/squad-1-ad-vuejs-contaazul-1/blob/master/src/assets/login-logo.png">
 
 # Error.Log
 
