@@ -1,4 +1,4 @@
-# central-erros
+# Error.Log
 
 ## Project setup
 ```
