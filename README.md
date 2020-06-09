@@ -61,11 +61,11 @@ Para organização do projeto nós utilizamos o Kanban ([clique aqui para mais i
 #### Front-end
 
 Como utilizamos Vue.js, o Error.Log possui a seguinte arquitetura:
-    - Em views estão dispostas todas as telas do produto, sendo elas: Login, Registro, Alteração de Senha, Erro 404 personalizado e Logs. 
-    - Em services estão dispostas as requisições feitas ao MockAPI, tanto requisições relacionadas ao logs, como também requisições relacionadas ao usuário.
-    - Em router estão dispostas as rotas do sistema. Vale lembrar que o Error.Log é uma SPA (Single Page Application), evitando que as views precisem ser totalmente recarregadas após mudança de rotas.
-    - Em store se encontra o gerenciamento do estado da aplicação, isto é, regras que garantem que o estado só possa ser mutado de forma previsível, além de conter informações do estado propriamente. Através disso podemos compartilhar o estado com todos as views, gerando reatividade e reaproveitamento de códigos. 
-    - Em tests estão disponíveis os testes unitários realizados. Eles tinham como objetivo testar principalmente os inputs e chamadas de métodos nas views. 
+- Em views estão dispostas todas as telas do produto, sendo elas: Login, Registro, Alteração de Senha, Erro 404 personalizado e Logs. 
+- Em services estão dispostas as requisições feitas ao MockAPI, tanto requisições relacionadas ao logs, como também requisições relacionadas ao usuário.
+- Em router estão dispostas as rotas do sistema. Vale lembrar que o Error.Log é uma SPA (Single Page Application), evitando que as views precisem ser totalmente recarregadas após mudança de rotas.
+- Em store se encontra o gerenciamento do estado da aplicação, isto é, regras que garantem que o estado só possa ser mutado de forma previsível, além de conter informações do estado propriamente. Através disso podemos compartilhar o estado com todos as views, gerando reatividade e reaproveitamento de códigos. 
+- Em tests estão disponíveis os testes unitários realizados. Eles tinham como objetivo testar principalmente os inputs e chamadas de métodos nas views. 
 
 #### Back-end com dados mockados
 
